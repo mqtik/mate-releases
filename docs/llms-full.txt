@@ -44,6 +44,201 @@ Think of it as your entire dev environment in one app: terminals, editors, AI as
 Your desktop runs Mate as the server. It owns all session state: terminals, projects, agent chats, and files. Your phone (or any other device on the same network) pairs with it and acts as a live mirror — you see and interact with the same sessions, in real time, from anywhere on your local network. No cloud. No accounts. Just your devices talking directly to each other.
 
 
+# First Session (/docs/getting-started/first-session)
+
+
+
+When you launch Mate for the first time, you land in the workspace — the main area where all your sessions live. Let's walk through the basics.
+
+## The workspace [#the-workspace]
+
+The workspace has three main areas:
+
+* **Sidebar** (left): Lists your local device and any paired remote devices. Tap a device to switch context.
+* **Tab bar** (top): Shows your open sessions — terminals, editor tabs, agent chats, web previews, and more.
+* **Session area** (center): The active session's content fills this space.
+
+## Open a terminal [#open-a-terminal]
+
+Mate starts with a terminal tab by default. If you need another one:
+
+1. Click the &#x2A;*+** button in the tab bar
+2. Select **Terminal** from the dropdown
+3. A new terminal session opens with your default shell
+
+Each terminal is a full PTY session — it runs your actual shell (zsh, bash, fish, etc.) with complete support for colors, cursor movement, and interactive programs like `vim` or `top`.
+
+## Working with tabs [#working-with-tabs]
+
+Tabs appear along the top of the workspace. You can:
+
+* **Reorder** tabs by dragging them
+* **Close** a tab by clicking the X or using the keyboard shortcut
+* **Create** new tabs with the + button — choose from Terminal, Editor, IDE, Web Preview, or Project
+
+<Callout type="info">
+  Each tab type has its own purpose. Terminals run shells, the IDE opens project folders, Web Previews show localhost ports, and Agent Chat connects to AI coding assistants. See [Features](/docs/features/terminal) for details on each.
+</Callout>
+
+## Tab types at a glance [#tab-types-at-a-glance]
+
+| Tab         | What it does                                  |
+| ----------- | --------------------------------------------- |
+| Terminal    | Full PTY shell session                        |
+| Agent Chat  | AI assistant (Claude Code, Codex, Copilot)    |
+| IDE         | Multi-file editor with file tree              |
+| Editor      | Single-file editor                            |
+| Web Preview | View a localhost port through a reverse proxy |
+| Project     | Organize related sessions together            |
+
+## Try an AI agent [#try-an-ai-agent]
+
+If you have Claude Code, Codex, or Copilot CLI installed, you can start an agent chat:
+
+1. Click &#x2A;*+** in the tab bar
+2. Select **Agent Chat**
+3. Pick your preferred CLI from the dropdown
+4. Type a message and watch the agent work
+
+The agent can read files, run commands, search your codebase, and make edits — all within Mate's interface. See [Agent Chat](/docs/features/agent-chat) for the full guide.
+
+## Next steps [#next-steps]
+
+* [Pair a mobile device](/docs/getting-started/pairing-devices) to access your sessions from your phone
+* [Set up integrations](/docs/integrations/overview) to connect GitHub, Slack, databases, and more
+* [Explore features](/docs/features/terminal) to see everything Mate can do
+
+
+# Installation (/docs/getting-started/installation)
+
+
+
+Mate runs on macOS, Windows, and Linux. Mobile apps for iOS and Android are available for remote access to a paired desktop.
+
+## System requirements [#system-requirements]
+
+| Platform | Minimum OS                 | Architecture           |
+| -------- | -------------------------- | ---------------------- |
+| macOS    | 12.0 Monterey              | Intel or Apple Silicon |
+| Windows  | 10 (64-bit)                | x86\_64                |
+| Linux    | Ubuntu 22.04 or equivalent | x86\_64, ARM64         |
+| iOS      | 16.0                       | iPhone, iPad           |
+| Android  | 10 (API 29)                | ARM64, x86\_64         |
+
+## Download [#download]
+
+Grab the latest release for your platform from GitHub:
+
+<Cards>
+  <Card title="Download Mate" href="https://github.com/mqtik/mate-releases/releases">
+    All platforms — macOS .dmg, Windows .zip, Linux .tar.gz
+  </Card>
+</Cards>
+
+## Install by platform [#install-by-platform]
+
+<Tabs items="[&#x22;macOS&#x22;, &#x22;Windows&#x22;, &#x22;Linux&#x22;]">
+  <Tab value="macOS">
+    1. Download the `.dmg` file from the releases page
+    2. Open the `.dmg` and drag **Mate** into your Applications folder
+    3. Launch Mate from Applications — if macOS shows a security warning, go to **System Settings > Privacy & Security** and click **Open Anyway**
+    4. Mate bundles its own Node.js runtime, so you do not need Node installed separately
+  </Tab>
+
+  <Tab value="Windows">
+    1. Download the `.zip` file from the releases page
+    2. Extract the zip to a folder of your choice (e.g. `C:\Program Files\Mate`)
+    3. Run `Mate.exe` to launch
+    4. Node.js is bundled — no separate installation needed
+  </Tab>
+
+  <Tab value="Linux">
+    1. Download the `.tar.gz` file from the releases page
+    2. Extract it: `tar xzf mate-linux-*.tar.gz`
+    3. Run the `mate` binary from the extracted folder
+    4. Node.js is bundled with the app
+  </Tab>
+</Tabs>
+
+## Mobile apps [#mobile-apps]
+
+iOS and Android apps are available for pairing with a desktop running Mate. Mobile devices act as remote mirrors — they connect to your desktop over the local network and let you interact with your sessions from your phone or tablet.
+
+<Callout type="info">
+  Mobile devices do not run terminals or AI agents locally. They connect to a paired desktop that does the heavy lifting. See [Pairing Devices](/docs/getting-started/pairing-devices) for setup instructions.
+</Callout>
+
+## Verify the installation [#verify-the-installation]
+
+After launching Mate, you should see the workspace with a default terminal tab. Try typing a command to confirm everything works:
+
+```bash
+echo "Mate is ready"
+```
+
+If the terminal responds, you are good to go. Head to [First Session](/docs/getting-started/first-session) to learn the basics.
+
+
+# Pairing Devices (/docs/getting-started/pairing-devices)
+
+
+
+Mate lets you access your desktop sessions from any device on the same network. Your desktop is the server — it runs the terminals, AI agents, and editors. Paired devices are live mirrors that connect directly, with no cloud involved.
+
+## How pairing works [#how-pairing-works]
+
+Mate uses multicast UDP for automatic device discovery on your local network. When two devices running Mate are on the same Wi-Fi or LAN, they find each other automatically. No manual IP entry, no account creation, no cloud relay.
+
+<Steps>
+  ### Launch Mate on both devices [#launch-mate-on-both-devices]
+
+  Open Mate on your desktop and on the device you want to pair (phone, tablet, or another computer).
+
+  ### Wait for discovery [#wait-for-discovery]
+
+  Devices on the same network appear automatically in the sidebar within a few seconds. You will see the other device's name show up under the device list.
+
+  ### Tap to pair [#tap-to-pair]
+
+  Select the discovered device in the sidebar. The first connection establishes the pairing. Once paired, the device remembers the connection for future sessions.
+</Steps>
+
+## What paired devices can do [#what-paired-devices-can-do]
+
+Once paired, the remote device can:
+
+* View and interact with all terminal sessions running on the desktop
+* Chat with AI agents that are running on the desktop
+* Browse and edit files through the IDE
+* Preview web apps running on the desktop's localhost
+* Send and receive files
+
+<Callout type="warn">
+  Mobile devices (iOS/Android) do not run sessions locally. All terminals, agent chats, and IDE sessions live on the desktop. The mobile app is a remote viewer and controller.
+</Callout>
+
+## Network requirements [#network-requirements]
+
+* Both devices must be on the **same local network** (same Wi-Fi or LAN)
+* Mate uses TCP port **53317** by default for communication (configurable in Settings)
+* Multicast UDP must not be blocked by your router — most home and office networks allow it
+* No internet connection is required for pairing
+
+## Troubleshooting pairing [#troubleshooting-pairing]
+
+If devices don't discover each other:
+
+1. Confirm both devices are on the same Wi-Fi network
+2. Check that no firewall is blocking port 53317 (TCP) or multicast (UDP)
+3. On macOS, ensure Mate has local network permission in **System Settings > Privacy & Security > Local Network**
+4. Try restarting Mate on both devices — this triggers a fresh multicast scan
+5. If automatic discovery fails, check [Remote Troubleshooting](/docs/remote/troubleshooting) for manual connection options
+
+## Multiple devices [#multiple-devices]
+
+You can pair multiple devices with the same desktop. Each paired device appears in the sidebar, and switching between them shows that device's remote sessions. Your local device is always listed first.
+
+
 # Agent Chat (/docs/features/agent-chat)
 
 
@@ -550,557 +745,6 @@ If your dev server supports hot module replacement (HMR) or live reload, it work
 * WebSocket connections through the proxy depend on your server's WebSocket configuration
 * HTTPS localhost servers may require additional setup
 * The embedded browser view has standard web rendering capabilities but is not a full desktop browser
-
-
-# First Session (/docs/getting-started/first-session)
-
-
-
-When you launch Mate for the first time, you land in the workspace — the main area where all your sessions live. Let's walk through the basics.
-
-## The workspace [#the-workspace]
-
-The workspace has three main areas:
-
-* **Sidebar** (left): Lists your local device and any paired remote devices. Tap a device to switch context.
-* **Tab bar** (top): Shows your open sessions — terminals, editor tabs, agent chats, web previews, and more.
-* **Session area** (center): The active session's content fills this space.
-
-## Open a terminal [#open-a-terminal]
-
-Mate starts with a terminal tab by default. If you need another one:
-
-1. Click the &#x2A;*+** button in the tab bar
-2. Select **Terminal** from the dropdown
-3. A new terminal session opens with your default shell
-
-Each terminal is a full PTY session — it runs your actual shell (zsh, bash, fish, etc.) with complete support for colors, cursor movement, and interactive programs like `vim` or `top`.
-
-## Working with tabs [#working-with-tabs]
-
-Tabs appear along the top of the workspace. You can:
-
-* **Reorder** tabs by dragging them
-* **Close** a tab by clicking the X or using the keyboard shortcut
-* **Create** new tabs with the + button — choose from Terminal, Editor, IDE, Web Preview, or Project
-
-<Callout type="info">
-  Each tab type has its own purpose. Terminals run shells, the IDE opens project folders, Web Previews show localhost ports, and Agent Chat connects to AI coding assistants. See [Features](/docs/features/terminal) for details on each.
-</Callout>
-
-## Tab types at a glance [#tab-types-at-a-glance]
-
-| Tab         | What it does                                  |
-| ----------- | --------------------------------------------- |
-| Terminal    | Full PTY shell session                        |
-| Agent Chat  | AI assistant (Claude Code, Codex, Copilot)    |
-| IDE         | Multi-file editor with file tree              |
-| Editor      | Single-file editor                            |
-| Web Preview | View a localhost port through a reverse proxy |
-| Project     | Organize related sessions together            |
-
-## Try an AI agent [#try-an-ai-agent]
-
-If you have Claude Code, Codex, or Copilot CLI installed, you can start an agent chat:
-
-1. Click &#x2A;*+** in the tab bar
-2. Select **Agent Chat**
-3. Pick your preferred CLI from the dropdown
-4. Type a message and watch the agent work
-
-The agent can read files, run commands, search your codebase, and make edits — all within Mate's interface. See [Agent Chat](/docs/features/agent-chat) for the full guide.
-
-## Next steps [#next-steps]
-
-* [Pair a mobile device](/docs/getting-started/pairing-devices) to access your sessions from your phone
-* [Set up integrations](/docs/integrations/overview) to connect GitHub, Slack, databases, and more
-* [Explore features](/docs/features/terminal) to see everything Mate can do
-
-
-# Installation (/docs/getting-started/installation)
-
-
-
-Mate runs on macOS, Windows, and Linux. Mobile apps for iOS and Android are available for remote access to a paired desktop.
-
-## System requirements [#system-requirements]
-
-| Platform | Minimum OS                 | Architecture           |
-| -------- | -------------------------- | ---------------------- |
-| macOS    | 12.0 Monterey              | Intel or Apple Silicon |
-| Windows  | 10 (64-bit)                | x86\_64                |
-| Linux    | Ubuntu 22.04 or equivalent | x86\_64, ARM64         |
-| iOS      | 16.0                       | iPhone, iPad           |
-| Android  | 10 (API 29)                | ARM64, x86\_64         |
-
-## Download [#download]
-
-Grab the latest release for your platform from GitHub:
-
-<Cards>
-  <Card title="Download Mate" href="https://github.com/mqtik/mate-releases/releases">
-    All platforms — macOS .dmg, Windows .zip, Linux .tar.gz
-  </Card>
-</Cards>
-
-## Install by platform [#install-by-platform]
-
-<Tabs items="[&#x22;macOS&#x22;, &#x22;Windows&#x22;, &#x22;Linux&#x22;]">
-  <Tab value="macOS">
-    1. Download the `.dmg` file from the releases page
-    2. Open the `.dmg` and drag **Mate** into your Applications folder
-    3. Launch Mate from Applications — if macOS shows a security warning, go to **System Settings > Privacy & Security** and click **Open Anyway**
-    4. Mate bundles its own Node.js runtime, so you do not need Node installed separately
-  </Tab>
-
-  <Tab value="Windows">
-    1. Download the `.zip` file from the releases page
-    2. Extract the zip to a folder of your choice (e.g. `C:\Program Files\Mate`)
-    3. Run `Mate.exe` to launch
-    4. Node.js is bundled — no separate installation needed
-  </Tab>
-
-  <Tab value="Linux">
-    1. Download the `.tar.gz` file from the releases page
-    2. Extract it: `tar xzf mate-linux-*.tar.gz`
-    3. Run the `mate` binary from the extracted folder
-    4. Node.js is bundled with the app
-  </Tab>
-</Tabs>
-
-## Mobile apps [#mobile-apps]
-
-iOS and Android apps are available for pairing with a desktop running Mate. Mobile devices act as remote mirrors — they connect to your desktop over the local network and let you interact with your sessions from your phone or tablet.
-
-<Callout type="info">
-  Mobile devices do not run terminals or AI agents locally. They connect to a paired desktop that does the heavy lifting. See [Pairing Devices](/docs/getting-started/pairing-devices) for setup instructions.
-</Callout>
-
-## Verify the installation [#verify-the-installation]
-
-After launching Mate, you should see the workspace with a default terminal tab. Try typing a command to confirm everything works:
-
-```bash
-echo "Mate is ready"
-```
-
-If the terminal responds, you are good to go. Head to [First Session](/docs/getting-started/first-session) to learn the basics.
-
-
-# Pairing Devices (/docs/getting-started/pairing-devices)
-
-
-
-Mate lets you access your desktop sessions from any device on the same network. Your desktop is the server — it runs the terminals, AI agents, and editors. Paired devices are live mirrors that connect directly, with no cloud involved.
-
-## How pairing works [#how-pairing-works]
-
-Mate uses multicast UDP for automatic device discovery on your local network. When two devices running Mate are on the same Wi-Fi or LAN, they find each other automatically. No manual IP entry, no account creation, no cloud relay.
-
-<Steps>
-  ### Launch Mate on both devices [#launch-mate-on-both-devices]
-
-  Open Mate on your desktop and on the device you want to pair (phone, tablet, or another computer).
-
-  ### Wait for discovery [#wait-for-discovery]
-
-  Devices on the same network appear automatically in the sidebar within a few seconds. You will see the other device's name show up under the device list.
-
-  ### Tap to pair [#tap-to-pair]
-
-  Select the discovered device in the sidebar. The first connection establishes the pairing. Once paired, the device remembers the connection for future sessions.
-</Steps>
-
-## What paired devices can do [#what-paired-devices-can-do]
-
-Once paired, the remote device can:
-
-* View and interact with all terminal sessions running on the desktop
-* Chat with AI agents that are running on the desktop
-* Browse and edit files through the IDE
-* Preview web apps running on the desktop's localhost
-* Send and receive files
-
-<Callout type="warn">
-  Mobile devices (iOS/Android) do not run sessions locally. All terminals, agent chats, and IDE sessions live on the desktop. The mobile app is a remote viewer and controller.
-</Callout>
-
-## Network requirements [#network-requirements]
-
-* Both devices must be on the **same local network** (same Wi-Fi or LAN)
-* Mate uses TCP port **53317** by default for communication (configurable in Settings)
-* Multicast UDP must not be blocked by your router — most home and office networks allow it
-* No internet connection is required for pairing
-
-## Troubleshooting pairing [#troubleshooting-pairing]
-
-If devices don't discover each other:
-
-1. Confirm both devices are on the same Wi-Fi network
-2. Check that no firewall is blocking port 53317 (TCP) or multicast (UDP)
-3. On macOS, ensure Mate has local network permission in **System Settings > Privacy & Security > Local Network**
-4. Try restarting Mate on both devices — this triggers a fresh multicast scan
-5. If automatic discovery fails, check [Remote Troubleshooting](/docs/remote/troubleshooting) for manual connection options
-
-## Multiple devices [#multiple-devices]
-
-You can pair multiple devices with the same desktop. Each paired device appears in the sidebar, and switching between them shows that device's remote sessions. Your local device is always listed first.
-
-
-# Keyboard Shortcuts (/docs/reference/keyboard-shortcuts)
-
-
-
-These shortcuts work on macOS. On Windows and Linux, replace **Cmd** with **Ctrl**.
-
-## General [#general]
-
-| Action                 | Shortcut                                  |
-| ---------------------- | ----------------------------------------- |
-| New terminal tab       | `Cmd + T`                                 |
-| Close current tab      | `Cmd + W`                                 |
-| Switch to next tab     | `Cmd + Shift + ]` or `Ctrl + Tab`         |
-| Switch to previous tab | `Cmd + Shift + [` or `Ctrl + Shift + Tab` |
-| Open settings          | `Cmd + ,`                                 |
-| Toggle sidebar         | `Cmd + B`                                 |
-
-## Terminal [#terminal]
-
-| Action                        | Shortcut  |
-| ----------------------------- | --------- |
-| Copy selection                | `Cmd + C` |
-| Paste                         | `Cmd + V` |
-| Clear terminal                | `Cmd + K` |
-| Search in terminal            | `Cmd + F` |
-| Zoom in (increase font size)  | `Cmd + =` |
-| Zoom out (decrease font size) | `Cmd + -` |
-| Reset zoom                    | `Cmd + 0` |
-
-## Editor / IDE [#editor--ide]
-
-| Action           | Shortcut          |
-| ---------------- | ----------------- |
-| Save file        | `Cmd + S`         |
-| Find             | `Cmd + F`         |
-| Find and replace | `Cmd + H`         |
-| Undo             | `Cmd + Z`         |
-| Redo             | `Cmd + Shift + Z` |
-| Select all       | `Cmd + A`         |
-
-## Agent Chat [#agent-chat]
-
-| Action              | Shortcut        |
-| ------------------- | --------------- |
-| Send message        | `Enter`         |
-| New line in message | `Shift + Enter` |
-| Focus message input | `Cmd + L`       |
-
-<Callout type="info">
-  Keyboard shortcuts are primarily available on desktop platforms (macOS, Windows, Linux). Mobile devices use touch gestures instead.
-</Callout>
-
-
-# Settings (/docs/reference/settings)
-
-
-
-Access settings by clicking the gear icon or pressing `Cmd + ,` (macOS) / `Ctrl + ,` (Windows/Linux).
-
-## General [#general]
-
-### Port [#port]
-
-The TCP port Mate uses for device communication. Default is **53317**. Change this if the default port conflicts with another application. All paired devices must use the same port.
-
-### Theme [#theme]
-
-Choose between light, dark, or system theme. System follows your OS appearance setting.
-
-### Language [#language]
-
-Mate supports multiple interface languages. The default follows your system language.
-
-## Terminal [#terminal]
-
-### Default shell [#default-shell]
-
-The shell used for new terminal sessions. Mate detects your system's default shell automatically (e.g., zsh on macOS, bash on Linux). You can override this to use a different shell.
-
-### Font size [#font-size]
-
-The terminal font size in points. Adjustable via settings or with keyboard shortcuts (`Cmd + =` / `Cmd + -`).
-
-### Scrollback buffer [#scrollback-buffer]
-
-The number of lines kept in the terminal's scrollback history. Higher values use more memory but let you scroll back further through command output.
-
-## Connectors [#connectors]
-
-### Enabled connectors [#enabled-connectors]
-
-Toggle individual MCP connectors on or off. Each connector shows its name, category, and connection status.
-
-### Credentials [#credentials]
-
-Manage API keys and tokens for connectors. Credentials are stored in platform-native secure storage (Keychain on macOS, Credential Manager on Windows, Secret Service on Linux).
-
-### Command verification [#command-verification]
-
-Mate checks that the required command for each connector (usually `npx`) is available before enabling it. If a command is not found, Mate shows installation guidance.
-
-## Network [#network]
-
-### Device name [#device-name]
-
-The name other devices see when they discover your device on the network. Defaults to your computer's hostname.
-
-### Auto-discovery [#auto-discovery]
-
-Toggle multicast UDP discovery on or off. When enabled, Mate automatically finds other devices on the same network. When disabled, you need to connect manually.
-
-## Agent Chat [#agent-chat]
-
-### Default CLI [#default-cli]
-
-The AI CLI to use when creating new agent chat sessions. Options depend on which CLIs are installed on your system (Claude Code, Codex, Copilot).
-
-### MCP config generation [#mcp-config-generation]
-
-Mate automatically generates MCP configuration files that agent CLIs read at startup. This section shows which connectors will be passed to agent sessions and lets you configure additional settings.
-
-<Callout type="info">
-  Settings are stored locally on your device. They are not synced between devices — each device has its own configuration.
-</Callout>
-
-
-# Mobile Usage (/docs/remote/mobile)
-
-
-
-Mate on mobile gives you full access to your desktop's sessions from your phone or tablet. It is not a simplified version — you get the same terminals, agent chats, editors, and web previews, just optimized for a smaller screen.
-
-## Getting started on mobile [#getting-started-on-mobile]
-
-<Steps>
-  ### Install Mate [#install-mate]
-
-  Download Mate from the App Store (iOS) or Google Play (Android).
-
-  ### Connect to your desktop [#connect-to-your-desktop]
-
-  Make sure your phone and desktop are on the same Wi-Fi network. Open Mate on both devices. Your desktop should appear in the sidebar automatically within a few seconds.
-
-  ### Select your desktop [#select-your-desktop]
-
-  Tap your desktop in the sidebar. The workspace switches to show your desktop's sessions.
-</Steps>
-
-## What you can do [#what-you-can-do]
-
-### Terminals [#terminals]
-
-Full terminal access from your phone. The terminal renders with xterm emulation, supports scrollback, and handles interactive programs. The on-screen keyboard works for typing commands, and you can scroll through output history.
-
-### Agent chat [#agent-chat]
-
-Interact with AI agent sessions running on your desktop. Send messages, view streaming responses, and see tool use in real time. This is great for monitoring long-running agent tasks while away from your desk.
-
-### IDE and editor [#ide-and-editor]
-
-Browse your project's file tree and edit files. Changes save directly to the desktop's filesystem. The editor supports syntax highlighting and standard text editing gestures.
-
-### Web preview [#web-preview]
-
-View web apps running on your desktop's localhost. This is genuinely useful for mobile testing — see your responsive design on an actual phone screen, running from your actual dev server.
-
-### File transfer [#file-transfer]
-
-Send files from your phone to your desktop, or receive files from the desktop. Useful for sharing screenshots, photos, or documents without going through a cloud service.
-
-## Tips for mobile [#tips-for-mobile]
-
-* **Landscape mode** gives you more horizontal space for terminals and code editing
-* **Swipe** to switch between tabs
-* **Long press** for context menus on tabs and sessions
-* **Create sessions** from your phone — they are created on the desktop but you can interact with them immediately
-
-<Callout type="info">
-  Your phone does not run terminals, AI agents, or the IDE locally. All processing happens on the desktop. Your phone sends input and displays output over the network connection.
-</Callout>
-
-## Creating sessions remotely [#creating-sessions-remotely]
-
-You can create new terminals, agent chats, and other sessions from your phone. When you do, the session is created on the paired desktop — your phone just tells the desktop to start it. This means:
-
-* New terminals use the desktop's shell and filesystem
-* New agent chats use the desktop's CLI installations and MCP connectors
-* New IDE tabs browse the desktop's files
-
-## Network considerations [#network-considerations]
-
-Mobile works best on a stable Wi-Fi connection. The app handles temporary disconnections gracefully — if you walk out of range briefly and come back, it reconnects. For persistent connectivity issues, see [Troubleshooting](/docs/remote/troubleshooting).
-
-
-# Remote Sessions (/docs/remote/overview)
-
-
-
-Mate's remote feature lets you access your desktop's sessions from any paired device on the same network. Understanding the architecture helps you get the most out of it.
-
-## The mental model [#the-mental-model]
-
-Your **desktop** (Mac, Windows, or Linux) is the source of truth. It runs the server and owns all session state:
-
-* Terminal processes (PTY shells)
-* Agent chat sessions (CLI subprocesses)
-* IDE and editor state
-* Web preview proxies
-* File storage
-* MCP connector processes
-
-A **remote device** (phone, tablet, or another computer) is a paired mirror client. It does not run its own sessions. Instead, it connects to the desktop over the local network and presents a live view of the desktop's sessions.
-
-<Callout type="info">
-  Remote sessions are not copies. They are live mirrors. When you type in a terminal on your phone, the keystrokes go to the desktop's shell process, and the output streams back to your phone in real time.
-</Callout>
-
-## What remote devices can do [#what-remote-devices-can-do]
-
-From a remote device, you can:
-
-* **View and interact** with all terminal sessions on the desktop
-* **Chat with AI agents** running on the desktop
-* **Browse and edit files** through the IDE
-* **Preview web apps** running on the desktop's localhost
-* **Create new sessions** — these are created on the desktop, not on the remote device
-* **Send and receive files** between devices
-
-## How it connects [#how-it-connects]
-
-Mate uses direct TCP connections over your local network. The default port is **53317**. Device discovery happens automatically via multicast UDP — no manual IP configuration needed.
-
-The connection flow:
-
-1. Both devices run Mate on the same network
-2. Multicast discovery finds nearby devices automatically
-3. Selecting a device in the sidebar establishes a TCP connection
-4. All session data flows directly between devices — no cloud relay
-
-## Device switching [#device-switching]
-
-The sidebar lists your local device and all paired remote devices. Tapping a device switches the workspace to show that device's sessions:
-
-* **Local device selected**: workspace shows your local terminals, chats, editors
-* **Remote device selected**: workspace shows that remote device's sessions
-
-Every UI component — tabs, projects, terminal lists — filters based on which device is currently selected.
-
-## Security [#security]
-
-All communication happens on your local network. No data leaves your network, no accounts are required, and no cloud services are involved. Device pairing is based on trust within your local network.
-
-## Platform capabilities [#platform-capabilities]
-
-| Capability            | Desktop              | Mobile                               |
-| --------------------- | -------------------- | ------------------------------------ |
-| Run terminal sessions | Yes (local)          | No (remote mirror only)              |
-| Run AI agent CLIs     | Yes (local)          | No (remote mirror only)              |
-| Edit files            | Yes (local)          | Yes (remote, edits saved to desktop) |
-| Web preview           | Yes (local + remote) | Yes (remote)                         |
-| File transfer         | Yes (send + receive) | Yes (send + receive)                 |
-| Create sessions       | Yes (local)          | Yes (created on paired desktop)      |
-
-
-# Remote Troubleshooting (/docs/remote/troubleshooting)
-
-
-
-Most remote connection problems come down to network configuration. Here are the common issues and their fixes.
-
-## Devices not discovering each other [#devices-not-discovering-each-other]
-
-**Symptom**: You open Mate on both devices, but they do not appear in each other's sidebar.
-
-**Fixes**:
-
-1. **Same network**: Confirm both devices are on the exact same Wi-Fi network. Some routers have separate 2.4GHz and 5GHz networks — make sure both devices are on the same one.
-
-2. **Multicast blocking**: Mate uses multicast UDP for discovery. Some enterprise networks, guest networks, and mesh routers block multicast traffic. Try a different network or check your router's settings.
-
-3. **macOS local network permission**: On macOS, go to **System Settings > Privacy & Security > Local Network** and make sure Mate is allowed.
-
-4. **Firewall**: Check that no firewall is blocking:
-   * TCP port **53317** (or your configured port)
-   * Multicast UDP traffic
-
-5. **Restart both apps**: Close and reopen Mate on both devices. This triggers a fresh multicast scan.
-
-## Connection drops [#connection-drops]
-
-**Symptom**: Devices pair successfully but the connection drops intermittently.
-
-**Fixes**:
-
-1. **Wi-Fi stability**: Check signal strength on both devices. Weak Wi-Fi causes intermittent TCP disconnections.
-
-2. **Sleep/standby**: When a device sleeps, the network connection drops. Mate reconnects automatically when the device wakes, but there may be a brief delay.
-
-3. **Network switching**: If your phone switches between Wi-Fi and cellular, the connection drops. Make sure your phone stays on Wi-Fi.
-
-<Callout type="info">
-  Mate uses exponential backoff for reconnection attempts. If the connection drops, it will try to reconnect automatically — starting at 10 seconds and backing off to 80 seconds between attempts.
-</Callout>
-
-## Terminal lag [#terminal-lag]
-
-**Symptom**: Typing in a remote terminal feels slow or laggy.
-
-**Fixes**:
-
-1. **Network latency**: Remote terminals depend on network round-trip time. On a typical home Wi-Fi network, latency should be under 10ms. If it feels slow, check your network quality.
-
-2. **High output programs**: Programs that produce large amounts of output (e.g., `cat` on a huge file, `find /` without filters) can cause temporary lag as the data streams over the network.
-
-3. **Try restarting the session**: Close the terminal tab and open a new one. Occasionally a session can get into a degraded state.
-
-## Port conflicts [#port-conflicts]
-
-**Symptom**: Mate fails to start or pair, with errors about port 53317.
-
-**Fix**: Another application is using port 53317. You can change Mate's port in **Settings**. Make sure both devices use the same port.
-
-```bash
-# Check what is using port 53317 on macOS/Linux
-lsof -i :53317
-```
-
-## Web preview not loading [#web-preview-not-loading]
-
-**Symptom**: Web preview tab shows a blank page or connection error.
-
-**Fixes**:
-
-1. **Server running**: Make sure your dev server is actually running on the specified port on the desktop
-2. **Localhost binding**: Some dev servers bind to `127.0.0.1` only. Mate's reverse proxy handles this, but check that the server is running
-3. **Port number**: Double-check you entered the correct port number in the web preview tab
-
-## Agent chat not connecting remotely [#agent-chat-not-connecting-remotely]
-
-**Symptom**: You can see agent chat tabs from a remote device but cannot send messages or see updates.
-
-**Fixes**:
-
-1. **CLI installed on desktop**: The AI CLI (Claude Code, Codex, etc.) must be installed on the desktop, not the remote device
-2. **Process running**: Check that the agent chat process is still running on the desktop — it may have exited due to an error
-3. **Reconnect**: Switch away from the remote device in the sidebar and switch back to force a reconnection
-
-## Still stuck? [#still-stuck]
-
-If none of the above fixes your issue:
-
-* Check the app logs for error messages
-* Try pairing on a different network (e.g., a phone hotspot) to isolate whether the issue is network-specific
-* Verify that both devices are running the same version of Mate
 
 
 # Claude Code Integration (/docs/integrations/claude-code)
@@ -1619,3 +1263,359 @@ In the Skills section of Settings, you can see all installed skills and:
 You can create your own skills by placing markdown files directly in `.mate/skills/` or the CLI-specific skill directories. Custom skills follow the same format as marketplace skills and appear alongside them in the slash command list.
 
 This is useful for team-specific workflows — write a skill once, share the file, and everyone on the team gets the same commands.
+
+
+# Keyboard Shortcuts (/docs/reference/keyboard-shortcuts)
+
+
+
+These shortcuts work on macOS. On Windows and Linux, replace **Cmd** with **Ctrl**.
+
+## General [#general]
+
+| Action                 | Shortcut                                  |
+| ---------------------- | ----------------------------------------- |
+| New terminal tab       | `Cmd + T`                                 |
+| Close current tab      | `Cmd + W`                                 |
+| Switch to next tab     | `Cmd + Shift + ]` or `Ctrl + Tab`         |
+| Switch to previous tab | `Cmd + Shift + [` or `Ctrl + Shift + Tab` |
+| Open settings          | `Cmd + ,`                                 |
+| Toggle sidebar         | `Cmd + B`                                 |
+
+## Terminal [#terminal]
+
+| Action                        | Shortcut  |
+| ----------------------------- | --------- |
+| Copy selection                | `Cmd + C` |
+| Paste                         | `Cmd + V` |
+| Clear terminal                | `Cmd + K` |
+| Search in terminal            | `Cmd + F` |
+| Zoom in (increase font size)  | `Cmd + =` |
+| Zoom out (decrease font size) | `Cmd + -` |
+| Reset zoom                    | `Cmd + 0` |
+
+## Editor / IDE [#editor--ide]
+
+| Action           | Shortcut          |
+| ---------------- | ----------------- |
+| Save file        | `Cmd + S`         |
+| Find             | `Cmd + F`         |
+| Find and replace | `Cmd + H`         |
+| Undo             | `Cmd + Z`         |
+| Redo             | `Cmd + Shift + Z` |
+| Select all       | `Cmd + A`         |
+
+## Agent Chat [#agent-chat]
+
+| Action              | Shortcut        |
+| ------------------- | --------------- |
+| Send message        | `Enter`         |
+| New line in message | `Shift + Enter` |
+| Focus message input | `Cmd + L`       |
+
+<Callout type="info">
+  Keyboard shortcuts are primarily available on desktop platforms (macOS, Windows, Linux). Mobile devices use touch gestures instead.
+</Callout>
+
+
+# Settings (/docs/reference/settings)
+
+
+
+Access settings by clicking the gear icon or pressing `Cmd + ,` (macOS) / `Ctrl + ,` (Windows/Linux).
+
+## General [#general]
+
+### Port [#port]
+
+The TCP port Mate uses for device communication. Default is **53317**. Change this if the default port conflicts with another application. All paired devices must use the same port.
+
+### Theme [#theme]
+
+Choose between light, dark, or system theme. System follows your OS appearance setting.
+
+### Language [#language]
+
+Mate supports multiple interface languages. The default follows your system language.
+
+## Terminal [#terminal]
+
+### Default shell [#default-shell]
+
+The shell used for new terminal sessions. Mate detects your system's default shell automatically (e.g., zsh on macOS, bash on Linux). You can override this to use a different shell.
+
+### Font size [#font-size]
+
+The terminal font size in points. Adjustable via settings or with keyboard shortcuts (`Cmd + =` / `Cmd + -`).
+
+### Scrollback buffer [#scrollback-buffer]
+
+The number of lines kept in the terminal's scrollback history. Higher values use more memory but let you scroll back further through command output.
+
+## Connectors [#connectors]
+
+### Enabled connectors [#enabled-connectors]
+
+Toggle individual MCP connectors on or off. Each connector shows its name, category, and connection status.
+
+### Credentials [#credentials]
+
+Manage API keys and tokens for connectors. Credentials are stored in platform-native secure storage (Keychain on macOS, Credential Manager on Windows, Secret Service on Linux).
+
+### Command verification [#command-verification]
+
+Mate checks that the required command for each connector (usually `npx`) is available before enabling it. If a command is not found, Mate shows installation guidance.
+
+## Network [#network]
+
+### Device name [#device-name]
+
+The name other devices see when they discover your device on the network. Defaults to your computer's hostname.
+
+### Auto-discovery [#auto-discovery]
+
+Toggle multicast UDP discovery on or off. When enabled, Mate automatically finds other devices on the same network. When disabled, you need to connect manually.
+
+## Agent Chat [#agent-chat]
+
+### Default CLI [#default-cli]
+
+The AI CLI to use when creating new agent chat sessions. Options depend on which CLIs are installed on your system (Claude Code, Codex, Copilot).
+
+### MCP config generation [#mcp-config-generation]
+
+Mate automatically generates MCP configuration files that agent CLIs read at startup. This section shows which connectors will be passed to agent sessions and lets you configure additional settings.
+
+<Callout type="info">
+  Settings are stored locally on your device. They are not synced between devices — each device has its own configuration.
+</Callout>
+
+
+# Mobile Usage (/docs/remote/mobile)
+
+
+
+Mate on mobile gives you full access to your desktop's sessions from your phone or tablet. It is not a simplified version — you get the same terminals, agent chats, editors, and web previews, just optimized for a smaller screen.
+
+## Getting started on mobile [#getting-started-on-mobile]
+
+<Steps>
+  ### Install Mate [#install-mate]
+
+  Download Mate from the App Store (iOS) or Google Play (Android).
+
+  ### Connect to your desktop [#connect-to-your-desktop]
+
+  Make sure your phone and desktop are on the same Wi-Fi network. Open Mate on both devices. Your desktop should appear in the sidebar automatically within a few seconds.
+
+  ### Select your desktop [#select-your-desktop]
+
+  Tap your desktop in the sidebar. The workspace switches to show your desktop's sessions.
+</Steps>
+
+## What you can do [#what-you-can-do]
+
+### Terminals [#terminals]
+
+Full terminal access from your phone. The terminal renders with xterm emulation, supports scrollback, and handles interactive programs. The on-screen keyboard works for typing commands, and you can scroll through output history.
+
+### Agent chat [#agent-chat]
+
+Interact with AI agent sessions running on your desktop. Send messages, view streaming responses, and see tool use in real time. This is great for monitoring long-running agent tasks while away from your desk.
+
+### IDE and editor [#ide-and-editor]
+
+Browse your project's file tree and edit files. Changes save directly to the desktop's filesystem. The editor supports syntax highlighting and standard text editing gestures.
+
+### Web preview [#web-preview]
+
+View web apps running on your desktop's localhost. This is genuinely useful for mobile testing — see your responsive design on an actual phone screen, running from your actual dev server.
+
+### File transfer [#file-transfer]
+
+Send files from your phone to your desktop, or receive files from the desktop. Useful for sharing screenshots, photos, or documents without going through a cloud service.
+
+## Tips for mobile [#tips-for-mobile]
+
+* **Landscape mode** gives you more horizontal space for terminals and code editing
+* **Swipe** to switch between tabs
+* **Long press** for context menus on tabs and sessions
+* **Create sessions** from your phone — they are created on the desktop but you can interact with them immediately
+
+<Callout type="info">
+  Your phone does not run terminals, AI agents, or the IDE locally. All processing happens on the desktop. Your phone sends input and displays output over the network connection.
+</Callout>
+
+## Creating sessions remotely [#creating-sessions-remotely]
+
+You can create new terminals, agent chats, and other sessions from your phone. When you do, the session is created on the paired desktop — your phone just tells the desktop to start it. This means:
+
+* New terminals use the desktop's shell and filesystem
+* New agent chats use the desktop's CLI installations and MCP connectors
+* New IDE tabs browse the desktop's files
+
+## Network considerations [#network-considerations]
+
+Mobile works best on a stable Wi-Fi connection. The app handles temporary disconnections gracefully — if you walk out of range briefly and come back, it reconnects. For persistent connectivity issues, see [Troubleshooting](/docs/remote/troubleshooting).
+
+
+# Remote Sessions (/docs/remote/overview)
+
+
+
+Mate's remote feature lets you access your desktop's sessions from any paired device on the same network. Understanding the architecture helps you get the most out of it.
+
+## The mental model [#the-mental-model]
+
+Your **desktop** (Mac, Windows, or Linux) is the source of truth. It runs the server and owns all session state:
+
+* Terminal processes (PTY shells)
+* Agent chat sessions (CLI subprocesses)
+* IDE and editor state
+* Web preview proxies
+* File storage
+* MCP connector processes
+
+A **remote device** (phone, tablet, or another computer) is a paired mirror client. It does not run its own sessions. Instead, it connects to the desktop over the local network and presents a live view of the desktop's sessions.
+
+<Callout type="info">
+  Remote sessions are not copies. They are live mirrors. When you type in a terminal on your phone, the keystrokes go to the desktop's shell process, and the output streams back to your phone in real time.
+</Callout>
+
+## What remote devices can do [#what-remote-devices-can-do]
+
+From a remote device, you can:
+
+* **View and interact** with all terminal sessions on the desktop
+* **Chat with AI agents** running on the desktop
+* **Browse and edit files** through the IDE
+* **Preview web apps** running on the desktop's localhost
+* **Create new sessions** — these are created on the desktop, not on the remote device
+* **Send and receive files** between devices
+
+## How it connects [#how-it-connects]
+
+Mate uses direct TCP connections over your local network. The default port is **53317**. Device discovery happens automatically via multicast UDP — no manual IP configuration needed.
+
+The connection flow:
+
+1. Both devices run Mate on the same network
+2. Multicast discovery finds nearby devices automatically
+3. Selecting a device in the sidebar establishes a TCP connection
+4. All session data flows directly between devices — no cloud relay
+
+## Device switching [#device-switching]
+
+The sidebar lists your local device and all paired remote devices. Tapping a device switches the workspace to show that device's sessions:
+
+* **Local device selected**: workspace shows your local terminals, chats, editors
+* **Remote device selected**: workspace shows that remote device's sessions
+
+Every UI component — tabs, projects, terminal lists — filters based on which device is currently selected.
+
+## Security [#security]
+
+All communication happens on your local network. No data leaves your network, no accounts are required, and no cloud services are involved. Device pairing is based on trust within your local network.
+
+## Platform capabilities [#platform-capabilities]
+
+| Capability            | Desktop              | Mobile                               |
+| --------------------- | -------------------- | ------------------------------------ |
+| Run terminal sessions | Yes (local)          | No (remote mirror only)              |
+| Run AI agent CLIs     | Yes (local)          | No (remote mirror only)              |
+| Edit files            | Yes (local)          | Yes (remote, edits saved to desktop) |
+| Web preview           | Yes (local + remote) | Yes (remote)                         |
+| File transfer         | Yes (send + receive) | Yes (send + receive)                 |
+| Create sessions       | Yes (local)          | Yes (created on paired desktop)      |
+
+
+# Remote Troubleshooting (/docs/remote/troubleshooting)
+
+
+
+Most remote connection problems come down to network configuration. Here are the common issues and their fixes.
+
+## Devices not discovering each other [#devices-not-discovering-each-other]
+
+**Symptom**: You open Mate on both devices, but they do not appear in each other's sidebar.
+
+**Fixes**:
+
+1. **Same network**: Confirm both devices are on the exact same Wi-Fi network. Some routers have separate 2.4GHz and 5GHz networks — make sure both devices are on the same one.
+
+2. **Multicast blocking**: Mate uses multicast UDP for discovery. Some enterprise networks, guest networks, and mesh routers block multicast traffic. Try a different network or check your router's settings.
+
+3. **macOS local network permission**: On macOS, go to **System Settings > Privacy & Security > Local Network** and make sure Mate is allowed.
+
+4. **Firewall**: Check that no firewall is blocking:
+   * TCP port **53317** (or your configured port)
+   * Multicast UDP traffic
+
+5. **Restart both apps**: Close and reopen Mate on both devices. This triggers a fresh multicast scan.
+
+## Connection drops [#connection-drops]
+
+**Symptom**: Devices pair successfully but the connection drops intermittently.
+
+**Fixes**:
+
+1. **Wi-Fi stability**: Check signal strength on both devices. Weak Wi-Fi causes intermittent TCP disconnections.
+
+2. **Sleep/standby**: When a device sleeps, the network connection drops. Mate reconnects automatically when the device wakes, but there may be a brief delay.
+
+3. **Network switching**: If your phone switches between Wi-Fi and cellular, the connection drops. Make sure your phone stays on Wi-Fi.
+
+<Callout type="info">
+  Mate uses exponential backoff for reconnection attempts. If the connection drops, it will try to reconnect automatically — starting at 10 seconds and backing off to 80 seconds between attempts.
+</Callout>
+
+## Terminal lag [#terminal-lag]
+
+**Symptom**: Typing in a remote terminal feels slow or laggy.
+
+**Fixes**:
+
+1. **Network latency**: Remote terminals depend on network round-trip time. On a typical home Wi-Fi network, latency should be under 10ms. If it feels slow, check your network quality.
+
+2. **High output programs**: Programs that produce large amounts of output (e.g., `cat` on a huge file, `find /` without filters) can cause temporary lag as the data streams over the network.
+
+3. **Try restarting the session**: Close the terminal tab and open a new one. Occasionally a session can get into a degraded state.
+
+## Port conflicts [#port-conflicts]
+
+**Symptom**: Mate fails to start or pair, with errors about port 53317.
+
+**Fix**: Another application is using port 53317. You can change Mate's port in **Settings**. Make sure both devices use the same port.
+
+```bash
+# Check what is using port 53317 on macOS/Linux
+lsof -i :53317
+```
+
+## Web preview not loading [#web-preview-not-loading]
+
+**Symptom**: Web preview tab shows a blank page or connection error.
+
+**Fixes**:
+
+1. **Server running**: Make sure your dev server is actually running on the specified port on the desktop
+2. **Localhost binding**: Some dev servers bind to `127.0.0.1` only. Mate's reverse proxy handles this, but check that the server is running
+3. **Port number**: Double-check you entered the correct port number in the web preview tab
+
+## Agent chat not connecting remotely [#agent-chat-not-connecting-remotely]
+
+**Symptom**: You can see agent chat tabs from a remote device but cannot send messages or see updates.
+
+**Fixes**:
+
+1. **CLI installed on desktop**: The AI CLI (Claude Code, Codex, etc.) must be installed on the desktop, not the remote device
+2. **Process running**: Check that the agent chat process is still running on the desktop — it may have exited due to an error
+3. **Reconnect**: Switch away from the remote device in the sidebar and switch back to force a reconnection
+
+## Still stuck? [#still-stuck]
+
+If none of the above fixes your issue:
+
+* Check the app logs for error messages
+* Try pairing on a different network (e.g., a phone hotspot) to isolate whether the issue is network-specific
+* Verify that both devices are running the same version of Mate

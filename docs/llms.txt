@@ -1,0 +1,34 @@
+# Docs
+
+
+- **Getting Started**
+- [Installation](/docs/getting-started/installation): Download and install Mate on macOS, Windows, or Linux.
+- [First Session](/docs/getting-started/first-session): Open your first terminal session and learn basic navigation in Mate.
+- [Pairing Devices](/docs/getting-started/pairing-devices): Pair your phone or another computer with Mate over your local network.
+
+- **Features**
+- [Terminal](/docs/features/terminal): Full PTY terminal emulation with tabs, scrollback, and remote access.
+- [Agent Chat](/docs/features/agent-chat): Chat with AI coding agents like Claude Code, Codex, and Copilot inside Mate.
+- [IDE](/docs/features/ide): Built-in multi-file editor with file tree, git integration, and syntax highlighting.
+- [Web Preview](/docs/features/web-preview): Preview localhost web apps from any paired device through a built-in reverse proxy.
+- [File Transfer](/docs/features/file-transfer): Send and receive files between paired devices.
+- [Projects](/docs/features/projects): Organize terminals, editors, and agent chats into project workspaces.
+- [Orchestrator](/docs/features/orchestrator): Run multiple AI agents in parallel with the multi-agent orchestrator.
+- [Voice Input](/docs/features/voice-input): Talk instead of type with built-in speech-to-text.
+
+- **Integrations**
+- [Integrations Overview](/docs/integrations/overview): How MCP connectors work in Mate and what they enable.
+- [Connector Setup](/docs/integrations/connector-setup): How to install and configure an MCP connector in Mate.
+- [Connector List](/docs/integrations/connector-list): All MCP connectors available in Mate, organized by category.
+- [Claude Code Integration](/docs/integrations/claude-code): How Claude Code CLI works inside Mate's agent chat.
+- [Custom Connectors](/docs/integrations/custom-connectors): Add your own MCP servers as connectors in Mate.
+- [Skills](/docs/integrations/skills): Extend your AI agents with installable skills.
+
+- **Remote**
+- [Remote Sessions](/docs/remote/overview): How remote access works in Mate — your desktop is the server, other devices are mirrors.
+- [Mobile Usage](/docs/remote/mobile): Using Mate from your iPhone or Android device.
+- [Remote Troubleshooting](/docs/remote/troubleshooting): Common remote connection issues and how to fix them.
+
+- **Reference**
+- [Keyboard Shortcuts](/docs/reference/keyboard-shortcuts): Common keyboard shortcuts for Mate on desktop.
+- [Settings](/docs/reference/settings): App settings reference for Mate.

@@ -1,0 +1,1621 @@
+# Welcome to Mate (/docs)
+
+
+
+Mate is a cross-platform terminal app with built-in AI agent chat, a multi-file IDE, and a full library of MCP integrations — all accessible from any device on your network. Run it on your Mac, Windows, or Linux machine, then pair your phone to control everything remotely.
+
+Think of it as your entire dev environment in one app: terminals, editors, AI assistants, and tool integrations, unified under a single interface that works across all your devices.
+
+## Quick links [#quick-links]
+
+<Cards>
+  <Card title="Installation" href="/docs/getting-started/installation">
+    Download and install Mate on macOS, Windows, or Linux.
+  </Card>
+
+  <Card title="First Session" href="/docs/getting-started/first-session">
+    Open your first terminal and learn the basics.
+  </Card>
+
+  <Card title="Agent Chat" href="/docs/features/agent-chat">
+    Chat with Claude Code, Codex, or Copilot directly in Mate.
+  </Card>
+
+  <Card title="Integrations" href="/docs/integrations/overview">
+    Connect to GitHub, Slack, databases, and many more tools.
+  </Card>
+</Cards>
+
+## What can you do with Mate? [#what-can-you-do-with-mate]
+
+* **Run terminals** with full PTY support, tabs, and scrollback — locally or on a paired remote device
+* **Chat with AI agents** like Claude Code, Codex, and Copilot, with tool use, conversation forking, and streaming responses
+* **Edit code** in a built-in IDE with syntax highlighting for 100+ languages, a file tree, and git integration
+* **Preview web apps** running on any paired device's localhost through a built-in reverse proxy
+* **Transfer files** between devices with drag-and-drop simplicity
+* **Talk instead of type** with built-in voice input supporting four STT engines including offline Whisper
+* **Orchestrate agents** by running multiple AI sessions in parallel across your projects
+* **Connect your tools** through MCP connectors — databases, APIs, cloud services, and more
+* **Install skills** from the marketplace to add slash commands and specialized workflows to your agents
+* **Sync across devices** — pair your phone, tablet, or another computer and access everything from anywhere on your network
+
+## How it works [#how-it-works]
+
+Your desktop runs Mate as the server. It owns all session state: terminals, projects, agent chats, and files. Your phone (or any other device on the same network) pairs with it and acts as a live mirror — you see and interact with the same sessions, in real time, from anywhere on your local network. No cloud. No accounts. Just your devices talking directly to each other.
+
+
+# Agent Chat (/docs/features/agent-chat)
+
+
+
+Agent Chat lets you work with AI coding assistants directly inside Mate. Instead of switching between your terminal and a separate chat window, the agent runs alongside your other sessions — reading your files, executing commands, and making edits, all visible in real time.
+
+## Supported CLIs [#supported-clis]
+
+| CLI         | Multi-turn             | How it connects                                                 |
+| ----------- | ---------------------- | --------------------------------------------------------------- |
+| Claude Code | Yes (long-lived stdin) | Spawns process, sends messages via `--input-format stream-json` |
+| Codex       | One-shot               | Spawns a new process per message                                |
+| Copilot     | One-shot               | Spawns a new process per message                                |
+
+<Callout type="info">
+  Claude Code keeps a persistent process running, so follow-up messages are instant. Codex and Copilot spawn fresh processes for each message, which takes a few seconds.
+</Callout>
+
+## Available models [#available-models]
+
+Each CLI gives you access to different models:
+
+| CLI         | Models                                 |
+| ----------- | -------------------------------------- |
+| Claude Code | Haiku 4.5, Sonnet 4.6, Opus 4.6        |
+| Codex       | Codex Mini, GPT-5.2 Codex, o4-mini, o3 |
+| Copilot     | GPT-4o, Claude 3.5 Sonnet, o3-mini     |
+
+Select your preferred model from the dropdown in the chat header. The model affects response quality, speed, and cost.
+
+## Starting a chat [#starting-a-chat]
+
+1. Click &#x2A;*+** in the tab bar and select **Agent Chat**
+2. Choose your CLI (Claude Code, Codex, or Copilot) from the dropdown
+3. Type your message and press Enter
+
+The agent streams its response in real time. You will see text output as it is generated, and tool use appears as interactive chips showing what the agent is doing.
+
+## Tool use [#tool-use]
+
+When the agent calls tools — reading files, running commands, searching code — Mate shows each tool invocation with meaningful context:
+
+* **Read file** shows the filename being read
+* **Run command** shows the actual shell command
+* **Search** shows the query being searched
+* **Edit file** shows which file is being modified
+
+Tool calls that modify files (edits, writes) are highlighted so you can review what changed. Mate generates inline diffs for file modifications.
+
+### Tool approval [#tool-approval]
+
+Some tools require your approval before the agent can execute them. When the agent wants to run a potentially destructive action (like writing a file or running a shell command), Mate shows a permission prompt. You can:
+
+* **Approve** the individual tool call
+* **Approve all** for that tool type during the session
+* **Reject** to deny the action
+
+### Auto-approval and permission modes [#auto-approval-and-permission-modes]
+
+For trusted workflows, you can configure auto-approval in the chat settings. This lets the agent run tools without asking — useful when you are watching the output and want a faster feedback loop. You can set permission modes per tool category (e.g., always approve file reads, always ask before shell commands).
+
+### Effort level [#effort-level]
+
+Claude Code supports an effort setting that controls how thorough the agent is. Lower effort means faster, more concise responses. Higher effort means the agent spends more time thinking, reading more files, and producing more detailed output. Adjust this in the chat header.
+
+## Conversations [#conversations]
+
+Each agent chat is a persistent conversation. You can:
+
+* **Continue** a conversation by sending more messages
+* **Fork** a conversation to branch off from a specific point — useful when you want to try a different approach without losing the original thread
+* **Resume** a previous conversation from the sidebar
+
+Conversation history is stored locally on your desktop. Nothing is sent to any cloud service beyond what the underlying CLI itself sends to its API.
+
+### Forking [#forking]
+
+Conversation forking creates a new conversation that starts with the same history up to the point you forked. The original conversation is untouched. This lets you explore "what if" scenarios — try a different approach, and if it doesn't work out, go back to the original.
+
+## Rich content [#rich-content]
+
+### Markdown rendering [#markdown-rendering]
+
+Agent responses render full Markdown with syntax highlighting for code blocks, tables, lists, and inline formatting. Code blocks show the language label and can be copied with one click.
+
+### Canvas artifacts [#canvas-artifacts]
+
+When an agent produces self-contained HTML/JS/CSS, Mate can display it in a Canvas panel alongside the chat. This is useful for visual content — charts, diagrams, interactive prototypes — that the agent generates during the conversation.
+
+### File and image attachments [#file-and-image-attachments]
+
+Drag and drop files or images into the composer, or paste them from your clipboard. The agent receives the file content as part of the message context. This works with code files, screenshots, logs, or any text-based content you want the agent to see.
+
+## Slash commands [#slash-commands]
+
+Type `/` in the composer to see available slash commands. These come from installed [skills](/docs/integrations/skills) and built-in commands. Slash commands let you trigger specific workflows without typing out full prompts.
+
+## MCP connectors in agent chat [#mcp-connectors-in-agent-chat]
+
+If you have [MCP connectors](/docs/integrations/overview) configured, the agent can use them as tools. For example, with the GitHub connector enabled, Claude Code can create pull requests, read issues, and manage repositories directly from chat.
+
+Mate generates an MCP config file that the CLI reads at startup, so all your connected integrations are available to the agent automatically.
+
+## Remote agent chat [#remote-agent-chat]
+
+Agent chat works from paired remote devices. When you select a remote device in the sidebar, you see its running agent chat sessions and can interact with them. The CLI process runs on the desktop — the remote device sends input and receives streamed output over the network.
+
+## Tips [#tips]
+
+* Long-running agent tasks keep working even if you switch to another tab
+* Use conversation forking when you want to try a different approach without losing the original thread
+* The agent respects your project's working directory when running commands
+* Use [voice input](/docs/features/voice-input) to dictate prompts instead of typing
+
+
+# File Transfer (/docs/features/file-transfer)
+
+
+
+Mate includes built-in file transfer between paired devices. Send files from your desktop to your phone, or receive files from your phone to your desktop — no third-party apps, cloud services, or cables needed.
+
+## Sending files [#sending-files]
+
+<Steps>
+  ### Open the Send tab [#open-the-send-tab]
+
+  Navigate to the send interface in Mate.
+
+  ### Select files [#select-files]
+
+  Choose one or more files from your device. You can select multiple files at once.
+
+  ### Pick a destination [#pick-a-destination]
+
+  Select the paired device you want to send to from the device list.
+
+  ### Send [#send]
+
+  The files transfer directly over your local network. Large files transfer quickly since there is no cloud relay — data goes straight from device to device.
+</Steps>
+
+## Receiving files [#receiving-files]
+
+When a paired device sends you files, Mate notifies you and shows the incoming transfer. Received files are saved to your configured download location.
+
+## How it works [#how-it-works]
+
+File transfers use the same direct TCP connection as all other Mate features. Files travel directly between devices on your local network with no intermediate server. Transfer speeds are limited only by your local network bandwidth — typically much faster than cloud-based alternatives.
+
+<Callout type="info">
+  File transfer works between any two paired devices: desktop to phone, phone to desktop, or desktop to desktop.
+</Callout>
+
+## Supported file types [#supported-file-types]
+
+Any file type is supported. There are no restrictions on what you can send — documents, images, videos, code archives, binaries, or anything else.
+
+
+# IDE (/docs/features/ide)
+
+
+
+Mate includes a built-in IDE for editing code without leaving the app. It is not a replacement for VS Code or JetBrains — it is a lightweight, always-available editor that is especially useful when you are working remotely from your phone or tablet.
+
+## Opening the IDE [#opening-the-ide]
+
+1. Click &#x2A;*+** in the tab bar
+2. Select **IDE**
+3. Choose a folder to open
+
+The IDE shows a file tree on the left and an editor pane on the right. Click any file to open it.
+
+## File tree [#file-tree]
+
+The file tree is git-aware. It uses `git ls-files` to list tracked files, which means it automatically respects your `.gitignore` and skips build artifacts, `node_modules`, and other ignored directories. For non-git projects, it falls back to a standard directory listing.
+
+You can:
+
+* Navigate folders by expanding/collapsing them
+* Open files by clicking
+* Search files by name using the search bar at the top of the tree
+
+## Editor [#editor]
+
+The editor supports syntax highlighting for 100+ languages through the re\_editor package. Features include:
+
+* Syntax highlighting with language auto-detection based on file extension
+* Line numbers
+* Find and replace
+* Undo/redo
+* Standard keyboard shortcuts for editing
+
+<Callout type="info">
+  The IDE is designed for quick edits and code review, not as a full development environment. For heavy editing sessions, pair it with your preferred desktop editor and use Mate's IDE for on-the-go changes.
+</Callout>
+
+## Single-file editor [#single-file-editor]
+
+If you just need to edit one file without a full project tree, use the **Editor** tab type instead. It opens a single file in an editor with the same syntax highlighting and editing features.
+
+## Remote editing [#remote-editing]
+
+The IDE works from paired remote devices. When you open an IDE tab on a remote session, you are browsing and editing files on the desktop. Changes are saved directly to the desktop's filesystem.
+
+This is particularly useful for:
+
+* Quick fixes from your phone while away from your desk
+* Reviewing code that an AI agent just modified
+* Editing configuration files on a remote machine
+
+## File browser [#file-browser]
+
+The file browser modal lets you navigate your filesystem to find files or folders. It supports:
+
+* Breadcrumb navigation
+* Quick search with fuzzy matching
+* Git-aware file listing that filters out ignored files
+
+
+# Orchestrator (/docs/features/orchestrator)
+
+
+
+The Orchestrator lets you run multiple AI agent sessions in parallel, coordinated by a plan. Instead of sending tasks to one agent at a time, you define a set of tasks and the orchestrator distributes them across concurrent agent sessions, tracks progress, and handles retries.
+
+## How it works [#how-it-works]
+
+The orchestrator follows a straightforward model:
+
+1. **Define tasks** — describe what needs to be done, broken into independent units of work
+2. **Create a run** — the orchestrator schedules tasks and assigns them to agent sessions
+3. **Monitor progress** — watch as agents work in parallel, with real-time status updates
+4. **Review results** — see what each agent accomplished when the run completes
+
+Each task runs in its own agent chat session. The orchestrator manages the lifecycle — starting sessions, sending prompts, monitoring for completion, and handling failures with automatic retries.
+
+## Use cases [#use-cases]
+
+* **Large refactors**: Split a codebase-wide change into file-by-file or module-by-module tasks
+* **Parallel code reviews**: Have multiple agents review different parts of a PR simultaneously
+* **Batch operations**: Run the same type of task across many files or repositories
+* **Testing campaigns**: Generate tests for multiple modules in parallel
+
+## Creating a run [#creating-a-run]
+
+<Steps>
+  ### Open the Orchestrator [#open-the-orchestrator]
+
+  Click &#x2A;*+** in the tab bar and select **Orchestrator**.
+
+  ### Define your tasks [#define-your-tasks]
+
+  Add tasks with descriptions of what each agent should do. Each task should be independent — agents work in parallel without knowledge of what other agents are doing.
+
+  ### Start the run [#start-the-run]
+
+  The orchestrator creates agent chat sessions for each task and begins execution. You can watch progress in real time.
+
+  ### Monitor and review [#monitor-and-review]
+
+  Each task shows its status: pending, running, completed, or failed. Failed tasks are retried automatically with exponential backoff.
+</Steps>
+
+<Callout type="info">
+  Tasks should be independent units of work. The orchestrator runs them in parallel, so tasks that depend on each other's output will not work well. Design your tasks so each agent can work without waiting for another.
+</Callout>
+
+## Task states [#task-states]
+
+| State     | Meaning                                                      |
+| --------- | ------------------------------------------------------------ |
+| Pending   | Queued, waiting for an available agent session               |
+| Running   | An agent is actively working on this task                    |
+| Completed | The agent finished successfully                              |
+| Failed    | The task failed — will be retried up to the configured limit |
+
+## Concurrency [#concurrency]
+
+The orchestrator manages how many agent sessions run simultaneously. This prevents overwhelming your machine with too many concurrent CLI processes. Tasks that exceed the concurrency limit are queued and start as earlier tasks complete.
+
+## Retries [#retries]
+
+When a task fails, the orchestrator retries it with exponential backoff. This handles transient issues like API rate limits or temporary network errors. You can configure the maximum number of retries per task.
+
+
+# Projects (/docs/features/projects)
+
+
+
+Projects let you group related sessions together. Instead of having a flat list of terminal tabs, editor tabs, and agent chats, you can organize them by project — keeping your frontend work separate from your backend work, or your personal projects separate from work.
+
+## Creating a project [#creating-a-project]
+
+1. Click &#x2A;*+** in the tab bar
+2. Select **Project**
+3. Choose a working directory for the project
+
+The project opens as a container tab. Inside it, you can create terminals, editors, and agent chats that are scoped to that project's directory.
+
+## What projects contain [#what-projects-contain]
+
+A project can hold:
+
+* **Terminals** that start in the project's working directory
+* **Agent chats** scoped to the project's codebase
+* **IDE tabs** that open the project's folder
+* **Web previews** for dev servers running in the project
+
+## Working directory [#working-directory]
+
+Every session created within a project inherits the project's working directory. When you open a new terminal inside a project, it starts in the project root. When you start an agent chat, the AI assistant has context about the project's files.
+
+This means you do not need to `cd` into your project directory every time you open a new terminal — the project handles that for you.
+
+## Switching between projects [#switching-between-projects]
+
+Projects appear as tabs in the main tab bar, just like terminals and editors. Click a project tab to switch to it and see its sessions.
+
+<Callout type="info">
+  Projects are a local organizational tool. They do not create any files in your project directory or modify your repository in any way.
+</Callout>
+
+## When to use projects [#when-to-use-projects]
+
+Projects are most useful when you are working on multiple codebases at once. Instead of managing a sea of unlabeled terminal tabs, you can group everything by context:
+
+* **Monorepo work**: One project for the frontend, another for the backend, another for infrastructure
+* **Multi-repo development**: Separate projects for related but distinct repositories
+* **Context switching**: Keep your side project's sessions separate from your work sessions
+
+
+# Terminal (/docs/features/terminal)
+
+
+
+Mate's terminal is a real PTY shell — not a simplified command runner. It uses full xterm emulation backed by a native PTY, so everything you expect from a terminal works: colors, cursor addressing, interactive programs, shell completion, and full Unicode support.
+
+## Local terminals [#local-terminals]
+
+A local terminal runs your default shell (zsh, bash, fish, or whatever you have configured) directly on the machine. Each terminal tab is an independent session with its own working directory and environment.
+
+You can open as many terminal tabs as you need. Each one is a separate shell process.
+
+### What works [#what-works]
+
+* Full ANSI color and formatting (256-color and truecolor)
+* Interactive programs: `vim`, `nano`, `top`, `htop`, `less`, and more
+* Shell features: tab completion, history, aliases, custom prompts
+* Mouse support in programs that use it
+* Scrollback buffer for reviewing previous output
+* Copy and paste with standard keyboard shortcuts
+
+## Remote terminals [#remote-terminals]
+
+When you select a paired remote device in the sidebar, terminal tabs show that device's sessions. Remote terminals connect over WebSocket and behave identically to local ones — same PTY, same scrollback, same interactive program support.
+
+From a remote device (like your phone), you can:
+
+* View and interact with terminals running on the desktop
+* Create new terminal sessions on the desktop
+* Use the same shell with full input support
+
+<Callout type="info">
+  Remote terminal sessions are owned by the desktop. Creating a terminal from your phone actually creates it on the paired desktop — your phone is just the viewer and controller.
+</Callout>
+
+## Working with multiple terminals [#working-with-multiple-terminals]
+
+The tab bar shows all open terminals. You can:
+
+* **Open** a new terminal with the + button or keyboard shortcut
+* **Switch** between terminals by clicking tabs or using keyboard shortcuts
+* **Reorder** tabs by dragging
+* **Close** a terminal by clicking the tab's X button
+
+## Terminal within projects [#terminal-within-projects]
+
+Terminals can be organized inside [Projects](/docs/features/projects). When you create a terminal within a project, it starts in the project's working directory and is grouped with the project's other sessions.
+
+
+# Voice Input (/docs/features/voice-input)
+
+
+
+Voice Input adds speech-to-text to the agent chat composer. Instead of typing out a detailed prompt, tap the microphone icon and talk. Your speech gets transcribed into text in the composer, ready to send or edit before submitting.
+
+This is especially useful on mobile devices where typing long prompts is tedious, or when you are describing a problem and just want to think out loud.
+
+## STT Engines [#stt-engines]
+
+Mate supports four speech-to-text engines, each with different tradeoffs:
+
+| Engine       | Runs locally?        | Setup                   | Best for                             |
+| ------------ | -------------------- | ----------------------- | ------------------------------------ |
+| Native       | Yes                  | None                    | Quick dictation with zero setup      |
+| Whisper      | Yes (after download) | One-time model download | Offline use, privacy-sensitive work  |
+| Cloud STT    | No                   | API key                 | High accuracy, many languages        |
+| Azure Speech | No                   | API key                 | Enterprise environments, Azure users |
+
+### Native [#native]
+
+Uses your platform's built-in speech recognition — Siri on Apple devices, Google Speech on Android. No setup required, works immediately. Accuracy depends on your platform's implementation, but it is solid for English and most major languages.
+
+### Whisper [#whisper]
+
+Runs OpenAI's Whisper model locally on your device. The first time you use it, Mate downloads the model (\~150MB). After that, everything runs offline — no network requests, no API keys, no data leaving your machine.
+
+Whisper handles accents and background noise well, and supports dozens of languages out of the box.
+
+### Cloud STT [#cloud-stt]
+
+Uses a cloud-based speech-to-text API for transcription. Requires an API key configured in Settings. Offers high accuracy and broad language support, with the tradeoff that audio is sent to an external service for processing.
+
+### Azure Speech [#azure-speech]
+
+Microsoft's Azure Speech Services. Requires an Azure subscription and speech resource key. A good fit if you are already in the Azure ecosystem or need enterprise-grade speech recognition with compliance guarantees.
+
+## How to use it [#how-to-use-it]
+
+<Steps>
+  ### Open an Agent Chat tab [#open-an-agent-chat-tab]
+
+  Voice input works in the agent chat composer — the text field where you type messages to the AI agent.
+
+  ### Tap the microphone icon [#tap-the-microphone-icon]
+
+  You will see a mic icon in the composer bar. Tap it to start recording. If this is your first time, Mate may ask for microphone permission.
+
+  ### Speak your message [#speak-your-message]
+
+  Talk naturally. The transcription appears in the composer as you speak. When you are done, tap the mic icon again to stop.
+
+  ### Review and send [#review-and-send]
+
+  The transcribed text appears in the composer. Edit it if needed, then send it to the agent like any other message.
+</Steps>
+
+## Choosing an engine [#choosing-an-engine]
+
+Open **Settings** and look for the **Speech-to-Text** section. You can select your preferred engine and configure any required credentials. The engine selection persists across sessions.
+
+<Callout type="info">
+  If you want fully offline voice input with no setup beyond the initial download, Whisper is the way to go. For zero-setup convenience, start with Native and switch later if you need better accuracy.
+</Callout>
+
+## Language support [#language-support]
+
+All four engines support multiple languages. The available languages depend on the engine:
+
+* **Native**: Whatever your OS supports — typically 30+ languages on modern devices
+* **Whisper**: 99 languages (full list on OpenAI's Whisper documentation)
+* **Cloud STT**: Varies by provider, typically 50+ languages
+* **Azure Speech**: 100+ languages and variants
+
+English variants (US, UK, Australian, etc.) are supported across all engines.
+
+## Platform availability [#platform-availability]
+
+Voice input works on all platforms where Mate runs: macOS, Windows, Linux, Android, and iOS. The Native engine uses platform-specific APIs, so the experience varies slightly — Siri's speech recognition on Apple devices, Google's on Android, and platform speech APIs on desktop. Whisper, Cloud STT, and Azure Speech behave identically across all platforms.
+
+
+# Web Preview (/docs/features/web-preview)
+
+
+
+Web Preview lets you view web applications running on one device from another device on your network. If your dev server is running on `localhost:3000` on your Mac, you can see it on your phone without any port forwarding or tunneling setup.
+
+## How it works [#how-it-works]
+
+Mate runs a reverse proxy that forwards HTTP requests from the viewing device to the target device's localhost port. The web content is rendered in an embedded browser view within Mate.
+
+This means:
+
+* Your dev server runs normally on localhost
+* Mate proxies requests through the paired connection
+* The remote device sees the page as if it were on localhost
+
+No need to find your machine's IP address, no need to bind to `0.0.0.0`, no need for ngrok or similar tools.
+
+## Opening a web preview [#opening-a-web-preview]
+
+1. Click &#x2A;*+** in the tab bar
+2. Select **Web Preview**
+3. Enter the port number (e.g., `3000`, `8080`, `5173`)
+
+The preview loads immediately if the server is running on that port.
+
+## Use cases [#use-cases]
+
+* **Mobile testing**: Preview your web app on your actual phone while developing on your desktop
+* **Cross-device review**: Show a teammate the app running on your machine by having them pair their device
+* **Remote monitoring**: Check on a running dev server or dashboard from your phone
+
+<Callout type="info">
+  Web Preview works for any HTTP server running on localhost — React dev servers, Next.js, Vite, Express, Django, Rails, or anything else that serves over HTTP.
+</Callout>
+
+## Live reloading [#live-reloading]
+
+If your dev server supports hot module replacement (HMR) or live reload, it works through the preview. Changes you make in your editor trigger the same automatic refresh you would see in a local browser.
+
+## Limitations [#limitations]
+
+* WebSocket connections through the proxy depend on your server's WebSocket configuration
+* HTTPS localhost servers may require additional setup
+* The embedded browser view has standard web rendering capabilities but is not a full desktop browser
+
+
+# First Session (/docs/getting-started/first-session)
+
+
+
+When you launch Mate for the first time, you land in the workspace — the main area where all your sessions live. Let's walk through the basics.
+
+## The workspace [#the-workspace]
+
+The workspace has three main areas:
+
+* **Sidebar** (left): Lists your local device and any paired remote devices. Tap a device to switch context.
+* **Tab bar** (top): Shows your open sessions — terminals, editor tabs, agent chats, web previews, and more.
+* **Session area** (center): The active session's content fills this space.
+
+## Open a terminal [#open-a-terminal]
+
+Mate starts with a terminal tab by default. If you need another one:
+
+1. Click the &#x2A;*+** button in the tab bar
+2. Select **Terminal** from the dropdown
+3. A new terminal session opens with your default shell
+
+Each terminal is a full PTY session — it runs your actual shell (zsh, bash, fish, etc.) with complete support for colors, cursor movement, and interactive programs like `vim` or `top`.
+
+## Working with tabs [#working-with-tabs]
+
+Tabs appear along the top of the workspace. You can:
+
+* **Reorder** tabs by dragging them
+* **Close** a tab by clicking the X or using the keyboard shortcut
+* **Create** new tabs with the + button — choose from Terminal, Editor, IDE, Web Preview, or Project
+
+<Callout type="info">
+  Each tab type has its own purpose. Terminals run shells, the IDE opens project folders, Web Previews show localhost ports, and Agent Chat connects to AI coding assistants. See [Features](/docs/features/terminal) for details on each.
+</Callout>
+
+## Tab types at a glance [#tab-types-at-a-glance]
+
+| Tab         | What it does                                  |
+| ----------- | --------------------------------------------- |
+| Terminal    | Full PTY shell session                        |
+| Agent Chat  | AI assistant (Claude Code, Codex, Copilot)    |
+| IDE         | Multi-file editor with file tree              |
+| Editor      | Single-file editor                            |
+| Web Preview | View a localhost port through a reverse proxy |
+| Project     | Organize related sessions together            |
+
+## Try an AI agent [#try-an-ai-agent]
+
+If you have Claude Code, Codex, or Copilot CLI installed, you can start an agent chat:
+
+1. Click &#x2A;*+** in the tab bar
+2. Select **Agent Chat**
+3. Pick your preferred CLI from the dropdown
+4. Type a message and watch the agent work
+
+The agent can read files, run commands, search your codebase, and make edits — all within Mate's interface. See [Agent Chat](/docs/features/agent-chat) for the full guide.
+
+## Next steps [#next-steps]
+
+* [Pair a mobile device](/docs/getting-started/pairing-devices) to access your sessions from your phone
+* [Set up integrations](/docs/integrations/overview) to connect GitHub, Slack, databases, and more
+* [Explore features](/docs/features/terminal) to see everything Mate can do
+
+
+# Installation (/docs/getting-started/installation)
+
+
+
+Mate runs on macOS, Windows, and Linux. Mobile apps for iOS and Android are available for remote access to a paired desktop.
+
+## System requirements [#system-requirements]
+
+| Platform | Minimum OS                 | Architecture           |
+| -------- | -------------------------- | ---------------------- |
+| macOS    | 12.0 Monterey              | Intel or Apple Silicon |
+| Windows  | 10 (64-bit)                | x86\_64                |
+| Linux    | Ubuntu 22.04 or equivalent | x86\_64, ARM64         |
+| iOS      | 16.0                       | iPhone, iPad           |
+| Android  | 10 (API 29)                | ARM64, x86\_64         |
+
+## Download [#download]
+
+Grab the latest release for your platform from GitHub:
+
+<Cards>
+  <Card title="Download Mate" href="https://github.com/mqtik/mate-releases/releases">
+    All platforms — macOS .dmg, Windows .zip, Linux .tar.gz
+  </Card>
+</Cards>
+
+## Install by platform [#install-by-platform]
+
+<Tabs items="[&#x22;macOS&#x22;, &#x22;Windows&#x22;, &#x22;Linux&#x22;]">
+  <Tab value="macOS">
+    1. Download the `.dmg` file from the releases page
+    2. Open the `.dmg` and drag **Mate** into your Applications folder
+    3. Launch Mate from Applications — if macOS shows a security warning, go to **System Settings > Privacy & Security** and click **Open Anyway**
+    4. Mate bundles its own Node.js runtime, so you do not need Node installed separately
+  </Tab>
+
+  <Tab value="Windows">
+    1. Download the `.zip` file from the releases page
+    2. Extract the zip to a folder of your choice (e.g. `C:\Program Files\Mate`)
+    3. Run `Mate.exe` to launch
+    4. Node.js is bundled — no separate installation needed
+  </Tab>
+
+  <Tab value="Linux">
+    1. Download the `.tar.gz` file from the releases page
+    2. Extract it: `tar xzf mate-linux-*.tar.gz`
+    3. Run the `mate` binary from the extracted folder
+    4. Node.js is bundled with the app
+  </Tab>
+</Tabs>
+
+## Mobile apps [#mobile-apps]
+
+iOS and Android apps are available for pairing with a desktop running Mate. Mobile devices act as remote mirrors — they connect to your desktop over the local network and let you interact with your sessions from your phone or tablet.
+
+<Callout type="info">
+  Mobile devices do not run terminals or AI agents locally. They connect to a paired desktop that does the heavy lifting. See [Pairing Devices](/docs/getting-started/pairing-devices) for setup instructions.
+</Callout>
+
+## Verify the installation [#verify-the-installation]
+
+After launching Mate, you should see the workspace with a default terminal tab. Try typing a command to confirm everything works:
+
+```bash
+echo "Mate is ready"
+```
+
+If the terminal responds, you are good to go. Head to [First Session](/docs/getting-started/first-session) to learn the basics.
+
+
+# Pairing Devices (/docs/getting-started/pairing-devices)
+
+
+
+Mate lets you access your desktop sessions from any device on the same network. Your desktop is the server — it runs the terminals, AI agents, and editors. Paired devices are live mirrors that connect directly, with no cloud involved.
+
+## How pairing works [#how-pairing-works]
+
+Mate uses multicast UDP for automatic device discovery on your local network. When two devices running Mate are on the same Wi-Fi or LAN, they find each other automatically. No manual IP entry, no account creation, no cloud relay.
+
+<Steps>
+  ### Launch Mate on both devices [#launch-mate-on-both-devices]
+
+  Open Mate on your desktop and on the device you want to pair (phone, tablet, or another computer).
+
+  ### Wait for discovery [#wait-for-discovery]
+
+  Devices on the same network appear automatically in the sidebar within a few seconds. You will see the other device's name show up under the device list.
+
+  ### Tap to pair [#tap-to-pair]
+
+  Select the discovered device in the sidebar. The first connection establishes the pairing. Once paired, the device remembers the connection for future sessions.
+</Steps>
+
+## What paired devices can do [#what-paired-devices-can-do]
+
+Once paired, the remote device can:
+
+* View and interact with all terminal sessions running on the desktop
+* Chat with AI agents that are running on the desktop
+* Browse and edit files through the IDE
+* Preview web apps running on the desktop's localhost
+* Send and receive files
+
+<Callout type="warn">
+  Mobile devices (iOS/Android) do not run sessions locally. All terminals, agent chats, and IDE sessions live on the desktop. The mobile app is a remote viewer and controller.
+</Callout>
+
+## Network requirements [#network-requirements]
+
+* Both devices must be on the **same local network** (same Wi-Fi or LAN)
+* Mate uses TCP port **53317** by default for communication (configurable in Settings)
+* Multicast UDP must not be blocked by your router — most home and office networks allow it
+* No internet connection is required for pairing
+
+## Troubleshooting pairing [#troubleshooting-pairing]
+
+If devices don't discover each other:
+
+1. Confirm both devices are on the same Wi-Fi network
+2. Check that no firewall is blocking port 53317 (TCP) or multicast (UDP)
+3. On macOS, ensure Mate has local network permission in **System Settings > Privacy & Security > Local Network**
+4. Try restarting Mate on both devices — this triggers a fresh multicast scan
+5. If automatic discovery fails, check [Remote Troubleshooting](/docs/remote/troubleshooting) for manual connection options
+
+## Multiple devices [#multiple-devices]
+
+You can pair multiple devices with the same desktop. Each paired device appears in the sidebar, and switching between them shows that device's remote sessions. Your local device is always listed first.
+
+
+# Keyboard Shortcuts (/docs/reference/keyboard-shortcuts)
+
+
+
+These shortcuts work on macOS. On Windows and Linux, replace **Cmd** with **Ctrl**.
+
+## General [#general]
+
+| Action                 | Shortcut                                  |
+| ---------------------- | ----------------------------------------- |
+| New terminal tab       | `Cmd + T`                                 |
+| Close current tab      | `Cmd + W`                                 |
+| Switch to next tab     | `Cmd + Shift + ]` or `Ctrl + Tab`         |
+| Switch to previous tab | `Cmd + Shift + [` or `Ctrl + Shift + Tab` |
+| Open settings          | `Cmd + ,`                                 |
+| Toggle sidebar         | `Cmd + B`                                 |
+
+## Terminal [#terminal]
+
+| Action                        | Shortcut  |
+| ----------------------------- | --------- |
+| Copy selection                | `Cmd + C` |
+| Paste                         | `Cmd + V` |
+| Clear terminal                | `Cmd + K` |
+| Search in terminal            | `Cmd + F` |
+| Zoom in (increase font size)  | `Cmd + =` |
+| Zoom out (decrease font size) | `Cmd + -` |
+| Reset zoom                    | `Cmd + 0` |
+
+## Editor / IDE [#editor--ide]
+
+| Action           | Shortcut          |
+| ---------------- | ----------------- |
+| Save file        | `Cmd + S`         |
+| Find             | `Cmd + F`         |
+| Find and replace | `Cmd + H`         |
+| Undo             | `Cmd + Z`         |
+| Redo             | `Cmd + Shift + Z` |
+| Select all       | `Cmd + A`         |
+
+## Agent Chat [#agent-chat]
+
+| Action              | Shortcut        |
+| ------------------- | --------------- |
+| Send message        | `Enter`         |
+| New line in message | `Shift + Enter` |
+| Focus message input | `Cmd + L`       |
+
+<Callout type="info">
+  Keyboard shortcuts are primarily available on desktop platforms (macOS, Windows, Linux). Mobile devices use touch gestures instead.
+</Callout>
+
+
+# Settings (/docs/reference/settings)
+
+
+
+Access settings by clicking the gear icon or pressing `Cmd + ,` (macOS) / `Ctrl + ,` (Windows/Linux).
+
+## General [#general]
+
+### Port [#port]
+
+The TCP port Mate uses for device communication. Default is **53317**. Change this if the default port conflicts with another application. All paired devices must use the same port.
+
+### Theme [#theme]
+
+Choose between light, dark, or system theme. System follows your OS appearance setting.
+
+### Language [#language]
+
+Mate supports multiple interface languages. The default follows your system language.
+
+## Terminal [#terminal]
+
+### Default shell [#default-shell]
+
+The shell used for new terminal sessions. Mate detects your system's default shell automatically (e.g., zsh on macOS, bash on Linux). You can override this to use a different shell.
+
+### Font size [#font-size]
+
+The terminal font size in points. Adjustable via settings or with keyboard shortcuts (`Cmd + =` / `Cmd + -`).
+
+### Scrollback buffer [#scrollback-buffer]
+
+The number of lines kept in the terminal's scrollback history. Higher values use more memory but let you scroll back further through command output.
+
+## Connectors [#connectors]
+
+### Enabled connectors [#enabled-connectors]
+
+Toggle individual MCP connectors on or off. Each connector shows its name, category, and connection status.
+
+### Credentials [#credentials]
+
+Manage API keys and tokens for connectors. Credentials are stored in platform-native secure storage (Keychain on macOS, Credential Manager on Windows, Secret Service on Linux).
+
+### Command verification [#command-verification]
+
+Mate checks that the required command for each connector (usually `npx`) is available before enabling it. If a command is not found, Mate shows installation guidance.
+
+## Network [#network]
+
+### Device name [#device-name]
+
+The name other devices see when they discover your device on the network. Defaults to your computer's hostname.
+
+### Auto-discovery [#auto-discovery]
+
+Toggle multicast UDP discovery on or off. When enabled, Mate automatically finds other devices on the same network. When disabled, you need to connect manually.
+
+## Agent Chat [#agent-chat]
+
+### Default CLI [#default-cli]
+
+The AI CLI to use when creating new agent chat sessions. Options depend on which CLIs are installed on your system (Claude Code, Codex, Copilot).
+
+### MCP config generation [#mcp-config-generation]
+
+Mate automatically generates MCP configuration files that agent CLIs read at startup. This section shows which connectors will be passed to agent sessions and lets you configure additional settings.
+
+<Callout type="info">
+  Settings are stored locally on your device. They are not synced between devices — each device has its own configuration.
+</Callout>
+
+
+# Mobile Usage (/docs/remote/mobile)
+
+
+
+Mate on mobile gives you full access to your desktop's sessions from your phone or tablet. It is not a simplified version — you get the same terminals, agent chats, editors, and web previews, just optimized for a smaller screen.
+
+## Getting started on mobile [#getting-started-on-mobile]
+
+<Steps>
+  ### Install Mate [#install-mate]
+
+  Download Mate from the App Store (iOS) or Google Play (Android).
+
+  ### Connect to your desktop [#connect-to-your-desktop]
+
+  Make sure your phone and desktop are on the same Wi-Fi network. Open Mate on both devices. Your desktop should appear in the sidebar automatically within a few seconds.
+
+  ### Select your desktop [#select-your-desktop]
+
+  Tap your desktop in the sidebar. The workspace switches to show your desktop's sessions.
+</Steps>
+
+## What you can do [#what-you-can-do]
+
+### Terminals [#terminals]
+
+Full terminal access from your phone. The terminal renders with xterm emulation, supports scrollback, and handles interactive programs. The on-screen keyboard works for typing commands, and you can scroll through output history.
+
+### Agent chat [#agent-chat]
+
+Interact with AI agent sessions running on your desktop. Send messages, view streaming responses, and see tool use in real time. This is great for monitoring long-running agent tasks while away from your desk.
+
+### IDE and editor [#ide-and-editor]
+
+Browse your project's file tree and edit files. Changes save directly to the desktop's filesystem. The editor supports syntax highlighting and standard text editing gestures.
+
+### Web preview [#web-preview]
+
+View web apps running on your desktop's localhost. This is genuinely useful for mobile testing — see your responsive design on an actual phone screen, running from your actual dev server.
+
+### File transfer [#file-transfer]
+
+Send files from your phone to your desktop, or receive files from the desktop. Useful for sharing screenshots, photos, or documents without going through a cloud service.
+
+## Tips for mobile [#tips-for-mobile]
+
+* **Landscape mode** gives you more horizontal space for terminals and code editing
+* **Swipe** to switch between tabs
+* **Long press** for context menus on tabs and sessions
+* **Create sessions** from your phone — they are created on the desktop but you can interact with them immediately
+
+<Callout type="info">
+  Your phone does not run terminals, AI agents, or the IDE locally. All processing happens on the desktop. Your phone sends input and displays output over the network connection.
+</Callout>
+
+## Creating sessions remotely [#creating-sessions-remotely]
+
+You can create new terminals, agent chats, and other sessions from your phone. When you do, the session is created on the paired desktop — your phone just tells the desktop to start it. This means:
+
+* New terminals use the desktop's shell and filesystem
+* New agent chats use the desktop's CLI installations and MCP connectors
+* New IDE tabs browse the desktop's files
+
+## Network considerations [#network-considerations]
+
+Mobile works best on a stable Wi-Fi connection. The app handles temporary disconnections gracefully — if you walk out of range briefly and come back, it reconnects. For persistent connectivity issues, see [Troubleshooting](/docs/remote/troubleshooting).
+
+
+# Remote Sessions (/docs/remote/overview)
+
+
+
+Mate's remote feature lets you access your desktop's sessions from any paired device on the same network. Understanding the architecture helps you get the most out of it.
+
+## The mental model [#the-mental-model]
+
+Your **desktop** (Mac, Windows, or Linux) is the source of truth. It runs the server and owns all session state:
+
+* Terminal processes (PTY shells)
+* Agent chat sessions (CLI subprocesses)
+* IDE and editor state
+* Web preview proxies
+* File storage
+* MCP connector processes
+
+A **remote device** (phone, tablet, or another computer) is a paired mirror client. It does not run its own sessions. Instead, it connects to the desktop over the local network and presents a live view of the desktop's sessions.
+
+<Callout type="info">
+  Remote sessions are not copies. They are live mirrors. When you type in a terminal on your phone, the keystrokes go to the desktop's shell process, and the output streams back to your phone in real time.
+</Callout>
+
+## What remote devices can do [#what-remote-devices-can-do]
+
+From a remote device, you can:
+
+* **View and interact** with all terminal sessions on the desktop
+* **Chat with AI agents** running on the desktop
+* **Browse and edit files** through the IDE
+* **Preview web apps** running on the desktop's localhost
+* **Create new sessions** — these are created on the desktop, not on the remote device
+* **Send and receive files** between devices
+
+## How it connects [#how-it-connects]
+
+Mate uses direct TCP connections over your local network. The default port is **53317**. Device discovery happens automatically via multicast UDP — no manual IP configuration needed.
+
+The connection flow:
+
+1. Both devices run Mate on the same network
+2. Multicast discovery finds nearby devices automatically
+3. Selecting a device in the sidebar establishes a TCP connection
+4. All session data flows directly between devices — no cloud relay
+
+## Device switching [#device-switching]
+
+The sidebar lists your local device and all paired remote devices. Tapping a device switches the workspace to show that device's sessions:
+
+* **Local device selected**: workspace shows your local terminals, chats, editors
+* **Remote device selected**: workspace shows that remote device's sessions
+
+Every UI component — tabs, projects, terminal lists — filters based on which device is currently selected.
+
+## Security [#security]
+
+All communication happens on your local network. No data leaves your network, no accounts are required, and no cloud services are involved. Device pairing is based on trust within your local network.
+
+## Platform capabilities [#platform-capabilities]
+
+| Capability            | Desktop              | Mobile                               |
+| --------------------- | -------------------- | ------------------------------------ |
+| Run terminal sessions | Yes (local)          | No (remote mirror only)              |
+| Run AI agent CLIs     | Yes (local)          | No (remote mirror only)              |
+| Edit files            | Yes (local)          | Yes (remote, edits saved to desktop) |
+| Web preview           | Yes (local + remote) | Yes (remote)                         |
+| File transfer         | Yes (send + receive) | Yes (send + receive)                 |
+| Create sessions       | Yes (local)          | Yes (created on paired desktop)      |
+
+
+# Remote Troubleshooting (/docs/remote/troubleshooting)
+
+
+
+Most remote connection problems come down to network configuration. Here are the common issues and their fixes.
+
+## Devices not discovering each other [#devices-not-discovering-each-other]
+
+**Symptom**: You open Mate on both devices, but they do not appear in each other's sidebar.
+
+**Fixes**:
+
+1. **Same network**: Confirm both devices are on the exact same Wi-Fi network. Some routers have separate 2.4GHz and 5GHz networks — make sure both devices are on the same one.
+
+2. **Multicast blocking**: Mate uses multicast UDP for discovery. Some enterprise networks, guest networks, and mesh routers block multicast traffic. Try a different network or check your router's settings.
+
+3. **macOS local network permission**: On macOS, go to **System Settings > Privacy & Security > Local Network** and make sure Mate is allowed.
+
+4. **Firewall**: Check that no firewall is blocking:
+   * TCP port **53317** (or your configured port)
+   * Multicast UDP traffic
+
+5. **Restart both apps**: Close and reopen Mate on both devices. This triggers a fresh multicast scan.
+
+## Connection drops [#connection-drops]
+
+**Symptom**: Devices pair successfully but the connection drops intermittently.
+
+**Fixes**:
+
+1. **Wi-Fi stability**: Check signal strength on both devices. Weak Wi-Fi causes intermittent TCP disconnections.
+
+2. **Sleep/standby**: When a device sleeps, the network connection drops. Mate reconnects automatically when the device wakes, but there may be a brief delay.
+
+3. **Network switching**: If your phone switches between Wi-Fi and cellular, the connection drops. Make sure your phone stays on Wi-Fi.
+
+<Callout type="info">
+  Mate uses exponential backoff for reconnection attempts. If the connection drops, it will try to reconnect automatically — starting at 10 seconds and backing off to 80 seconds between attempts.
+</Callout>
+
+## Terminal lag [#terminal-lag]
+
+**Symptom**: Typing in a remote terminal feels slow or laggy.
+
+**Fixes**:
+
+1. **Network latency**: Remote terminals depend on network round-trip time. On a typical home Wi-Fi network, latency should be under 10ms. If it feels slow, check your network quality.
+
+2. **High output programs**: Programs that produce large amounts of output (e.g., `cat` on a huge file, `find /` without filters) can cause temporary lag as the data streams over the network.
+
+3. **Try restarting the session**: Close the terminal tab and open a new one. Occasionally a session can get into a degraded state.
+
+## Port conflicts [#port-conflicts]
+
+**Symptom**: Mate fails to start or pair, with errors about port 53317.
+
+**Fix**: Another application is using port 53317. You can change Mate's port in **Settings**. Make sure both devices use the same port.
+
+```bash
+# Check what is using port 53317 on macOS/Linux
+lsof -i :53317
+```
+
+## Web preview not loading [#web-preview-not-loading]
+
+**Symptom**: Web preview tab shows a blank page or connection error.
+
+**Fixes**:
+
+1. **Server running**: Make sure your dev server is actually running on the specified port on the desktop
+2. **Localhost binding**: Some dev servers bind to `127.0.0.1` only. Mate's reverse proxy handles this, but check that the server is running
+3. **Port number**: Double-check you entered the correct port number in the web preview tab
+
+## Agent chat not connecting remotely [#agent-chat-not-connecting-remotely]
+
+**Symptom**: You can see agent chat tabs from a remote device but cannot send messages or see updates.
+
+**Fixes**:
+
+1. **CLI installed on desktop**: The AI CLI (Claude Code, Codex, etc.) must be installed on the desktop, not the remote device
+2. **Process running**: Check that the agent chat process is still running on the desktop — it may have exited due to an error
+3. **Reconnect**: Switch away from the remote device in the sidebar and switch back to force a reconnection
+
+## Still stuck? [#still-stuck]
+
+If none of the above fixes your issue:
+
+* Check the app logs for error messages
+* Try pairing on a different network (e.g., a phone hotspot) to isolate whether the issue is network-specific
+* Verify that both devices are running the same version of Mate
+
+
+# Claude Code Integration (/docs/integrations/claude-code)
+
+
+
+Claude Code is the most deeply integrated AI CLI in Mate. Unlike Codex and Copilot (which run one-shot), Claude Code maintains a persistent process with multi-turn conversation support, making it feel like a native part of the app.
+
+## How it works [#how-it-works]
+
+When you start an agent chat with Claude Code:
+
+1. Mate spawns the `claude` CLI with `--input-format stream-json` for streaming communication
+2. The process stays alive for the entire conversation — follow-up messages go through stdin
+3. Responses stream back in real time with text, tool calls, and results
+4. MCP connectors are passed via a generated config file
+
+This long-lived process model means there is no multi-second delay between messages. After the initial startup, follow-ups are instant.
+
+## Requirements [#requirements]
+
+You need the Claude Code CLI installed on your system:
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+Mate detects available CLIs automatically. If `claude` is in your PATH, it appears as an option when creating an agent chat.
+
+## Features in Mate [#features-in-mate]
+
+### Streaming responses [#streaming-responses]
+
+Text and tool use stream in real time. You see the agent's thinking as it happens, not just the final result.
+
+### Tool use visualization [#tool-use-visualization]
+
+When Claude Code calls tools, Mate shows them as interactive chips with context:
+
+* **File reads** show the filename
+* **Shell commands** show the actual command being run
+* **Searches** show the query
+* **File edits** show the file being modified, with inline diffs
+
+### Conversation persistence [#conversation-persistence]
+
+Conversations persist across app restarts. You can close Mate, reopen it, and resume where you left off.
+
+### Conversation forking [#conversation-forking]
+
+Fork a conversation at any point to explore a different approach without losing the original thread. This is useful for trying alternative solutions.
+
+### MCP connector passthrough [#mcp-connector-passthrough]
+
+All enabled [MCP connectors](/docs/integrations/overview) are automatically available to Claude Code. Mate generates an MCP config file that the CLI reads at startup, giving the agent access to GitHub, databases, search engines, and every other connector you have configured.
+
+<Callout type="info">
+  Mate handles the MCP config file generation automatically. You do not need to manually configure Claude Code's MCP settings — just enable connectors in Mate's settings and they are available in every agent chat.
+</Callout>
+
+### Tool approval [#tool-approval]
+
+Some tool calls require your approval before execution. Mate shows a permission prompt for sensitive operations, letting you review and approve or deny before the agent proceeds.
+
+## Remote usage [#remote-usage]
+
+Claude Code sessions are accessible from paired remote devices. The CLI process runs on the desktop, and the remote device sends input and receives output over the network. You can start a conversation on your Mac and continue interacting with it from your phone.
+
+## Tips [#tips]
+
+* Use conversation forking when you want to try a different approach
+* Enable relevant MCP connectors before starting a chat so the agent has access to your tools from the first message
+* Long-running tasks continue working even when you switch to another tab
+
+
+# Connector List (/docs/integrations/connector-list)
+
+
+
+Mate ships with a full library of connectors across eight categories. Each connector runs locally on your machine and exposes tools that AI agents can use during chat.
+
+## Built-in [#built-in]
+
+These connectors are bundled with Mate and require no setup.
+
+| Connector   | Description                                                                    |
+| ----------- | ------------------------------------------------------------------------------ |
+| Mate Canvas | Display self-contained HTML/JS/CSS in a sandboxed canvas panel beside the chat |
+
+## Dev Tools [#dev-tools]
+
+Tools for software development, deployment, and infrastructure.
+
+| Connector           | Description                                            |
+| ------------------- | ------------------------------------------------------ |
+| GitHub              | Manage repositories, issues, and pull requests         |
+| GitLab              | Manage projects, merge requests, and CI/CD pipelines   |
+| Git                 | Local git operations on your repositories              |
+| Filesystem          | Read and write files on the local filesystem           |
+| Fetch               | Make HTTP requests to any URL                          |
+| Memory              | Persistent key-value memory for agent conversations    |
+| Sequential Thinking | Structured step-by-step reasoning for complex problems |
+| Time                | Get current time and perform time calculations         |
+| Puppeteer           | Browser automation and web scraping                    |
+| Playwright          | Cross-browser testing and automation                   |
+| Context7            | Context-aware code search and documentation lookup     |
+| ESLint              | JavaScript/TypeScript linting and code quality         |
+| Kubernetes          | Manage pods, deployments, and cluster resources        |
+| Desktop Commander   | Execute desktop commands and automation                |
+| Sentry              | Error tracking and performance monitoring              |
+| Cloudflare          | Manage Workers, DNS, and CDN configuration             |
+| Vercel              | Deploy and manage Vercel projects                      |
+| Netlify             | Deploy and manage Netlify sites                        |
+| Docker              | Manage containers, images, and compose stacks          |
+| E2B                 | Run code in sandboxed cloud environments               |
+| Grafana             | Query dashboards and visualize metrics                 |
+| Datadog             | Monitor infrastructure and application performance     |
+| PagerDuty           | Manage incidents and on-call schedules                 |
+| AWS                 | Manage AWS services and resources                      |
+| Azure DevOps        | Manage Azure repos, pipelines, and boards              |
+| Mermaid Diagrams    | Generate diagrams from text descriptions               |
+| Screenshot          | Capture screenshots of URLs or the desktop             |
+| Namecheap           | Manage domains and DNS records                         |
+
+## Databases [#databases]
+
+Connectors for databases and data storage.
+
+| Connector     | Description                                |
+| ------------- | ------------------------------------------ |
+| Postgres      | Query and manage PostgreSQL databases      |
+| SQLite        | Query and manage SQLite databases          |
+| MongoDB       | Query and manage MongoDB collections       |
+| Supabase      | Manage Supabase projects, tables, and auth |
+| Qdrant        | Vector search and similarity queries       |
+| MySQL         | Query and manage MySQL databases           |
+| Neon          | Serverless Postgres database management    |
+| Upstash       | Serverless Redis and Kafka                 |
+| Turso         | Edge SQLite database management            |
+| Elasticsearch | Full-text search and analytics             |
+| Pinecone      | Vector database for embeddings             |
+| Snowflake     | Cloud data warehouse queries               |
+| Airtable      | Manage Airtable bases and records          |
+| BigQuery      | Google BigQuery data warehouse queries     |
+| CouchDB       | Manage CouchDB databases and documents     |
+
+## Search & Web [#search--web]
+
+Web search and content retrieval.
+
+| Connector    | Description                                      |
+| ------------ | ------------------------------------------------ |
+| Brave Search | Web search via Brave's search API                |
+| Exa          | AI-powered semantic web search                   |
+| Tavily       | AI-optimized web search and content extraction   |
+| Firecrawl    | Web scraping and content crawling                |
+| Apify        | Web scraping and browser automation at scale     |
+| Google Maps  | Location data, directions, and place information |
+
+## Productivity [#productivity]
+
+Project management, notes, and team collaboration.
+
+| Connector                     | Description                                         |
+| ----------------------------- | --------------------------------------------------- |
+| Slack                         | Send messages and manage Slack channels             |
+| Notion                        | Search, read, and manage Notion pages and databases |
+| Linear                        | Create and manage issues, projects, and cycles      |
+| Google Workspace              | Gmail, Drive, Docs, and Sheets                      |
+| Todoist                       | Task management and to-do lists                     |
+| Atlassian (Jira + Confluence) | Issue tracking and team documentation               |
+| Asana                         | Project and task management                         |
+| ClickUp                       | Project management and team collaboration           |
+| Trello                        | Kanban boards and task tracking                     |
+| Obsidian                      | Manage Obsidian vault notes and searches            |
+| Google Calendar               | Manage calendar events and schedules                |
+| Resend                        | Send transactional emails                           |
+| Mailgun                       | Email delivery and management                       |
+| 1Password                     | Secure credential and secret management             |
+
+## Social & Communication [#social--communication]
+
+Social media and messaging platforms.
+
+| Connector           | Description                                          |
+| ------------------- | ---------------------------------------------------- |
+| X (Twitter)         | Post tweets, read timelines, and manage your account |
+| Discord             | Send messages and manage Discord servers             |
+| Reddit              | Browse subreddits, read posts, and manage comments   |
+| Telegram            | Send messages and manage Telegram chats              |
+| WhatsApp            | Send and receive WhatsApp messages                   |
+| YouTube             | Search videos, manage channels, and read comments    |
+| Instagram           | Manage posts and interactions                        |
+| Facebook (Meta Ads) | Manage Facebook ad campaigns                         |
+
+## Commerce [#commerce]
+
+E-commerce, CRM, and payment platforms.
+
+| Connector    | Description                                      |
+| ------------ | ------------------------------------------------ |
+| Stripe       | Manage payments, subscriptions, and customers    |
+| Shopify      | Manage products, orders, and store configuration |
+| MercadoLibre | Manage listings and orders on MercadoLibre       |
+| HubSpot      | CRM, marketing, and sales management             |
+| Salesforce   | CRM and sales pipeline management                |
+
+## AI & Media [#ai--media]
+
+Image generation, media processing, and design tools.
+
+| Connector                         | Description                                  |
+| --------------------------------- | -------------------------------------------- |
+| Gemini Image (Nano Banana)        | Generate images using Google Gemini          |
+| OpenAI Image (DALL-E / GPT Image) | Generate and edit images with DALL-E         |
+| Stability AI (Stable Diffusion)   | Generate images with Stable Diffusion models |
+| Replicate                         | Run hosted ML models on demand               |
+| fal.ai                            | Fast inference for generative AI models      |
+| ElevenLabs                        | Text-to-speech and voice synthesis           |
+| MiniMax                           | AI model inference and generation            |
+| Image Reader                      | Extract text and data from images            |
+| MCP Images                        | Image processing and manipulation via MCP    |
+| FFmpeg Media                      | Audio and video processing and conversion    |
+| Figma                             | Read and manage Figma design files           |
+| Magic UI (21st.dev)               | AI-powered UI component generation           |
+
+
+# Connector Setup (/docs/integrations/connector-setup)
+
+
+
+Setting up a connector takes about a minute. Here is the process from start to finish.
+
+## Installation [#installation]
+
+<Steps>
+  ### Open Settings [#open-settings]
+
+  Go to the Settings tab in Mate and find the **Connectors** section.
+
+  ### Browse connectors [#browse-connectors]
+
+  You will see the full list of available connectors organized by category. Each connector shows its name, description, and what credentials it needs.
+
+  ### Select a connector [#select-a-connector]
+
+  Click on the connector you want to enable. For example, **GitHub**.
+
+  ### Enter credentials [#enter-credentials]
+
+  Most connectors require an API key or token. The setup form shows:
+
+  * What credential is needed (e.g., "Personal Access Token")
+  * A link to where you can create one (e.g., GitHub's token settings page)
+  * Guidance on what permissions/scopes to grant
+
+  Enter your credentials and save. They are stored locally in encrypted storage on your device.
+
+  ### Enable the connector [#enable-the-connector]
+
+  Toggle the connector on. Mate verifies that the required command (usually `npx`) is available and that the connector can start.
+</Steps>
+
+## Verifying a connector [#verifying-a-connector]
+
+After enabling a connector, you can verify it works by:
+
+1. Opening a new **Agent Chat** tab
+2. Asking the agent to use a tool from that connector
+
+For example, with the GitHub connector enabled, ask: "List my open pull requests." If the agent successfully calls the GitHub tools, the connector is working.
+
+## Command resolution [#command-resolution]
+
+Connectors typically run via `npx` (Node.js package runner). Mate resolves commands in this order:
+
+1. **Bundled runtime** — Mate includes its own Node.js, so `npx` works without a system Node.js installation
+2. **System PATH** — falls back to your system's Node.js if the bundled one is unavailable
+
+<Callout type="info">
+  You do not need Node.js installed on your system. Mate bundles a complete Node.js runtime on macOS, Windows, and Linux.
+</Callout>
+
+## Credential storage [#credential-storage]
+
+Credentials are stored locally on your device using platform-native secure storage. They are never sent to any server — only passed as environment variables to the connector process running on your machine.
+
+To update or remove credentials, go back to the connector's settings page.
+
+## Disabling a connector [#disabling-a-connector]
+
+Toggle the connector off in Settings. The connector process stops, and the agent can no longer use its tools. Your credentials remain saved so you can re-enable it without re-entering them.
+
+## Troubleshooting [#troubleshooting]
+
+* **Connector fails to start**: Check that no firewall or security tool is blocking the `npx` process
+* **Tools not appearing in chat**: Restart the agent chat session after enabling a new connector
+* **Authentication errors**: Verify your API key/token is correct and has the required permissions
+* **Timeout errors**: Some connectors take a few seconds to initialize on first run as `npx` downloads the package
+
+
+# Custom Connectors (/docs/integrations/custom-connectors)
+
+
+
+Beyond the built-in connectors, you can add any MCP-compatible server as a custom connector. If you have built your own MCP server or want to use one from the community that is not in Mate's registry, you can configure it manually.
+
+## What you need [#what-you-need]
+
+A custom connector requires:
+
+* An **MCP server** that speaks the Model Context Protocol over stdio (stdin/stdout)
+* A **command** to start it (e.g., `npx`, `node`, `python`, or a binary path)
+* Any **arguments** the command needs
+* Any **environment variables** for configuration (API keys, etc.)
+
+## Adding a custom connector [#adding-a-custom-connector]
+
+Custom connectors are configured as MCP servers that Mate passes to the agent CLI at startup.
+
+<Steps>
+  ### Prepare your MCP server [#prepare-your-mcp-server]
+
+  Make sure your server runs correctly from the command line. Test it independently first:
+
+  ```bash
+  echo '{"jsonrpc":"2.0","method":"initialize","id":1,"params":{"capabilities":{}}}' | npx your-mcp-server
+  ```
+
+  ### Configure in Mate [#configure-in-mate]
+
+  Add the connector configuration in Mate's settings. You will need to provide:
+
+  * **Name**: A display name for the connector
+  * **Command**: The command to run (e.g., `npx`, `node`, `python`)
+  * **Arguments**: Command arguments (e.g., `-y @your-org/mcp-server`)
+  * **Environment variables**: Any API keys or config values the server needs
+
+  ### Test the connector [#test-the-connector]
+
+  Open a new agent chat and ask the agent to list available tools. Your custom connector's tools should appear in the list.
+</Steps>
+
+## Examples [#examples]
+
+### Node.js MCP server via npx [#nodejs-mcp-server-via-npx]
+
+If your server is published to npm:
+
+* **Command**: `npx`
+* **Args**: `-y @your-org/your-mcp-server`
+* **Env**: Any required variables like `API_KEY`
+
+### Local Node.js script [#local-nodejs-script]
+
+If your server is a local file:
+
+* **Command**: `node`
+* **Args**: `/path/to/your/server.js`
+* **Env**: Any required variables
+
+### Python MCP server [#python-mcp-server]
+
+If your server is written in Python:
+
+* **Command**: `python`
+* **Args**: `-m your_mcp_server`
+* **Env**: Any required variables
+
+<Callout type="info">
+  Mate bundles Node.js, so `npx` and `node` commands work without a system Node.js installation. For Python-based servers, you need Python installed on your system.
+</Callout>
+
+## Building your own MCP server [#building-your-own-mcp-server]
+
+If you want to build a custom MCP server, the protocol is straightforward:
+
+1. Read JSON-RPC messages from stdin
+2. Process tool calls and return results
+3. Write JSON-RPC responses to stdout
+
+The [MCP specification](https://modelcontextprotocol.io) has full details on the protocol, tool definitions, and message formats. There are SDKs available for TypeScript, Python, and other languages that handle the protocol boilerplate.
+
+## Sharing connectors [#sharing-connectors]
+
+If you build a connector that others might find useful, consider publishing it to npm (for Node.js) or PyPI (for Python). The MCP ecosystem is growing, and community servers are easy to distribute as packages.
+
+
+# Integrations Overview (/docs/integrations/overview)
+
+
+
+Mate ships with a full library of integrations built on the &#x2A;*Model Context Protocol (MCP)**. These connectors let your AI agents interact with external services — GitHub, Slack, databases, cloud providers, and more — directly from agent chat.
+
+## What is MCP? [#what-is-mcp]
+
+The Model Context Protocol is an open standard for connecting AI assistants to external tools. Each MCP connector runs as a local process that speaks a standardized protocol over stdin/stdout. The connector exposes "tools" that the AI agent can call — like creating a GitHub issue, querying a database, or sending a Slack message.
+
+## How connectors work in Mate [#how-connectors-work-in-mate]
+
+When you enable a connector in Mate:
+
+1. Mate stores your credentials locally (API keys, tokens) in encrypted storage on your device
+2. When you start an agent chat, Mate spawns the connector process and passes it to the CLI as an MCP server
+3. The AI agent discovers the connector's tools and can call them during the conversation
+4. The connector process runs locally on your machine — credentials never leave your device
+
+<Callout type="info">
+  Mate bundles its own Node.js runtime, so most connectors work out of the box without you needing to install Node.js separately. The bundled runtime handles `npx` commands that connectors use to start.
+</Callout>
+
+## What connectors enable [#what-connectors-enable]
+
+With connectors, your AI agent can:
+
+* **Read and write code** on GitHub, GitLab, or Bitbucket
+* **Manage projects** in Linear, Jira, Asana, or Trello
+* **Query databases** like Postgres, MySQL, MongoDB, or Redis
+* **Search the web** via Brave Search, Exa, or Tavily
+* **Send messages** on Slack, Discord, or Telegram
+* **Manage infrastructure** on AWS, Cloudflare, Vercel, or Kubernetes
+* **Generate images** with DALL-E, Stable Diffusion, or fal.ai
+* And much more — see the [full connector list](/docs/integrations/connector-list)
+
+## Transport types [#transport-types]
+
+Most connectors use **stdio** transport — Mate spawns a local process and communicates over stdin/stdout. A few built-in connectors (like Mate Canvas) are handled directly by the app without spawning a separate process.
+
+## Next steps [#next-steps]
+
+* [Set up a connector](/docs/integrations/connector-setup) — step-by-step guide
+* [Browse all connectors](/docs/integrations/connector-list) — full list by category
+* [Claude Code integration](/docs/integrations/claude-code) — detailed guide for the most popular CLI
+* [Custom connectors](/docs/integrations/custom-connectors) — add your own MCP servers
+
+
+# Skills (/docs/integrations/skills)
+
+
+
+Skills are reusable prompt templates and commands that you install into your AI coding CLIs. They add slash commands, specialized behaviors, and domain-specific knowledge to your agent chat sessions — like plugins for your AI assistant.
+
+For example, a "code review" skill might add a `/review` command that instructs the agent to follow a specific review checklist. A "testing" skill might add `/test-spec` that generates tests from a specification file. Skills encode best practices into repeatable, shareable commands.
+
+## How skills work [#how-skills-work]
+
+When you install a skill, Mate places it in the appropriate directory for each CLI:
+
+| CLI         | Skill directory    |
+| ----------- | ------------------ |
+| Claude Code | `.claude/skills/`  |
+| Codex       | `.codex/skills/`   |
+| Copilot     | `.copilot/skills/` |
+| Shared      | `.mate/skills/`    |
+
+Skills installed through Mate are symlinked across CLI directories, so a single skill works with all your agents without duplication. Install it once, use it everywhere.
+
+Each skill is a markdown file that contains the prompt template and metadata the CLI uses to register it as a slash command.
+
+## Browsing the marketplace [#browsing-the-marketplace]
+
+<Steps>
+  ### Open Settings [#open-settings]
+
+  Go to the **Settings** tab in Mate.
+
+  ### Navigate to Skills [#navigate-to-skills]
+
+  Find the **Skills** section. This shows the marketplace — a browsable list of available skills organized by category.
+
+  ### Browse and preview [#browse-and-preview]
+
+  Each skill shows its name, description, and what slash commands it adds. You can preview the full prompt template before installing.
+
+  ### Install [#install]
+
+  Tap **Install** on any skill. Mate downloads it and symlinks it into the appropriate CLI directories. The skill is immediately available in your next agent chat session.
+</Steps>
+
+## Using skills in chat [#using-skills-in-chat]
+
+Once installed, skills appear as slash commands in agent chat. Type `/` in the composer to see available commands. Select one to invoke the skill — the prompt template is sent to the agent, which follows its instructions.
+
+Some skills are fire-and-forget (run a single task), while others are interactive (the agent asks follow-up questions based on the skill's template).
+
+## Skill structure [#skill-structure]
+
+A skill is a markdown file with frontmatter metadata:
+
+```markdown
+---
+name: review-code
+description: Review code changes with a structured checklist
+---
+
+Review the staged changes in this repository. For each file, check:
+1. Are there any obvious bugs?
+2. Is error handling adequate?
+3. Are there any security concerns?
+
+Provide your review as a structured list.
+```
+
+The CLI reads the frontmatter to register the slash command, and uses the body as the prompt template when invoked.
+
+## Managing installed skills [#managing-installed-skills]
+
+In the Skills section of Settings, you can see all installed skills and:
+
+* **Uninstall** a skill to remove it from all CLI directories
+* **Update** a skill if a newer version is available in the marketplace
+* **View details** to see the full prompt template
+
+## Custom skills [#custom-skills]
+
+You can create your own skills by placing markdown files directly in `.mate/skills/` or the CLI-specific skill directories. Custom skills follow the same format as marketplace skills and appear alongside them in the slash command list.
+
+This is useful for team-specific workflows — write a skill once, share the file, and everyone on the team gets the same commands.

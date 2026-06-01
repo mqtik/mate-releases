@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "providers": {
+    "claude": {
+      "models": [
+        {
+          "id": "sonnet",
+          "label": "Sonnet 4.6",
+          "contextWindow": 200000,
+          "maxOutput": 64000,
+          "pricing": { "input": 3.0, "output": 15.0, "cacheRead": 0.30 }
+        },
+        {
+          "id": "sonnet[1m]",
+          "label": "Sonnet 4.6 (1M context)",
+          "contextWindow": 1000000,
+          "maxOutput": 64000,
+          "pricing": { "input": 6.0, "output": 22.5, "cacheRead": 0.60 }
+        },
+        {
+          "id": "opus",
+          "label": "Opus 4.8",
+          "contextWindow": 200000,
+          "maxOutput": 128000,
+          "pricing": { "input": 5.0, "output": 25.0, "cacheRead": 0.50 }
+        },
+        {
+          "id": "opus[1m]",
+          "label": "Opus 4.8 (1M context)",
+          "contextWindow": 1000000,
+          "maxOutput": 128000,
+          "pricing": { "input": 10.0, "output": 37.5, "cacheRead": 1.0 }
+        },
+        {
+          "id": "haiku",
+          "label": "Haiku 4.5",
+          "contextWindow": 200000,
+          "maxOutput": 64000,
+          "pricing": { "input": 1.0, "output": 5.0, "cacheRead": 0.10 }
+        }
+      ],
+      "matchRules": [
+        { "pattern": "opus-4-8|opus-4\\.8", "contextWindow": 200000, "maxOutput": 128000, "pricing": { "input": 5.0, "output": 25.0, "cacheRead": 0.50 } },
+        { "pattern": "opus-4-6|opus-4\\.6|mythos", "contextWindow": 200000, "maxOutput": 128000, "pricing": { "input": 5.0, "output": 25.0, "cacheRead": 0.50 } },
+        { "pattern": "opus-4-5|opus-4\\.5", "contextWindow": 200000, "maxOutput": 64000, "pricing": { "input": 5.0, "output": 25.0, "cacheRead": 0.50 } },
+        { "pattern": "opus-4-1|opus-4\\.1", "contextWindow": 200000, "maxOutput": 32000, "pricing": { "input": 15.0, "output": 75.0, "cacheRead": 1.50 } },
+        { "pattern": "opus-4-0|opus-4(?!\\.|\\d)", "contextWindow": 200000, "maxOutput": 32000, "pricing": { "input": 15.0, "output": 75.0, "cacheRead": 1.50 } },
+        { "pattern": "sonnet-4-6|sonnet-4\\.6", "contextWindow": 200000, "maxOutput": 64000, "pricing": { "input": 3.0, "output": 15.0, "cacheRead": 0.30 } },
+        { "pattern": "sonnet-4-5|sonnet-4\\.5", "contextWindow": 200000, "maxOutput": 64000, "pricing": { "input": 3.0, "output": 15.0, "cacheRead": 0.30 } },
+        { "pattern": "sonnet-4|sonnet-3\\.7", "contextWindow": 200000, "maxOutput": 64000, "pricing": { "input": 3.0, "output": 15.0, "cacheRead": 0.30 } },
+        { "pattern": "haiku-4\\.5|haiku-4-5", "contextWindow": 200000, "maxOutput": 64000, "pricing": { "input": 1.0, "output": 5.0, "cacheRead": 0.10 } },
+        { "pattern": "haiku-3", "contextWindow": 200000, "maxOutput": 4096, "pricing": { "input": 0.25, "output": 1.25, "cacheRead": 0.03 } },
+        { "pattern": "claude|opus|sonnet|haiku", "contextWindow": 200000, "maxOutput": 64000 }
+      ]
+    },
+    "codex": {
+      "models": [
+        {
+          "id": "gpt-5.5",
+          "label": "GPT-5.5",
+          "contextWindow": 200000,
+          "maxOutput": 100000
+        },
+        {
+          "id": "gpt-5.4",
+          "label": "GPT-5.4",
+          "contextWindow": 200000,
+          "maxOutput": 100000
+        },
+        {
+          "id": "gpt-5.4-mini",
+          "label": "GPT-5.4 Mini",
+          "contextWindow": 200000,
+          "maxOutput": 100000
+        },
+        {
+          "id": "gpt-5.3-codex",
+          "label": "GPT-5.3 Codex",
+          "contextWindow": 200000,
+          "maxOutput": 100000
+        },
+        {
+          "id": "gpt-5.3-codex-spark",
+          "label": "GPT-5.3 Codex Spark",
+          "contextWindow": 200000,
+          "maxOutput": 100000
+        },
+        {
+          "id": "gpt-5.2",
+          "label": "GPT-5.2",
+          "contextWindow": 200000,
+          "maxOutput": 100000
+        }
+      ],
+      "matchRules": [
+        { "pattern": "gpt-5", "contextWindow": 200000, "maxOutput": 100000 },
+        { "pattern": "o1|o3|o4", "contextWindow": 200000, "maxOutput": 100000 },
+        { "pattern": "gpt-4o", "contextWindow": 128000, "maxOutput": 16384 },
+        { "pattern": "gpt-4", "contextWindow": 128000, "maxOutput": 8192 },
+        { "pattern": "gpt-3\\.5", "contextWindow": 16385, "maxOutput": 4096 },
+        { "pattern": "codex", "contextWindow": 200000, "maxOutput": 100000 }
+      ]
+    },
+    "copilot": {
+      "models": [
+        {
+          "id": "gpt-5-mini",
+          "label": "GPT-5 mini",
+          "contextWindow": 200000,
+          "maxOutput": 64000
+        },
+        {
+          "id": "gpt-4.1",
+          "label": "GPT-4.1",
+          "contextWindow": 128000,
+          "maxOutput": 32000
+        },
+        {
+          "id": "claude-haiku-4.5",
+          "label": "Claude Haiku 4.5",
+          "contextWindow": 200000,
+          "maxOutput": 64000,
+          "pricing": { "input": 1.0, "output": 5.0, "cacheRead": 0.10 }
+        }
+      ],
+      "matchRules": [
+        { "pattern": "gpt-5", "contextWindow": 200000, "maxOutput": 64000 },
+        { "pattern": "gpt-4\\.1|gpt-4o", "contextWindow": 128000, "maxOutput": 32000 },
+        { "pattern": "gpt-4", "contextWindow": 128000, "maxOutput": 8192 },
+        { "pattern": "claude|haiku|sonnet|opus", "contextWindow": 200000, "maxOutput": 64000 },
+        { "pattern": "gemini-2|gemini-1\\.5-pro", "contextWindow": 1000000, "maxOutput": 64000 },
+        { "pattern": "gemini", "contextWindow": 128000, "maxOutput": 32000 }
+      ]
+    }
+  }
+}

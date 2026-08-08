@@ -2,50 +2,53 @@
 
 
 
-Mate ships with a full library of connectors across eight categories. Each connector runs locally on your machine and exposes tools that AI agents can use during chat.
+Gent ships with a full library of connectors across eight categories. Each connector runs locally on your machine and exposes tools that AI agents can use during chat.
 
 ## Built-in [#built-in]
 
-These connectors are bundled with Mate and require no setup.
+These connectors are bundled with Gent and require no setup.
 
-| Connector   | Description                                                                    |
-| ----------- | ------------------------------------------------------------------------------ |
-| Mate Canvas | Display self-contained HTML/JS/CSS in a sandboxed canvas panel beside the chat |
+| Connector        | Description                                                                    |
+| ---------------- | ------------------------------------------------------------------------------ |
+| Gent Canvas      | Display self-contained HTML/JS/CSS in a sandboxed canvas panel beside the chat |
+| Gent Automations | Create, manage, and trigger automations and reminders from chat                |
+| Gent Forge       | Generate and register custom MCP servers with `/connect anything`              |
 
 ## Dev Tools [#dev-tools]
 
 Tools for software development, deployment, and infrastructure.
 
-| Connector           | Description                                            |
-| ------------------- | ------------------------------------------------------ |
-| GitHub              | Manage repositories, issues, and pull requests         |
-| GitLab              | Manage projects, merge requests, and CI/CD pipelines   |
-| Git                 | Local git operations on your repositories              |
-| Filesystem          | Read and write files on the local filesystem           |
-| Fetch               | Make HTTP requests to any URL                          |
-| Memory              | Persistent key-value memory for agent conversations    |
-| Sequential Thinking | Structured step-by-step reasoning for complex problems |
-| Time                | Get current time and perform time calculations         |
-| Puppeteer           | Browser automation and web scraping                    |
-| Playwright          | Cross-browser testing and automation                   |
-| Context7            | Context-aware code search and documentation lookup     |
-| ESLint              | JavaScript/TypeScript linting and code quality         |
-| Kubernetes          | Manage pods, deployments, and cluster resources        |
-| Desktop Commander   | Execute desktop commands and automation                |
-| Sentry              | Error tracking and performance monitoring              |
-| Cloudflare          | Manage Workers, DNS, and CDN configuration             |
-| Vercel              | Deploy and manage Vercel projects                      |
-| Netlify             | Deploy and manage Netlify sites                        |
-| Docker              | Manage containers, images, and compose stacks          |
-| E2B                 | Run code in sandboxed cloud environments               |
-| Grafana             | Query dashboards and visualize metrics                 |
-| Datadog             | Monitor infrastructure and application performance     |
-| PagerDuty           | Manage incidents and on-call schedules                 |
-| AWS                 | Manage AWS services and resources                      |
-| Azure DevOps        | Manage Azure repos, pipelines, and boards              |
-| Mermaid Diagrams    | Generate diagrams from text descriptions               |
-| Screenshot          | Capture screenshots of URLs or the desktop             |
-| Namecheap           | Manage domains and DNS records                         |
+| Connector               | Description                                                           |
+| ----------------------- | --------------------------------------------------------------------- |
+| GitHub                  | Manage repositories, issues, and pull requests                        |
+| GitLab                  | Manage projects, merge requests, and CI/CD pipelines                  |
+| Git                     | Local git operations on your repositories                             |
+| Filesystem              | Read and write files on the local filesystem                          |
+| Fetch                   | Make HTTP requests to any URL                                         |
+| Memory                  | Persistent key-value memory for agent conversations                   |
+| Sequential Thinking     | Structured step-by-step reasoning for complex problems                |
+| Time                    | Get current time and perform time calculations                        |
+| Puppeteer               | Browser automation and web scraping                                   |
+| Playwright              | Cross-browser testing and automation                                  |
+| Context7                | Context-aware code search and documentation lookup                    |
+| ESLint                  | JavaScript/TypeScript linting and code quality                        |
+| Kubernetes              | Manage pods, deployments, and cluster resources                       |
+| Desktop Commander       | Execute desktop commands and automation                               |
+| Sentry                  | Error tracking and performance monitoring                             |
+| Cloudflare              | Manage Workers, DNS, and CDN configuration                            |
+| Vercel                  | Deploy and manage Vercel projects                                     |
+| Netlify                 | Deploy and manage Netlify sites                                       |
+| Docker                  | Manage containers, images, and compose stacks                         |
+| E2B                     | Run code in sandboxed cloud environments                              |
+| Grafana                 | Query dashboards and visualize metrics                                |
+| Datadog                 | Monitor infrastructure and application performance                    |
+| PagerDuty               | Manage incidents and on-call schedules                                |
+| AWS                     | Manage AWS services and resources                                     |
+| Agentic Mobile (Argent) | Control, debug, and profile iOS/Android applications with agent tools |
+| Azure DevOps            | Manage Azure repos, pipelines, and boards                             |
+| Mermaid Diagrams        | Generate diagrams from text descriptions                              |
+| Screenshot              | Capture screenshots of URLs or the desktop                            |
+| Namecheap               | Manage domains and DNS records                                        |
 
 ## Databases [#databases]
 

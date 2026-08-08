@@ -6,12 +6,12 @@ Web Preview lets you view web applications running on one device from another de
 
 ## How it works [#how-it-works]
 
-Mate runs a reverse proxy that forwards HTTP requests from the viewing device to the target device's localhost port. The web content is rendered in an embedded browser view within Mate.
+Gent runs a reverse proxy that forwards HTTP requests from the viewing device to the target device's localhost port. The web content is rendered in an embedded browser view within Gent.
 
 This means:
 
 * Your dev server runs normally on localhost
-* Mate proxies requests through the paired connection
+* Gent proxies requests through the paired connection
 * The remote device sees the page as if it were on localhost
 
 No need to find your machine's IP address, no need to bind to `0.0.0.0`, no need for ngrok or similar tools.

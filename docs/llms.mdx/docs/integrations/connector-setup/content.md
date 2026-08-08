@@ -9,7 +9,7 @@ Setting up a connector takes about a minute. Here is the process from start to f
 <Steps>
   ### Open Settings [#open-settings]
 
-  Go to the Settings tab in Mate and find the **Connectors** section.
+  Go to the Settings tab in Gent and find the **Connectors** section.
 
   ### Browse connectors [#browse-connectors]
 
@@ -31,7 +31,7 @@ Setting up a connector takes about a minute. Here is the process from start to f
 
   ### Enable the connector [#enable-the-connector]
 
-  Toggle the connector on. Mate verifies that the required command (usually `npx`) is available and that the connector can start.
+  Toggle the connector on. Gent verifies that the required command (usually `npx`) is available and that the connector can start.
 </Steps>
 
 ## Verifying a connector [#verifying-a-connector]
@@ -45,13 +45,13 @@ For example, with the GitHub connector enabled, ask: "List my open pull requests
 
 ## Command resolution [#command-resolution]
 
-Connectors typically run via `npx` (Node.js package runner). Mate resolves commands in this order:
+Connectors typically run via `npx` (Node.js package runner). Gent resolves commands in this order:
 
-1. **Bundled runtime** — Mate includes its own Node.js, so `npx` works without a system Node.js installation
+1. **Bundled runtime** — Gent includes its own Node.js, so `npx` works without a system Node.js installation
 2. **System PATH** — falls back to your system's Node.js if the bundled one is unavailable
 
 <Callout type="info">
-  You do not need Node.js installed on your system. Mate bundles a complete Node.js runtime on macOS, Windows, and Linux.
+  You do not need Node.js installed on your system. Gent bundles a complete Node.js runtime on macOS, Windows, and Linux.
 </Callout>
 
 ## Credential storage [#credential-storage]

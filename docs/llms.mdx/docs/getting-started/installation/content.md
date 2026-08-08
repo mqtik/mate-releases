@@ -2,7 +2,7 @@
 
 
 
-Mate runs on macOS, Windows, and Linux. Mobile apps for iOS and Android are available for remote access to a paired desktop.
+Gent runs on macOS, Windows, and Linux. Mobile apps for iOS and Android are available for remote access to a paired desktop.
 
 ## System requirements [#system-requirements]
 
@@ -19,7 +19,7 @@ Mate runs on macOS, Windows, and Linux. Mobile apps for iOS and Android are avai
 Grab the latest release for your platform from GitHub:
 
 <Cards>
-  <Card title="Download Mate" href="https://github.com/mqtik/mate-releases/releases">
+  <Card title="Download Gent" href="https://github.com/mqtik/mate-releases/releases">
     All platforms — macOS .dmg, Windows .zip, Linux .tar.gz
   </Card>
 </Cards>
@@ -29,15 +29,15 @@ Grab the latest release for your platform from GitHub:
 <Tabs items="[&#x22;macOS&#x22;, &#x22;Windows&#x22;, &#x22;Linux&#x22;]">
   <Tab value="macOS">
     1. Download the `.dmg` file from the releases page
-    2. Open the `.dmg` and drag **Mate** into your Applications folder
-    3. Launch Mate from Applications — if macOS shows a security warning, go to **System Settings > Privacy & Security** and click **Open Anyway**
-    4. Mate bundles its own Node.js runtime, so you do not need Node installed separately
+    2. Open the `.dmg` and drag **Gent** into your Applications folder
+    3. Launch Gent from Applications — if macOS shows a security warning, go to **System Settings > Privacy & Security** and click **Open Anyway**
+    4. Gent bundles its own Node.js runtime, so you do not need Node installed separately
   </Tab>
 
   <Tab value="Windows">
     1. Download the `.zip` file from the releases page
-    2. Extract the zip to a folder of your choice (e.g. `C:\Program Files\Mate`)
-    3. Run `Mate.exe` to launch
+    2. Extract the zip to a folder of your choice (e.g. `C:\Program Files\Gent`)
+    3. Run `Gent.exe` to launch
     4. Node.js is bundled — no separate installation needed
   </Tab>
 
@@ -51,7 +51,7 @@ Grab the latest release for your platform from GitHub:
 
 ## Mobile apps [#mobile-apps]
 
-iOS and Android apps are available for pairing with a desktop running Mate. Mobile devices act as remote mirrors — they connect to your desktop over the local network and let you interact with your sessions from your phone or tablet.
+iOS and Android apps are available for pairing with a desktop running Gent. Mobile devices act as remote mirrors — they connect to your desktop over the local network and let you interact with your sessions from your phone or tablet.
 
 <Callout type="info">
   Mobile devices do not run terminals or AI agents locally. They connect to a paired desktop that does the heavy lifting. See [Pairing Devices](/docs/getting-started/pairing-devices) for setup instructions.
@@ -59,10 +59,10 @@ iOS and Android apps are available for pairing with a desktop running Mate. Mobi
 
 ## Verify the installation [#verify-the-installation]
 
-After launching Mate, you should see the workspace with a default terminal tab. Try typing a command to confirm everything works:
+After launching Gent, you should see the workspace with a default terminal tab. Try typing a command to confirm everything works:
 
 ```bash
-echo "Mate is ready"
+echo "Gent is ready"
 ```
 
 If the terminal responds, you are good to go. Head to [First Session](/docs/getting-started/first-session) to learn the basics.

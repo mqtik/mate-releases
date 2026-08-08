@@ -2,7 +2,7 @@
 
 
 
-Mate's remote feature lets you access your desktop's sessions from any paired device on the same network. Understanding the architecture helps you get the most out of it.
+Gent's remote feature lets you access your desktop's sessions from any paired device on the same network. Understanding the architecture helps you get the most out of it.
 
 ## The mental model [#the-mental-model]
 
@@ -34,11 +34,11 @@ From a remote device, you can:
 
 ## How it connects [#how-it-connects]
 
-Mate uses direct TCP connections over your local network. The default port is **53317**. Device discovery happens automatically via multicast UDP — no manual IP configuration needed.
+Gent uses direct TCP connections over your local network. The default port is **53317**. Device discovery happens automatically via multicast UDP — no manual IP configuration needed.
 
 The connection flow:
 
-1. Both devices run Mate on the same network
+1. Both devices run Gent on the same network
 2. Multicast discovery finds nearby devices automatically
 3. Selecting a device in the sidebar establishes a TCP connection
 4. All session data flows directly between devices — no cloud relay

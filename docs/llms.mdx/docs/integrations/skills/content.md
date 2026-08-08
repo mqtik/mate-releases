@@ -8,7 +8,7 @@ For example, a "code review" skill might add a `/review` command that instructs 
 
 ## How skills work [#how-skills-work]
 
-When you install a skill, Mate places it in the appropriate directory for each CLI:
+When you install a skill, Gent places it in the appropriate directory for each CLI:
 
 | CLI         | Skill directory    |
 | ----------- | ------------------ |
@@ -17,7 +17,7 @@ When you install a skill, Mate places it in the appropriate directory for each C
 | Copilot     | `.copilot/skills/` |
 | Shared      | `.mate/skills/`    |
 
-Skills installed through Mate are symlinked across CLI directories, so a single skill works with all your agents without duplication. Install it once, use it everywhere.
+Skills installed through Gent are symlinked across CLI directories, so a single skill works with all your agents without duplication. Install it once, use it everywhere.
 
 Each skill is a markdown file that contains the prompt template and metadata the CLI uses to register it as a slash command.
 
@@ -26,7 +26,7 @@ Each skill is a markdown file that contains the prompt template and metadata the
 <Steps>
   ### Open Settings [#open-settings]
 
-  Go to the **Settings** tab in Mate.
+  Go to the **Settings** tab in Gent.
 
   ### Navigate to Skills [#navigate-to-skills]
 
@@ -38,7 +38,7 @@ Each skill is a markdown file that contains the prompt template and metadata the
 
   ### Install [#install]
 
-  Tap **Install** on any skill. Mate downloads it and symlinks it into the appropriate CLI directories. The skill is immediately available in your next agent chat session.
+  Tap **Install** on any skill. Gent downloads it and symlinks it into the appropriate CLI directories. The skill is immediately available in your next agent chat session.
 </Steps>
 
 ## Using skills in chat [#using-skills-in-chat]

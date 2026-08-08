@@ -2,16 +2,16 @@
 
 
 
-Mate lets you access your desktop sessions from any device on the same network. Your desktop is the server — it runs the terminals, AI agents, and editors. Paired devices are live mirrors that connect directly, with no cloud involved.
+Gent lets you access your desktop sessions from any device on the same network. Your desktop is the server — it runs the terminals, AI agents, and editors. Paired devices are live mirrors that connect directly, with no cloud involved.
 
 ## How pairing works [#how-pairing-works]
 
-Mate uses multicast UDP for automatic device discovery on your local network. When two devices running Mate are on the same Wi-Fi or LAN, they find each other automatically. No manual IP entry, no account creation, no cloud relay.
+Gent uses multicast UDP for automatic device discovery on your local network. When two devices running Gent are on the same Wi-Fi or LAN, they find each other automatically. No manual IP entry, no account creation, no cloud relay.
 
 <Steps>
-  ### Launch Mate on both devices [#launch-mate-on-both-devices]
+  ### Launch Gent on both devices [#launch-gent-on-both-devices]
 
-  Open Mate on your desktop and on the device you want to pair (phone, tablet, or another computer).
+  Open Gent on your desktop and on the device you want to pair (phone, tablet, or another computer).
 
   ### Wait for discovery [#wait-for-discovery]
 
@@ -39,7 +39,7 @@ Once paired, the remote device can:
 ## Network requirements [#network-requirements]
 
 * Both devices must be on the **same local network** (same Wi-Fi or LAN)
-* Mate uses TCP port **53317** by default for communication (configurable in Settings)
+* Gent uses TCP port **53317** by default for communication (configurable in Settings)
 * Multicast UDP must not be blocked by your router — most home and office networks allow it
 * No internet connection is required for pairing
 
@@ -49,8 +49,8 @@ If devices don't discover each other:
 
 1. Confirm both devices are on the same Wi-Fi network
 2. Check that no firewall is blocking port 53317 (TCP) or multicast (UDP)
-3. On macOS, ensure Mate has local network permission in **System Settings > Privacy & Security > Local Network**
-4. Try restarting Mate on both devices — this triggers a fresh multicast scan
+3. On macOS, ensure Gent has local network permission in **System Settings > Privacy & Security > Local Network**
+4. Try restarting Gent on both devices — this triggers a fresh multicast scan
 5. If automatic discovery fails, check [Remote Troubleshooting](/docs/remote/troubleshooting) for manual connection options
 
 ## Multiple devices [#multiple-devices]

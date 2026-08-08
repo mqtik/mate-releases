@@ -8,7 +8,7 @@ Access settings by clicking the gear icon or pressing `Cmd + ,` (macOS) / `Ctrl 
 
 ### Port [#port]
 
-The TCP port Mate uses for device communication. Default is **53317**. Change this if the default port conflicts with another application. All paired devices must use the same port.
+The TCP port Gent uses for device communication. Default is **53317**. Change this if the default port conflicts with another application. All paired devices must use the same port.
 
 ### Theme [#theme]
 
@@ -16,13 +16,13 @@ Choose between light, dark, or system theme. System follows your OS appearance s
 
 ### Language [#language]
 
-Mate supports multiple interface languages. The default follows your system language.
+Gent supports multiple interface languages. The default follows your system language.
 
 ## Terminal [#terminal]
 
 ### Default shell [#default-shell]
 
-The shell used for new terminal sessions. Mate detects your system's default shell automatically (e.g., zsh on macOS, bash on Linux). You can override this to use a different shell.
+The shell used for new terminal sessions. Gent detects your system's default shell automatically (e.g., zsh on macOS, bash on Linux). You can override this to use a different shell.
 
 ### Font size [#font-size]
 
@@ -44,7 +44,7 @@ Manage API keys and tokens for connectors. Credentials are stored in platform-na
 
 ### Command verification [#command-verification]
 
-Mate checks that the required command for each connector (usually `npx`) is available before enabling it. If a command is not found, Mate shows installation guidance.
+Gent checks that the required command for each connector (usually `npx`) is available before enabling it. If a command is not found, Gent shows installation guidance.
 
 ## Network [#network]
 
@@ -54,7 +54,7 @@ The name other devices see when they discover your device on the network. Defaul
 
 ### Auto-discovery [#auto-discovery]
 
-Toggle multicast UDP discovery on or off. When enabled, Mate automatically finds other devices on the same network. When disabled, you need to connect manually.
+Toggle multicast UDP discovery on or off. When enabled, Gent automatically finds other devices on the same network. When disabled, you need to connect manually.
 
 ## Agent Chat [#agent-chat]
 
@@ -64,7 +64,7 @@ The AI CLI to use when creating new agent chat sessions. Options depend on which
 
 ### MCP config generation [#mcp-config-generation]
 
-Mate automatically generates MCP configuration files that agent CLIs read at startup. This section shows which connectors will be passed to agent sessions and lets you configure additional settings.
+Gent automatically generates MCP configuration files that agent CLIs read at startup. This section shows which connectors will be passed to agent sessions and lets you configure additional settings.
 
 <Callout type="info">
   Settings are stored locally on your device. They are not synced between devices — each device has its own configuration.

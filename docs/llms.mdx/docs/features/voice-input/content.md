@@ -8,7 +8,7 @@ This is especially useful on mobile devices where typing long prompts is tedious
 
 ## STT Engines [#stt-engines]
 
-Mate supports four speech-to-text engines, each with different tradeoffs:
+Gent supports four speech-to-text engines, each with different tradeoffs:
 
 | Engine       | Runs locally?        | Setup                   | Best for                             |
 | ------------ | -------------------- | ----------------------- | ------------------------------------ |
@@ -23,7 +23,7 @@ Uses your platform's built-in speech recognition — Siri on Apple devices, Goog
 
 ### Whisper [#whisper]
 
-Runs OpenAI's Whisper model locally on your device. The first time you use it, Mate downloads the model (\~150MB). After that, everything runs offline — no network requests, no API keys, no data leaving your machine.
+Runs OpenAI's Whisper model locally on your device. The first time you use it, Gent downloads the model (\~150MB). After that, everything runs offline — no network requests, no API keys, no data leaving your machine.
 
 Whisper handles accents and background noise well, and supports dozens of languages out of the box.
 
@@ -44,7 +44,7 @@ Microsoft's Azure Speech Services. Requires an Azure subscription and speech res
 
   ### Tap the microphone icon [#tap-the-microphone-icon]
 
-  You will see a mic icon in the composer bar. Tap it to start recording. If this is your first time, Mate may ask for microphone permission.
+  You will see a mic icon in the composer bar. Tap it to start recording. If this is your first time, Gent may ask for microphone permission.
 
   ### Speak your message [#speak-your-message]
 
@@ -76,4 +76,4 @@ English variants (US, UK, Australian, etc.) are supported across all engines.
 
 ## Platform availability [#platform-availability]
 
-Voice input works on all platforms where Mate runs: macOS, Windows, Linux, Android, and iOS. The Native engine uses platform-specific APIs, so the experience varies slightly — Siri's speech recognition on Apple devices, Google's on Android, and platform speech APIs on desktop. Whisper, Cloud STT, and Azure Speech behave identically across all platforms.
+Voice input works on all platforms where Gent runs: macOS, Windows, Linux, Android, and iOS. The Native engine uses platform-specific APIs, so the experience varies slightly — Siri's speech recognition on Apple devices, Google's on Android, and platform speech APIs on desktop. Whisper, Cloud STT, and Azure Speech behave identically across all platforms.

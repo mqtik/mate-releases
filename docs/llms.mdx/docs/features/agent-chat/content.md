@@ -2,7 +2,7 @@
 
 
 
-Agent Chat lets you work with AI coding assistants directly inside Mate. Instead of switching between your terminal and a separate chat window, the agent runs alongside your other sessions — reading your files, executing commands, and making edits, all visible in real time.
+Agent Chat lets you work with AI coding assistants directly inside Gent. Instead of switching between your terminal and a separate chat window, the agent runs alongside your other sessions — reading your files, executing commands, and making edits, all visible in real time.
 
 ## Supported CLIs [#supported-clis]
 
@@ -38,18 +38,18 @@ The agent streams its response in real time. You will see text output as it is g
 
 ## Tool use [#tool-use]
 
-When the agent calls tools — reading files, running commands, searching code — Mate shows each tool invocation with meaningful context:
+When the agent calls tools — reading files, running commands, searching code — Gent shows each tool invocation with meaningful context:
 
 * **Read file** shows the filename being read
 * **Run command** shows the actual shell command
 * **Search** shows the query being searched
 * **Edit file** shows which file is being modified
 
-Tool calls that modify files (edits, writes) are highlighted so you can review what changed. Mate generates inline diffs for file modifications.
+Tool calls that modify files (edits, writes) are highlighted so you can review what changed. Gent generates inline diffs for file modifications.
 
 ### Tool approval [#tool-approval]
 
-Some tools require your approval before the agent can execute them. When the agent wants to run a potentially destructive action (like writing a file or running a shell command), Mate shows a permission prompt. You can:
+Some tools require your approval before the agent can execute them. When the agent wants to run a potentially destructive action (like writing a file or running a shell command), Gent shows a permission prompt. You can:
 
 * **Approve** the individual tool call
 * **Approve all** for that tool type during the session
@@ -85,7 +85,11 @@ Agent responses render full Markdown with syntax highlighting for code blocks, t
 
 ### Canvas artifacts [#canvas-artifacts]
 
-When an agent produces self-contained HTML/JS/CSS, Mate can display it in a Canvas panel alongside the chat. This is useful for visual content — charts, diagrams, interactive prototypes — that the agent generates during the conversation.
+When an agent produces self-contained HTML/JS/CSS, Gent can display it in a Canvas panel alongside the chat. This is useful for visual content — charts, diagrams, interactive prototypes, games, and small tools — that the agent generates during the conversation. See [Gent Canvas](/docs/features/canvas) for the full workflow.
+
+### Drawings and visual prompts [#drawings-and-visual-prompts]
+
+Gent Draw opens an Excalidraw board from the composer. You can sketch, paste images, annotate screenshots, reopen saved drawings, export the board, or send the drawing to the agent as a single PNG attachment. See [Gent Draw](/docs/features/draw).
 
 ### File and image attachments [#file-and-image-attachments]
 
@@ -99,7 +103,7 @@ Type `/` in the composer to see available slash commands. These come from instal
 
 If you have [MCP connectors](/docs/integrations/overview) configured, the agent can use them as tools. For example, with the GitHub connector enabled, Claude Code can create pull requests, read issues, and manage repositories directly from chat.
 
-Mate generates an MCP config file that the CLI reads at startup, so all your connected integrations are available to the agent automatically.
+Gent generates an MCP config file that the CLI reads at startup, so all your connected integrations are available to the agent automatically.
 
 ## Remote agent chat [#remote-agent-chat]
 

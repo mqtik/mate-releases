@@ -2,24 +2,36 @@
 
 
 
-Mate ships with a full library of integrations built on the &#x2A;*Model Context Protocol (MCP)**. These connectors let your AI agents interact with external services — GitHub, Slack, databases, cloud providers, and more — directly from agent chat.
+Gent ships with a full library of integrations built on the &#x2A;*Model Context Protocol (MCP)**. These connectors let your AI agents interact with external services — GitHub, Slack, databases, cloud providers, and more — directly from agent chat.
 
 ## What is MCP? [#what-is-mcp]
 
 The Model Context Protocol is an open standard for connecting AI assistants to external tools. Each MCP connector runs as a local process that speaks a standardized protocol over stdin/stdout. The connector exposes "tools" that the AI agent can call — like creating a GitHub issue, querying a database, or sending a Slack message.
 
-## How connectors work in Mate [#how-connectors-work-in-mate]
+## How connectors work in Gent [#how-connectors-work-in-gent]
 
-When you enable a connector in Mate:
+When you enable a connector in Gent:
 
-1. Mate stores your credentials locally (API keys, tokens) in encrypted storage on your device
-2. When you start an agent chat, Mate spawns the connector process and passes it to the CLI as an MCP server
+1. Gent stores your credentials locally (API keys, tokens) in encrypted storage on your device
+2. When you start an agent chat, Gent spawns the connector process and passes it to the CLI as an MCP server
 3. The AI agent discovers the connector's tools and can call them during the conversation
 4. The connector process runs locally on your machine — credentials never leave your device
 
 <Callout type="info">
-  Mate bundles its own Node.js runtime, so most connectors work out of the box without you needing to install Node.js separately. The bundled runtime handles `npx` commands that connectors use to start.
+  Gent bundles its own Node.js runtime, so most connectors work out of the box without you needing to install Node.js separately. The bundled runtime handles `npx` commands that connectors use to start.
 </Callout>
+
+## First-party agent surfaces [#first-party-agent-surfaces]
+
+Some connectors are built by Gent itself and are always close to the chat workflow:
+
+| Connector                                   | What it gives agents                                                                              |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| [Gent Canvas](/docs/features/canvas)        | A sandboxed HTML/JS/CSS renderer beside the chat for web artifacts, charts, demos, and prototypes |
+| [Gent Forge](/docs/integrations/mate-forge) | `/connect anything`: agent-generated MCP servers for products, APIs, websites, and workflows      |
+| Gent Automations                            | Tools for creating and managing scheduled or triggered agent workflows                            |
+
+Gent also bundles [Agentic Mobile through Argent](/docs/integrations/argent), a third-party MCP connector from Software Mansion for controlling, debugging, and profiling iOS and Android apps.
 
 ## What connectors enable [#what-connectors-enable]
 
@@ -31,12 +43,14 @@ With connectors, your AI agent can:
 * **Search the web** via Brave Search, Exa, or Tavily
 * **Send messages** on Slack, Discord, or Telegram
 * **Manage infrastructure** on AWS, Cloudflare, Vercel, or Kubernetes
+* **Control mobile apps agentically** with Argent for navigation, component inspection, network requests, and performance traces
 * **Generate images** with DALL-E, Stable Diffusion, or fal.ai
+* **Generate new MCP servers** with Gent Forge when the exact integration you need is not already built in
 * And much more — see the [full connector list](/docs/integrations/connector-list)
 
 ## Transport types [#transport-types]
 
-Most connectors use **stdio** transport — Mate spawns a local process and communicates over stdin/stdout. A few built-in connectors (like Mate Canvas) are handled directly by the app without spawning a separate process.
+Most connectors use **stdio** transport — Gent spawns a local process and communicates over stdin/stdout. A few built-in connectors (like Gent Canvas) are handled directly by the app without spawning a separate process.
 
 ## Next steps [#next-steps]
 

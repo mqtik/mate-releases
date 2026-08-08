@@ -2,7 +2,7 @@
 
 
 
-Mate's terminal is a real PTY shell — not a simplified command runner. It uses full xterm emulation backed by a native PTY, so everything you expect from a terminal works: colors, cursor addressing, interactive programs, shell completion, and full Unicode support.
+Gent's terminal is a real PTY shell — not a simplified command runner. It uses full xterm emulation backed by a native PTY, so everything you expect from a terminal works: colors, cursor addressing, interactive programs, shell completion, and full Unicode support.
 
 ## Local terminals [#local-terminals]
 

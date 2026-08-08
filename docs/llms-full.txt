@@ -1,8 +1,8 @@
-# Welcome to Mate (/docs)
+# Welcome to Gent (/docs)
 
 
 
-Mate is a cross-platform terminal app with built-in AI agent chat, a multi-file IDE, and a full library of MCP integrations — all accessible from any device on your network. Run it on your Mac, Windows, or Linux machine, then pair your phone to control everything remotely.
+Gent is a cross-platform terminal app with built-in AI agent chat, a multi-file IDE, and a full library of MCP integrations — all accessible from any device on your network. Run it on your Mac, Windows, or Linux machine, then pair your phone to control everything remotely.
 
 Think of it as your entire dev environment in one app: terminals, editors, AI assistants, and tool integrations, unified under a single interface that works across all your devices.
 
@@ -10,7 +10,7 @@ Think of it as your entire dev environment in one app: terminals, editors, AI as
 
 <Cards>
   <Card title="Installation" href="/docs/getting-started/installation">
-    Download and install Mate on macOS, Windows, or Linux.
+    Download and install Gent on macOS, Windows, or Linux.
   </Card>
 
   <Card title="First Session" href="/docs/getting-started/first-session">
@@ -18,37 +18,48 @@ Think of it as your entire dev environment in one app: terminals, editors, AI as
   </Card>
 
   <Card title="Agent Chat" href="/docs/features/agent-chat">
-    Chat with Claude Code, Codex, or Copilot directly in Mate.
+    Chat with Claude Code, Codex, or Copilot directly in Gent.
+  </Card>
+
+  <Card title="Canvas and Draw" href="/docs/features/canvas">
+    Render web artifacts, sketch ideas, and send drawings to agents.
   </Card>
 
   <Card title="Integrations" href="/docs/integrations/overview">
     Connect to GitHub, Slack, databases, and many more tools.
   </Card>
+
+  <Card title="Gent Forge" href="/docs/integrations/mate-forge">
+    Type `/connect anything` and let the agent generate a new MCP connector.
+  </Card>
 </Cards>
 
-## What can you do with Mate? [#what-can-you-do-with-mate]
+## What can you do with Gent? [#what-can-you-do-with-gent]
 
 * **Run terminals** with full PTY support, tabs, and scrollback — locally or on a paired remote device
 * **Chat with AI agents** like Claude Code, Codex, and Copilot, with tool use, conversation forking, and streaming responses
+* **Render agent-built web artifacts** in Gent Canvas — HTML, charts, diagrams, prototypes, games, and interactive previews beside the chat
+* **Draw and annotate visually** with an Excalidraw-based board that can paste images, autosave history, export, or send one PNG to the agent
 * **Edit code** in a built-in IDE with syntax highlighting for 100+ languages, a file tree, and git integration
 * **Preview web apps** running on any paired device's localhost through a built-in reverse proxy
 * **Transfer files** between devices with drag-and-drop simplicity
 * **Talk instead of type** with built-in voice input supporting four STT engines including offline Whisper
 * **Orchestrate agents** by running multiple AI sessions in parallel across your projects
-* **Connect your tools** through MCP connectors — databases, APIs, cloud services, and more
+* **Connect to anything** with Gent Forge — type `/connect` and let the agent generate a purpose-built MCP server for a product, API, site, or workflow
+* **Use Agentic Mobile** through Argent so agents can navigate, inspect, debug, and profile iOS or Android applications
 * **Install skills** from the marketplace to add slash commands and specialized workflows to your agents
 * **Sync across devices** — pair your phone, tablet, or another computer and access everything from anywhere on your network
 
 ## How it works [#how-it-works]
 
-Your desktop runs Mate as the server. It owns all session state: terminals, projects, agent chats, and files. Your phone (or any other device on the same network) pairs with it and acts as a live mirror — you see and interact with the same sessions, in real time, from anywhere on your local network. No cloud. No accounts. Just your devices talking directly to each other.
+Your desktop runs Gent as the server. It owns all session state: terminals, projects, agent chats, and files. Your phone (or any other device on the same network) pairs with it and acts as a live mirror — you see and interact with the same sessions, in real time, from anywhere on your local network. No cloud. No accounts. Just your devices talking directly to each other.
 
 
 # Agent Chat (/docs/features/agent-chat)
 
 
 
-Agent Chat lets you work with AI coding assistants directly inside Mate. Instead of switching between your terminal and a separate chat window, the agent runs alongside your other sessions — reading your files, executing commands, and making edits, all visible in real time.
+Agent Chat lets you work with AI coding assistants directly inside Gent. Instead of switching between your terminal and a separate chat window, the agent runs alongside your other sessions — reading your files, executing commands, and making edits, all visible in real time.
 
 ## Supported CLIs [#supported-clis]
 
@@ -84,18 +95,18 @@ The agent streams its response in real time. You will see text output as it is g
 
 ## Tool use [#tool-use]
 
-When the agent calls tools — reading files, running commands, searching code — Mate shows each tool invocation with meaningful context:
+When the agent calls tools — reading files, running commands, searching code — Gent shows each tool invocation with meaningful context:
 
 * **Read file** shows the filename being read
 * **Run command** shows the actual shell command
 * **Search** shows the query being searched
 * **Edit file** shows which file is being modified
 
-Tool calls that modify files (edits, writes) are highlighted so you can review what changed. Mate generates inline diffs for file modifications.
+Tool calls that modify files (edits, writes) are highlighted so you can review what changed. Gent generates inline diffs for file modifications.
 
 ### Tool approval [#tool-approval]
 
-Some tools require your approval before the agent can execute them. When the agent wants to run a potentially destructive action (like writing a file or running a shell command), Mate shows a permission prompt. You can:
+Some tools require your approval before the agent can execute them. When the agent wants to run a potentially destructive action (like writing a file or running a shell command), Gent shows a permission prompt. You can:
 
 * **Approve** the individual tool call
 * **Approve all** for that tool type during the session
@@ -131,7 +142,11 @@ Agent responses render full Markdown with syntax highlighting for code blocks, t
 
 ### Canvas artifacts [#canvas-artifacts]
 
-When an agent produces self-contained HTML/JS/CSS, Mate can display it in a Canvas panel alongside the chat. This is useful for visual content — charts, diagrams, interactive prototypes — that the agent generates during the conversation.
+When an agent produces self-contained HTML/JS/CSS, Gent can display it in a Canvas panel alongside the chat. This is useful for visual content — charts, diagrams, interactive prototypes, games, and small tools — that the agent generates during the conversation. See [Gent Canvas](/docs/features/canvas) for the full workflow.
+
+### Drawings and visual prompts [#drawings-and-visual-prompts]
+
+Gent Draw opens an Excalidraw board from the composer. You can sketch, paste images, annotate screenshots, reopen saved drawings, export the board, or send the drawing to the agent as a single PNG attachment. See [Gent Draw](/docs/features/draw).
 
 ### File and image attachments [#file-and-image-attachments]
 
@@ -145,7 +160,7 @@ Type `/` in the composer to see available slash commands. These come from instal
 
 If you have [MCP connectors](/docs/integrations/overview) configured, the agent can use them as tools. For example, with the GitHub connector enabled, Claude Code can create pull requests, read issues, and manage repositories directly from chat.
 
-Mate generates an MCP config file that the CLI reads at startup, so all your connected integrations are available to the agent automatically.
+Gent generates an MCP config file that the CLI reads at startup, so all your connected integrations are available to the agent automatically.
 
 ## Remote agent chat [#remote-agent-chat]
 
@@ -159,18 +174,175 @@ Agent chat works from paired remote devices. When you select a remote device in 
 * Use [voice input](/docs/features/voice-input) to dictate prompts instead of typing
 
 
+# Gent Canvas (/docs/features/canvas)
+
+
+
+Gent Canvas gives agents a real web surface next to the conversation. When an agent needs to show something visual, it can call the built-in `mate-canvas` MCP tool and render a self-contained HTML document in the Canvas panel.
+
+This is the web-agent surface in Gent: the agent writes the page, Gent renders it, and you can keep iterating without leaving the chat.
+
+## What Canvas is for [#what-canvas-is-for]
+
+Use Canvas when the output should be seen, touched, or inspected as a rendered web artifact:
+
+* Interactive prototypes and one-off UI mockups
+* Charts, dashboards, and data visualizations
+* Diagrams and system maps
+* Games, simulations, and small tools
+* HTML/CSS/JS demos that benefit from live iteration
+
+Canvas is not an image viewer. If an agent creates a PNG, SVG, JPEG, logo, screenshot, or icon file, it should attach or reference the file directly instead of opening it in Canvas.
+
+## Starting with `/canvas` [#starting-with-canvas]
+
+Type `/canvas` followed by what you want:
+
+```text
+/canvas build a responsive pricing table with annual/monthly toggle
+```
+
+Gent rewrites that into a focused instruction for the agent:
+
+1. Create a complete self-contained HTML file in the current working directory
+2. Put CSS and JavaScript inline
+3. Use CSS custom properties for important colors, fonts, and spacing
+4. Call `mcp__mate-canvas__show` with the generated file
+
+The Canvas panel opens beside the chat when the tool call completes.
+
+## File mode and auto-reload [#file-mode-and-auto-reload]
+
+Canvas supports inline HTML, but Gent prefers file mode for iterative work. The agent writes a file such as `canvas-a1b2c3d4.html`, then calls the show tool with:
+
+```json
+{
+  "file": "canvas-a1b2c3d4.html",
+  "title": "Pricing table"
+}
+```
+
+Follow-up `/canvas` messages are applied to the same file when possible. The panel auto-reloads after edits, so the agent does not need to call the show tool again for every tiny change.
+
+## Library support [#library-support]
+
+Canvas can load browser libraries from CDNs when the HTML needs them. Good fits include:
+
+| Need               | Examples                      |
+| ------------------ | ----------------------------- |
+| 3D scenes          | Three.js, Babylon.js          |
+| Charts             | D3, Chart.js, Plotly, ECharts |
+| Maps               | Leaflet, MapLibre GL          |
+| Animation          | GSAP, anime.js, Lottie        |
+| Audio              | Tone.js, Howler.js            |
+| Games and sketches | Phaser, p5.js, Matter.js      |
+| Diagrams           | Mermaid, JointJS              |
+| Editors            | Monaco Editor, CodeMirror     |
+
+Agents should pin CDN versions instead of using `latest`, for example `three@0.160.0`.
+
+## Canvas vs Web Preview [#canvas-vs-web-preview]
+
+Canvas and Web Preview solve different problems:
+
+| Surface     | Use it when                                                                                         |
+| ----------- | --------------------------------------------------------------------------------------------------- |
+| Gent Canvas | The agent is generating a self-contained web artifact directly in chat                              |
+| Web Preview | You already have a dev server running on localhost and want to view it from Gent or a paired device |
+
+For app development, a common flow is: ask the agent to sketch an idea in Canvas, then move the real implementation into your project and use [Web Preview](/docs/features/web-preview) to test the running app.
+
+## Constraints [#constraints]
+
+* Canvas has no backend, database, filesystem access, or server-side API
+* Everything must run in the browser
+* External dependencies should load from versioned CDN URLs
+* The current Canvas panel is attached to the current chat and replaces the previous Canvas artifact for that conversation
+
+## Related [#related]
+
+* [Agent Chat](/docs/features/agent-chat)
+* [Web Preview](/docs/features/web-preview)
+* [Gent Draw](/docs/features/draw)
+
+
+# Gent Draw (/docs/features/draw)
+
+
+
+Gent Draw is an Excalidraw-based drawing board inside agent chat. It is for the moments where a screenshot, rough diagram, annotated idea, or hand-drawn layout says more than a paragraph.
+
+You can draw, paste images, drop image files, reopen previous drawings, export the board, or send the whole drawing to the agent as a single PNG attachment.
+
+## What Draw is good for [#what-draw-is-good-for]
+
+* Annotating screenshots before asking an agent to fix a UI
+* Sketching a screen layout or state machine
+* Drawing arrows over an error, trace, or design reference
+* Combining pasted images with hand-written notes
+* Sending one compact visual brief instead of many separate files
+
+## Opening Draw [#opening-draw]
+
+In agent chat, use the drawing control in the composer. Gent opens a full drawing modal with an Excalidraw canvas and a small toolbar.
+
+The toolbar includes:
+
+| Control | What it does                                                         |
+| ------- | -------------------------------------------------------------------- |
+| Cancel  | Close the modal without sending                                      |
+| History | Reopen saved drawings                                                |
+| Export  | Save the current board as a PNG                                      |
+| Send    | Export the current board as a PNG and attach it to the agent message |
+
+## Pasting and dropping images [#pasting-and-dropping-images]
+
+Draw supports image-heavy workflows:
+
+* Paste an image from the clipboard
+* Pick image files from disk
+* Drag and drop image files into the canvas
+
+Supported image types include PNG, JPG, JPEG, GIF, WebP, SVG, and BMP. Images become Excalidraw image elements, so you can draw around them, resize them, and annotate them before sending.
+
+## Sending to the agent [#sending-to-the-agent]
+
+When you click **Send**, Gent exports the current board as `image/png`, writes a temporary file, closes the drawing modal, and attaches that one PNG to the agent message.
+
+This keeps the chat input simple: the agent receives one visual artifact that contains the sketch, pasted images, arrows, labels, and annotations together.
+
+## Autosave and history [#autosave-and-history]
+
+Draw autosaves non-empty scenes and stores a thumbnail for history. Use the History control to reopen previous drawings, continue editing them, or delete old entries.
+
+Autosave stores the Excalidraw scene data so reopening a drawing keeps editable elements, not just a flat screenshot.
+
+## Exporting without sending [#exporting-without-sending]
+
+Use **Export** when you want to save the drawing locally but not send it to the agent. Gent writes a PNG to the location you choose.
+
+## Draw vs Canvas [#draw-vs-canvas]
+
+| Surface     | Best for                                                                       |
+| ----------- | ------------------------------------------------------------------------------ |
+| Gent Draw   | Human sketches, annotations, pasted screenshots, and visual prompts            |
+| Gent Canvas | Agent-generated HTML, charts, prototypes, demos, and interactive web artifacts |
+
+Use Draw when the human needs to communicate visually. Use [Canvas](/docs/features/canvas) when the agent needs to render something visual.
+
+
 # File Transfer (/docs/features/file-transfer)
 
 
 
-Mate includes built-in file transfer between paired devices. Send files from your desktop to your phone, or receive files from your phone to your desktop — no third-party apps, cloud services, or cables needed.
+Gent includes built-in file transfer between paired devices. Send files from your desktop to your phone, or receive files from your phone to your desktop — no third-party apps, cloud services, or cables needed.
 
 ## Sending files [#sending-files]
 
 <Steps>
   ### Open the Send tab [#open-the-send-tab]
 
-  Navigate to the send interface in Mate.
+  Navigate to the send interface in Gent.
 
   ### Select files [#select-files]
 
@@ -187,11 +359,11 @@ Mate includes built-in file transfer between paired devices. Send files from you
 
 ## Receiving files [#receiving-files]
 
-When a paired device sends you files, Mate notifies you and shows the incoming transfer. Received files are saved to your configured download location.
+When a paired device sends you files, Gent notifies you and shows the incoming transfer. Received files are saved to your configured download location.
 
 ## How it works [#how-it-works]
 
-File transfers use the same direct TCP connection as all other Mate features. Files travel directly between devices on your local network with no intermediate server. Transfer speeds are limited only by your local network bandwidth — typically much faster than cloud-based alternatives.
+File transfers use the same direct TCP connection as all other Gent features. Files travel directly between devices on your local network with no intermediate server. Transfer speeds are limited only by your local network bandwidth — typically much faster than cloud-based alternatives.
 
 <Callout type="info">
   File transfer works between any two paired devices: desktop to phone, phone to desktop, or desktop to desktop.
@@ -206,7 +378,7 @@ Any file type is supported. There are no restrictions on what you can send — d
 
 
 
-Mate includes a built-in IDE for editing code without leaving the app. It is not a replacement for VS Code or JetBrains — it is a lightweight, always-available editor that is especially useful when you are working remotely from your phone or tablet.
+Gent includes a built-in IDE for editing code without leaving the app. It is not a replacement for VS Code or JetBrains — it is a lightweight, always-available editor that is especially useful when you are working remotely from your phone or tablet.
 
 ## Opening the IDE [#opening-the-ide]
 
@@ -237,7 +409,7 @@ The editor supports syntax highlighting for 100+ languages through the re\_edito
 * Standard keyboard shortcuts for editing
 
 <Callout type="info">
-  The IDE is designed for quick edits and code review, not as a full development environment. For heavy editing sessions, pair it with your preferred desktop editor and use Mate's IDE for on-the-go changes.
+  The IDE is designed for quick edits and code review, not as a full development environment. For heavy editing sessions, pair it with your preferred desktop editor and use Gent's IDE for on-the-go changes.
 </Callout>
 
 ## Single-file editor [#single-file-editor]
@@ -379,7 +551,7 @@ Projects are most useful when you are working on multiple codebases at once. Ins
 
 
 
-Mate's terminal is a real PTY shell — not a simplified command runner. It uses full xterm emulation backed by a native PTY, so everything you expect from a terminal works: colors, cursor addressing, interactive programs, shell completion, and full Unicode support.
+Gent's terminal is a real PTY shell — not a simplified command runner. It uses full xterm emulation backed by a native PTY, so everything you expect from a terminal works: colors, cursor addressing, interactive programs, shell completion, and full Unicode support.
 
 ## Local terminals [#local-terminals]
 
@@ -434,7 +606,7 @@ This is especially useful on mobile devices where typing long prompts is tedious
 
 ## STT Engines [#stt-engines]
 
-Mate supports four speech-to-text engines, each with different tradeoffs:
+Gent supports four speech-to-text engines, each with different tradeoffs:
 
 | Engine       | Runs locally?        | Setup                   | Best for                             |
 | ------------ | -------------------- | ----------------------- | ------------------------------------ |
@@ -449,7 +621,7 @@ Uses your platform's built-in speech recognition — Siri on Apple devices, Goog
 
 ### Whisper [#whisper]
 
-Runs OpenAI's Whisper model locally on your device. The first time you use it, Mate downloads the model (\~150MB). After that, everything runs offline — no network requests, no API keys, no data leaving your machine.
+Runs OpenAI's Whisper model locally on your device. The first time you use it, Gent downloads the model (\~150MB). After that, everything runs offline — no network requests, no API keys, no data leaving your machine.
 
 Whisper handles accents and background noise well, and supports dozens of languages out of the box.
 
@@ -470,7 +642,7 @@ Microsoft's Azure Speech Services. Requires an Azure subscription and speech res
 
   ### Tap the microphone icon [#tap-the-microphone-icon]
 
-  You will see a mic icon in the composer bar. Tap it to start recording. If this is your first time, Mate may ask for microphone permission.
+  You will see a mic icon in the composer bar. Tap it to start recording. If this is your first time, Gent may ask for microphone permission.
 
   ### Speak your message [#speak-your-message]
 
@@ -502,7 +674,7 @@ English variants (US, UK, Australian, etc.) are supported across all engines.
 
 ## Platform availability [#platform-availability]
 
-Voice input works on all platforms where Mate runs: macOS, Windows, Linux, Android, and iOS. The Native engine uses platform-specific APIs, so the experience varies slightly — Siri's speech recognition on Apple devices, Google's on Android, and platform speech APIs on desktop. Whisper, Cloud STT, and Azure Speech behave identically across all platforms.
+Voice input works on all platforms where Gent runs: macOS, Windows, Linux, Android, and iOS. The Native engine uses platform-specific APIs, so the experience varies slightly — Siri's speech recognition on Apple devices, Google's on Android, and platform speech APIs on desktop. Whisper, Cloud STT, and Azure Speech behave identically across all platforms.
 
 
 # Web Preview (/docs/features/web-preview)
@@ -513,12 +685,12 @@ Web Preview lets you view web applications running on one device from another de
 
 ## How it works [#how-it-works]
 
-Mate runs a reverse proxy that forwards HTTP requests from the viewing device to the target device's localhost port. The web content is rendered in an embedded browser view within Mate.
+Gent runs a reverse proxy that forwards HTTP requests from the viewing device to the target device's localhost port. The web content is rendered in an embedded browser view within Gent.
 
 This means:
 
 * Your dev server runs normally on localhost
-* Mate proxies requests through the paired connection
+* Gent proxies requests through the paired connection
 * The remote device sees the page as if it were on localhost
 
 No need to find your machine's IP address, no need to bind to `0.0.0.0`, no need for ngrok or similar tools.
@@ -556,7 +728,7 @@ If your dev server supports hot module replacement (HMR) or live reload, it work
 
 
 
-When you launch Mate for the first time, you land in the workspace — the main area where all your sessions live. Let's walk through the basics.
+When you launch Gent for the first time, you land in the workspace — the main area where all your sessions live. Let's walk through the basics.
 
 ## The workspace [#the-workspace]
 
@@ -568,7 +740,7 @@ The workspace has three main areas:
 
 ## Open a terminal [#open-a-terminal]
 
-Mate starts with a terminal tab by default. If you need another one:
+Gent starts with a terminal tab by default. If you need another one:
 
 1. Click the &#x2A;*+** button in the tab bar
 2. Select **Terminal** from the dropdown
@@ -608,20 +780,20 @@ If you have Claude Code, Codex, or Copilot CLI installed, you can start an agent
 3. Pick your preferred CLI from the dropdown
 4. Type a message and watch the agent work
 
-The agent can read files, run commands, search your codebase, and make edits — all within Mate's interface. See [Agent Chat](/docs/features/agent-chat) for the full guide.
+The agent can read files, run commands, search your codebase, and make edits — all within Gent's interface. See [Agent Chat](/docs/features/agent-chat) for the full guide.
 
 ## Next steps [#next-steps]
 
 * [Pair a mobile device](/docs/getting-started/pairing-devices) to access your sessions from your phone
 * [Set up integrations](/docs/integrations/overview) to connect GitHub, Slack, databases, and more
-* [Explore features](/docs/features/terminal) to see everything Mate can do
+* [Explore features](/docs/features/terminal) to see everything Gent can do
 
 
 # Installation (/docs/getting-started/installation)
 
 
 
-Mate runs on macOS, Windows, and Linux. Mobile apps for iOS and Android are available for remote access to a paired desktop.
+Gent runs on macOS, Windows, and Linux. Mobile apps for iOS and Android are available for remote access to a paired desktop.
 
 ## System requirements [#system-requirements]
 
@@ -638,7 +810,7 @@ Mate runs on macOS, Windows, and Linux. Mobile apps for iOS and Android are avai
 Grab the latest release for your platform from GitHub:
 
 <Cards>
-  <Card title="Download Mate" href="https://github.com/mqtik/mate-releases/releases">
+  <Card title="Download Gent" href="https://github.com/mqtik/mate-releases/releases">
     All platforms — macOS .dmg, Windows .zip, Linux .tar.gz
   </Card>
 </Cards>
@@ -648,15 +820,15 @@ Grab the latest release for your platform from GitHub:
 <Tabs items="[&#x22;macOS&#x22;, &#x22;Windows&#x22;, &#x22;Linux&#x22;]">
   <Tab value="macOS">
     1. Download the `.dmg` file from the releases page
-    2. Open the `.dmg` and drag **Mate** into your Applications folder
-    3. Launch Mate from Applications — if macOS shows a security warning, go to **System Settings > Privacy & Security** and click **Open Anyway**
-    4. Mate bundles its own Node.js runtime, so you do not need Node installed separately
+    2. Open the `.dmg` and drag **Gent** into your Applications folder
+    3. Launch Gent from Applications — if macOS shows a security warning, go to **System Settings > Privacy & Security** and click **Open Anyway**
+    4. Gent bundles its own Node.js runtime, so you do not need Node installed separately
   </Tab>
 
   <Tab value="Windows">
     1. Download the `.zip` file from the releases page
-    2. Extract the zip to a folder of your choice (e.g. `C:\Program Files\Mate`)
-    3. Run `Mate.exe` to launch
+    2. Extract the zip to a folder of your choice (e.g. `C:\Program Files\Gent`)
+    3. Run `Gent.exe` to launch
     4. Node.js is bundled — no separate installation needed
   </Tab>
 
@@ -670,7 +842,7 @@ Grab the latest release for your platform from GitHub:
 
 ## Mobile apps [#mobile-apps]
 
-iOS and Android apps are available for pairing with a desktop running Mate. Mobile devices act as remote mirrors — they connect to your desktop over the local network and let you interact with your sessions from your phone or tablet.
+iOS and Android apps are available for pairing with a desktop running Gent. Mobile devices act as remote mirrors — they connect to your desktop over the local network and let you interact with your sessions from your phone or tablet.
 
 <Callout type="info">
   Mobile devices do not run terminals or AI agents locally. They connect to a paired desktop that does the heavy lifting. See [Pairing Devices](/docs/getting-started/pairing-devices) for setup instructions.
@@ -678,10 +850,10 @@ iOS and Android apps are available for pairing with a desktop running Mate. Mobi
 
 ## Verify the installation [#verify-the-installation]
 
-After launching Mate, you should see the workspace with a default terminal tab. Try typing a command to confirm everything works:
+After launching Gent, you should see the workspace with a default terminal tab. Try typing a command to confirm everything works:
 
 ```bash
-echo "Mate is ready"
+echo "Gent is ready"
 ```
 
 If the terminal responds, you are good to go. Head to [First Session](/docs/getting-started/first-session) to learn the basics.
@@ -691,16 +863,16 @@ If the terminal responds, you are good to go. Head to [First Session](/docs/gett
 
 
 
-Mate lets you access your desktop sessions from any device on the same network. Your desktop is the server — it runs the terminals, AI agents, and editors. Paired devices are live mirrors that connect directly, with no cloud involved.
+Gent lets you access your desktop sessions from any device on the same network. Your desktop is the server — it runs the terminals, AI agents, and editors. Paired devices are live mirrors that connect directly, with no cloud involved.
 
 ## How pairing works [#how-pairing-works]
 
-Mate uses multicast UDP for automatic device discovery on your local network. When two devices running Mate are on the same Wi-Fi or LAN, they find each other automatically. No manual IP entry, no account creation, no cloud relay.
+Gent uses multicast UDP for automatic device discovery on your local network. When two devices running Gent are on the same Wi-Fi or LAN, they find each other automatically. No manual IP entry, no account creation, no cloud relay.
 
 <Steps>
-  ### Launch Mate on both devices [#launch-mate-on-both-devices]
+  ### Launch Gent on both devices [#launch-gent-on-both-devices]
 
-  Open Mate on your desktop and on the device you want to pair (phone, tablet, or another computer).
+  Open Gent on your desktop and on the device you want to pair (phone, tablet, or another computer).
 
   ### Wait for discovery [#wait-for-discovery]
 
@@ -728,7 +900,7 @@ Once paired, the remote device can:
 ## Network requirements [#network-requirements]
 
 * Both devices must be on the **same local network** (same Wi-Fi or LAN)
-* Mate uses TCP port **53317** by default for communication (configurable in Settings)
+* Gent uses TCP port **53317** by default for communication (configurable in Settings)
 * Multicast UDP must not be blocked by your router — most home and office networks allow it
 * No internet connection is required for pairing
 
@@ -738,8 +910,8 @@ If devices don't discover each other:
 
 1. Confirm both devices are on the same Wi-Fi network
 2. Check that no firewall is blocking port 53317 (TCP) or multicast (UDP)
-3. On macOS, ensure Mate has local network permission in **System Settings > Privacy & Security > Local Network**
-4. Try restarting Mate on both devices — this triggers a fresh multicast scan
+3. On macOS, ensure Gent has local network permission in **System Settings > Privacy & Security > Local Network**
+4. Try restarting Gent on both devices — this triggers a fresh multicast scan
 5. If automatic discovery fails, check [Remote Troubleshooting](/docs/remote/troubleshooting) for manual connection options
 
 ## Multiple devices [#multiple-devices]
@@ -747,17 +919,227 @@ If devices don't discover each other:
 You can pair multiple devices with the same desktop. Each paired device appears in the sidebar, and switching between them shows that device's remote sessions. Your local device is always listed first.
 
 
+# Keyboard Shortcuts (/docs/reference/keyboard-shortcuts)
+
+
+
+These shortcuts work on macOS. On Windows and Linux, replace **Cmd** with **Ctrl**.
+
+## General [#general]
+
+| Action                 | Shortcut                                  |
+| ---------------------- | ----------------------------------------- |
+| New terminal tab       | `Cmd + T`                                 |
+| Close current tab      | `Cmd + W`                                 |
+| Switch to next tab     | `Cmd + Shift + ]` or `Ctrl + Tab`         |
+| Switch to previous tab | `Cmd + Shift + [` or `Ctrl + Shift + Tab` |
+| Open settings          | `Cmd + ,`                                 |
+| Toggle sidebar         | `Cmd + B`                                 |
+
+## Terminal [#terminal]
+
+| Action                        | Shortcut  |
+| ----------------------------- | --------- |
+| Copy selection                | `Cmd + C` |
+| Paste                         | `Cmd + V` |
+| Clear terminal                | `Cmd + K` |
+| Search in terminal            | `Cmd + F` |
+| Zoom in (increase font size)  | `Cmd + =` |
+| Zoom out (decrease font size) | `Cmd + -` |
+| Reset zoom                    | `Cmd + 0` |
+
+## Editor / IDE [#editor--ide]
+
+| Action           | Shortcut          |
+| ---------------- | ----------------- |
+| Save file        | `Cmd + S`         |
+| Find             | `Cmd + F`         |
+| Find and replace | `Cmd + H`         |
+| Undo             | `Cmd + Z`         |
+| Redo             | `Cmd + Shift + Z` |
+| Select all       | `Cmd + A`         |
+
+## Agent Chat [#agent-chat]
+
+| Action              | Shortcut        |
+| ------------------- | --------------- |
+| Send message        | `Enter`         |
+| New line in message | `Shift + Enter` |
+| Focus message input | `Cmd + L`       |
+
+<Callout type="info">
+  Keyboard shortcuts are primarily available on desktop platforms (macOS, Windows, Linux). Mobile devices use touch gestures instead.
+</Callout>
+
+
+# Settings (/docs/reference/settings)
+
+
+
+Access settings by clicking the gear icon or pressing `Cmd + ,` (macOS) / `Ctrl + ,` (Windows/Linux).
+
+## General [#general]
+
+### Port [#port]
+
+The TCP port Gent uses for device communication. Default is **53317**. Change this if the default port conflicts with another application. All paired devices must use the same port.
+
+### Theme [#theme]
+
+Choose between light, dark, or system theme. System follows your OS appearance setting.
+
+### Language [#language]
+
+Gent supports multiple interface languages. The default follows your system language.
+
+## Terminal [#terminal]
+
+### Default shell [#default-shell]
+
+The shell used for new terminal sessions. Gent detects your system's default shell automatically (e.g., zsh on macOS, bash on Linux). You can override this to use a different shell.
+
+### Font size [#font-size]
+
+The terminal font size in points. Adjustable via settings or with keyboard shortcuts (`Cmd + =` / `Cmd + -`).
+
+### Scrollback buffer [#scrollback-buffer]
+
+The number of lines kept in the terminal's scrollback history. Higher values use more memory but let you scroll back further through command output.
+
+## Connectors [#connectors]
+
+### Enabled connectors [#enabled-connectors]
+
+Toggle individual MCP connectors on or off. Each connector shows its name, category, and connection status.
+
+### Credentials [#credentials]
+
+Manage API keys and tokens for connectors. Credentials are stored in platform-native secure storage (Keychain on macOS, Credential Manager on Windows, Secret Service on Linux).
+
+### Command verification [#command-verification]
+
+Gent checks that the required command for each connector (usually `npx`) is available before enabling it. If a command is not found, Gent shows installation guidance.
+
+## Network [#network]
+
+### Device name [#device-name]
+
+The name other devices see when they discover your device on the network. Defaults to your computer's hostname.
+
+### Auto-discovery [#auto-discovery]
+
+Toggle multicast UDP discovery on or off. When enabled, Gent automatically finds other devices on the same network. When disabled, you need to connect manually.
+
+## Agent Chat [#agent-chat]
+
+### Default CLI [#default-cli]
+
+The AI CLI to use when creating new agent chat sessions. Options depend on which CLIs are installed on your system (Claude Code, Codex, Copilot).
+
+### MCP config generation [#mcp-config-generation]
+
+Gent automatically generates MCP configuration files that agent CLIs read at startup. This section shows which connectors will be passed to agent sessions and lets you configure additional settings.
+
+<Callout type="info">
+  Settings are stored locally on your device. They are not synced between devices — each device has its own configuration.
+</Callout>
+
+
+# Agentic Mobile (/docs/integrations/argent)
+
+
+
+Agentic Mobile in Gent is powered by Argent, the MCP toolkit from Software Mansion. It gives agents a real mobile-app control surface instead of limiting them to source-code edits.
+
+An agentic toolkit to control, debug, and profile iOS and Android applications. Your agent can navigate your app, explore the component tree, inspect network requests, and trace performance problems in your mobile apps.
+
+Gent bundles Argent as `@swmansion/argent`, so you can enable it from the connector library without manually installing the package.
+
+## What agents can do [#what-agents-can-do]
+
+Agentic Mobile is useful when the agent needs to work against the running app:
+
+* Navigate iOS and Android screens
+* Tap, swipe, pinch, rotate, and type
+* Launch, restart, reinstall, or reload the app
+* Take screenshots and compare screen states
+* Explore the React Native component tree
+* Inspect native view hierarchy
+* Read network logs and request details
+* Start and analyze React or native profiler sessions
+* Connect symptoms in the UI to source files, requests, and performance traces
+
+The workflow is simple: the agent changes code, runs the app, drives the app, observes what happened, and keeps going.
+
+## Example prompts [#example-prompts]
+
+```text
+Open the app, go through onboarding, and tell me why the continue button never enables.
+```
+
+```text
+Navigate to checkout, inspect the failing network request, and patch the client-side validation.
+```
+
+```text
+Profile the feed screen while scrolling and identify which components are causing the slow commits.
+```
+
+```text
+Reproduce the login bug on Android, capture screenshots, inspect the component tree, and propose the smallest fix.
+```
+
+## Platform requirements [#platform-requirements]
+
+Agentic Mobile runs from the desktop agent session. Your phone can control the Gent session remotely, but the simulator/emulator tooling runs on the paired desktop.
+
+| Platform | Requirement                                                                          |
+| -------- | ------------------------------------------------------------------------------------ |
+| macOS    | Xcode for iOS simulators; Android SDK platform-tools and an emulator/AVD for Android |
+| Linux    | Android SDK platform-tools and an emulator/AVD                                       |
+| Windows  | Android SDK platform-tools and an emulator/AVD                                       |
+
+iOS simulator control requires macOS and Xcode. Android requires `adb` plus a running emulator or configured AVD.
+
+## Enabling Agentic Mobile [#enabling-agentic-mobile]
+
+1. Open the Connectors UI
+2. Find **Argent**
+3. Enable it for the agent session
+4. Start or restart the agent chat so the CLI receives the MCP server config
+
+Argent does not require API credentials. It talks to local simulator/emulator tooling on your development machine.
+
+## Permissions [#permissions]
+
+Some Argent tools only read state, such as screenshots, hierarchy inspection, logs, and profiler queries. Other tools perform actions, such as tapping, swiping, launching apps, reloading Metro, or starting recordings.
+
+Review action prompts the same way you would review shell commands: the agent is controlling a local simulator or emulator on your machine.
+
+## Mobile app vs Agentic Mobile [#mobile-app-vs-agentic-mobile]
+
+Gent's iOS and Android apps let you control desktop sessions from your phone. Agentic Mobile is different: it lets the desktop agent control iOS and Android simulators/emulators for app development.
+
+Those two pieces work well together. You can start an agent task from your phone, let it drive a simulator on your desktop through Argent, and get the result back in the same Gent chat.
+
+## Related [#related]
+
+* [Agent Chat](/docs/features/agent-chat)
+* [Mobile Usage](/docs/remote/mobile)
+* [Connector Setup](/docs/integrations/connector-setup)
+
+
 # Claude Code Integration (/docs/integrations/claude-code)
 
 
 
-Claude Code is the most deeply integrated AI CLI in Mate. Unlike Codex and Copilot (which run one-shot), Claude Code maintains a persistent process with multi-turn conversation support, making it feel like a native part of the app.
+Claude Code is the most deeply integrated AI CLI in Gent. Unlike Codex and Copilot (which run one-shot), Claude Code maintains a persistent process with multi-turn conversation support, making it feel like a native part of the app.
 
 ## How it works [#how-it-works]
 
 When you start an agent chat with Claude Code:
 
-1. Mate spawns the `claude` CLI with `--input-format stream-json` for streaming communication
+1. Gent spawns the `claude` CLI with `--input-format stream-json` for streaming communication
 2. The process stays alive for the entire conversation — follow-up messages go through stdin
 3. Responses stream back in real time with text, tool calls, and results
 4. MCP connectors are passed via a generated config file
@@ -772,9 +1154,9 @@ You need the Claude Code CLI installed on your system:
 npm install -g @anthropic-ai/claude-code
 ```
 
-Mate detects available CLIs automatically. If `claude` is in your PATH, it appears as an option when creating an agent chat.
+Gent detects available CLIs automatically. If `claude` is in your PATH, it appears as an option when creating an agent chat.
 
-## Features in Mate [#features-in-mate]
+## Features in Gent [#features-in-gent]
 
 ### Streaming responses [#streaming-responses]
 
@@ -782,7 +1164,7 @@ Text and tool use stream in real time. You see the agent's thinking as it happen
 
 ### Tool use visualization [#tool-use-visualization]
 
-When Claude Code calls tools, Mate shows them as interactive chips with context:
+When Claude Code calls tools, Gent shows them as interactive chips with context:
 
 * **File reads** show the filename
 * **Shell commands** show the actual command being run
@@ -791,7 +1173,7 @@ When Claude Code calls tools, Mate shows them as interactive chips with context:
 
 ### Conversation persistence [#conversation-persistence]
 
-Conversations persist across app restarts. You can close Mate, reopen it, and resume where you left off.
+Conversations persist across app restarts. You can close Gent, reopen it, and resume where you left off.
 
 ### Conversation forking [#conversation-forking]
 
@@ -799,15 +1181,15 @@ Fork a conversation at any point to explore a different approach without losing 
 
 ### MCP connector passthrough [#mcp-connector-passthrough]
 
-All enabled [MCP connectors](/docs/integrations/overview) are automatically available to Claude Code. Mate generates an MCP config file that the CLI reads at startup, giving the agent access to GitHub, databases, search engines, and every other connector you have configured.
+All enabled [MCP connectors](/docs/integrations/overview) are automatically available to Claude Code. Gent generates an MCP config file that the CLI reads at startup, giving the agent access to GitHub, databases, search engines, and every other connector you have configured.
 
 <Callout type="info">
-  Mate handles the MCP config file generation automatically. You do not need to manually configure Claude Code's MCP settings — just enable connectors in Mate's settings and they are available in every agent chat.
+  Gent handles the MCP config file generation automatically. You do not need to manually configure Claude Code's MCP settings — just enable connectors in Gent's settings and they are available in every agent chat.
 </Callout>
 
 ### Tool approval [#tool-approval]
 
-Some tool calls require your approval before execution. Mate shows a permission prompt for sensitive operations, letting you review and approve or deny before the agent proceeds.
+Some tool calls require your approval before execution. Gent shows a permission prompt for sensitive operations, letting you review and approve or deny before the agent proceeds.
 
 ## Remote usage [#remote-usage]
 
@@ -824,50 +1206,53 @@ Claude Code sessions are accessible from paired remote devices. The CLI process 
 
 
 
-Mate ships with a full library of connectors across eight categories. Each connector runs locally on your machine and exposes tools that AI agents can use during chat.
+Gent ships with a full library of connectors across eight categories. Each connector runs locally on your machine and exposes tools that AI agents can use during chat.
 
 ## Built-in [#built-in]
 
-These connectors are bundled with Mate and require no setup.
+These connectors are bundled with Gent and require no setup.
 
-| Connector   | Description                                                                    |
-| ----------- | ------------------------------------------------------------------------------ |
-| Mate Canvas | Display self-contained HTML/JS/CSS in a sandboxed canvas panel beside the chat |
+| Connector        | Description                                                                    |
+| ---------------- | ------------------------------------------------------------------------------ |
+| Gent Canvas      | Display self-contained HTML/JS/CSS in a sandboxed canvas panel beside the chat |
+| Gent Automations | Create, manage, and trigger automations and reminders from chat                |
+| Gent Forge       | Generate and register custom MCP servers with `/connect anything`              |
 
 ## Dev Tools [#dev-tools]
 
 Tools for software development, deployment, and infrastructure.
 
-| Connector           | Description                                            |
-| ------------------- | ------------------------------------------------------ |
-| GitHub              | Manage repositories, issues, and pull requests         |
-| GitLab              | Manage projects, merge requests, and CI/CD pipelines   |
-| Git                 | Local git operations on your repositories              |
-| Filesystem          | Read and write files on the local filesystem           |
-| Fetch               | Make HTTP requests to any URL                          |
-| Memory              | Persistent key-value memory for agent conversations    |
-| Sequential Thinking | Structured step-by-step reasoning for complex problems |
-| Time                | Get current time and perform time calculations         |
-| Puppeteer           | Browser automation and web scraping                    |
-| Playwright          | Cross-browser testing and automation                   |
-| Context7            | Context-aware code search and documentation lookup     |
-| ESLint              | JavaScript/TypeScript linting and code quality         |
-| Kubernetes          | Manage pods, deployments, and cluster resources        |
-| Desktop Commander   | Execute desktop commands and automation                |
-| Sentry              | Error tracking and performance monitoring              |
-| Cloudflare          | Manage Workers, DNS, and CDN configuration             |
-| Vercel              | Deploy and manage Vercel projects                      |
-| Netlify             | Deploy and manage Netlify sites                        |
-| Docker              | Manage containers, images, and compose stacks          |
-| E2B                 | Run code in sandboxed cloud environments               |
-| Grafana             | Query dashboards and visualize metrics                 |
-| Datadog             | Monitor infrastructure and application performance     |
-| PagerDuty           | Manage incidents and on-call schedules                 |
-| AWS                 | Manage AWS services and resources                      |
-| Azure DevOps        | Manage Azure repos, pipelines, and boards              |
-| Mermaid Diagrams    | Generate diagrams from text descriptions               |
-| Screenshot          | Capture screenshots of URLs or the desktop             |
-| Namecheap           | Manage domains and DNS records                         |
+| Connector               | Description                                                           |
+| ----------------------- | --------------------------------------------------------------------- |
+| GitHub                  | Manage repositories, issues, and pull requests                        |
+| GitLab                  | Manage projects, merge requests, and CI/CD pipelines                  |
+| Git                     | Local git operations on your repositories                             |
+| Filesystem              | Read and write files on the local filesystem                          |
+| Fetch                   | Make HTTP requests to any URL                                         |
+| Memory                  | Persistent key-value memory for agent conversations                   |
+| Sequential Thinking     | Structured step-by-step reasoning for complex problems                |
+| Time                    | Get current time and perform time calculations                        |
+| Puppeteer               | Browser automation and web scraping                                   |
+| Playwright              | Cross-browser testing and automation                                  |
+| Context7                | Context-aware code search and documentation lookup                    |
+| ESLint                  | JavaScript/TypeScript linting and code quality                        |
+| Kubernetes              | Manage pods, deployments, and cluster resources                       |
+| Desktop Commander       | Execute desktop commands and automation                               |
+| Sentry                  | Error tracking and performance monitoring                             |
+| Cloudflare              | Manage Workers, DNS, and CDN configuration                            |
+| Vercel                  | Deploy and manage Vercel projects                                     |
+| Netlify                 | Deploy and manage Netlify sites                                       |
+| Docker                  | Manage containers, images, and compose stacks                         |
+| E2B                     | Run code in sandboxed cloud environments                              |
+| Grafana                 | Query dashboards and visualize metrics                                |
+| Datadog                 | Monitor infrastructure and application performance                    |
+| PagerDuty               | Manage incidents and on-call schedules                                |
+| AWS                     | Manage AWS services and resources                                     |
+| Agentic Mobile (Argent) | Control, debug, and profile iOS/Android applications with agent tools |
+| Azure DevOps            | Manage Azure repos, pipelines, and boards                             |
+| Mermaid Diagrams        | Generate diagrams from text descriptions                              |
+| Screenshot              | Capture screenshots of URLs or the desktop                            |
+| Namecheap               | Manage domains and DNS records                                        |
 
 ## Databases [#databases]
 
@@ -983,7 +1368,7 @@ Setting up a connector takes about a minute. Here is the process from start to f
 <Steps>
   ### Open Settings [#open-settings]
 
-  Go to the Settings tab in Mate and find the **Connectors** section.
+  Go to the Settings tab in Gent and find the **Connectors** section.
 
   ### Browse connectors [#browse-connectors]
 
@@ -1005,7 +1390,7 @@ Setting up a connector takes about a minute. Here is the process from start to f
 
   ### Enable the connector [#enable-the-connector]
 
-  Toggle the connector on. Mate verifies that the required command (usually `npx`) is available and that the connector can start.
+  Toggle the connector on. Gent verifies that the required command (usually `npx`) is available and that the connector can start.
 </Steps>
 
 ## Verifying a connector [#verifying-a-connector]
@@ -1019,13 +1404,13 @@ For example, with the GitHub connector enabled, ask: "List my open pull requests
 
 ## Command resolution [#command-resolution]
 
-Connectors typically run via `npx` (Node.js package runner). Mate resolves commands in this order:
+Connectors typically run via `npx` (Node.js package runner). Gent resolves commands in this order:
 
-1. **Bundled runtime** — Mate includes its own Node.js, so `npx` works without a system Node.js installation
+1. **Bundled runtime** — Gent includes its own Node.js, so `npx` works without a system Node.js installation
 2. **System PATH** — falls back to your system's Node.js if the bundled one is unavailable
 
 <Callout type="info">
-  You do not need Node.js installed on your system. Mate bundles a complete Node.js runtime on macOS, Windows, and Linux.
+  You do not need Node.js installed on your system. Gent bundles a complete Node.js runtime on macOS, Windows, and Linux.
 </Callout>
 
 ## Credential storage [#credential-storage]
@@ -1046,11 +1431,206 @@ Toggle the connector off in Settings. The connector process stops, and the agent
 * **Timeout errors**: Some connectors take a few seconds to initialize on first run as `npx` downloads the package
 
 
+# Custom Adapters (/docs/integrations/custom-adapters)
+
+
+
+Gent talks to AI coding CLIs (Claude Code, Codex, Copilot, …) through **adapters**. An
+adapter describes how to launch a CLI, what to show in its model / effort / slash-command
+pickers, how to label its tools, and how to turn its output into Gent's chat. Most of an
+adapter is **data, not code** — so you can add a new CLI by writing a JSON file.
+
+<Callout type="warn">
+  Custom adapters are part of Gent's runtime-extensible adapter system. This page documents
+  the authoring format; availability ships with the rollout of the new adapter engine.
+</Callout>
+
+## How it works [#how-it-works]
+
+Two things are always true:
+
+* **The desktop host runs the adapter.** A paired phone is a viewer — it never spawns a
+  CLI; it just mirrors what the host produces. Get it working on your Mac/PC and it works
+  on your phone automatically.
+* **Pure-data adapters can't execute anything.** When a CLI genuinely needs parsing code,
+  that code runs in a sandbox (WASM) or as a signed first-party driver — never as
+  unsandboxed downloaded code.
+
+## Pick a tier [#pick-a-tier]
+
+How you build the adapter depends on how the CLI talks.
+
+<Cards>
+  <Card title="Declarative (most CLIs)" description="The CLI prints a simple format (e.g. one JSON object per line). You write only a JSON spec. No app build." />
+
+  <Card title="Sandboxed WASM" description="The CLI needs real parsing code. You ship a JSON spec plus a .wasm module that runs in a sandbox on the host. No app build." />
+
+  <Card title="Bundled driver" description="Rare: a protocol needing full host trust. Requires a first-party code change shipped in an app release." />
+</Cards>
+
+## Write a declarative adapter [#write-a-declarative-adapter]
+
+<Steps>
+  ### Create the spec [#create-the-spec]
+
+  A complete, working adapter for a CLI that emits one JSON object per line:
+
+  ```json
+  {
+    "id": "acme-cli",
+    "name": "Acme Coder",
+    "version": "1.0.0",
+    "schemaVersion": 1,
+    "minAppVersion": "0.0.49",
+
+    "spawn": {
+      "command": "acme",
+      "args": [
+        { "flag": "--model", "value": "{model}", "when": { "var": "model", "op": "set" } },
+        { "flag": "--json" },
+        { "value": "{prompt}" }
+      ],
+      "oneShot": false
+    },
+
+    "models": [
+      { "id": "acme-small", "label": "Acme Small" },
+      { "id": "acme-large", "label": "Acme Large" }
+    ],
+
+    "tools": {
+      "categories": { "edit": ["write_file"], "read": ["read_file"], "bash": ["run_shell"] },
+      "display": { "read_file": { "label": "Read $path" } }
+    },
+
+    "driver": { "type": "stdio_json_lines" },
+    "parsing": [
+      { "match": { "jsonPath": "type", "equals": "assistant_text" },
+        "extract": { "text": ["text"] },
+        "emit": { "event": "assistantDelta", "text": "$text" } },
+      { "match": { "jsonPath": "type", "equals": "tool_call" },
+        "extract": { "toolName": ["tool"], "input": ["args"] },
+        "emit": { "event": "toolStart", "toolName": "$toolName", "input": "$input" } },
+      { "match": { "jsonPath": "type", "equals": "tool_result" },
+        "extract": { "id": ["call_id"], "output": ["result"] },
+        "emit": { "event": "toolDone", "toolId": "$id", "output": "$output" } }
+    ]
+  }
+  ```
+
+  ### Install it with Add Adapter [#install-it-with-add-adapter]
+
+  Open **Add Adapter** in Gent, paste your adapter JSON (or a GitHub repo URL). Gent
+  validates it and — if it spawns a command — shows you the exact command before anything
+  runs. Approve to install.
+
+  ### Test it [#test-it]
+
+  Start a new agent chat with your adapter selected and send a prompt. Your model picker,
+  tools, and messages should appear just like a built-in CLI.
+</Steps>
+
+## Models, effort, and slash commands [#models-effort-and-slash-commands]
+
+These are **catalogs** — lists that drive the pickers. The picker shows the `label`; the
+`id` is what gets sent to the CLI. Omit a catalog and its picker disappears.
+
+```json
+"models": [
+  { "id": "acme-large", "label": "Acme Large", "contextWindow": 200000 }
+],
+"effortLevels": [
+  { "id": "low",   "label": "Low",        "flag": "--effort" },
+  { "id": "high",  "label": "High",       "flag": "--effort" },
+  { "id": "xhigh", "label": "Extra High", "flag": "--effort" }
+],
+"slashCommands": [
+  { "command": "/review", "description": "Review the current diff",
+    "action": "prompt", "promptStarter": "/review " }
+]
+```
+
+When the user picks a model or effort, its `id` becomes the variable `{model}` / `{effort}`.
+You choose where it goes — and that depends on the CLI:
+
+<Tabs items="[&#x22;As a launch flag&#x22;, &#x22;Per-turn (JSON-RPC CLIs)&#x22;]">
+  <Tab value="As a launch flag">
+    Most CLIs take model/effort as command-line arguments. Reference the variable in
+    `spawn.args`. Changing the selection respawns the process.
+
+    ```json
+    "args": [
+      { "flag": "--model",  "value": "{model}",  "when": { "var": "model",  "op": "set" } },
+      { "flag": "--effort", "value": "{effort}", "when": { "var": "effort", "op": "set" },
+        "validValues": ["low", "medium", "high", "xhigh", "max"] }
+    ]
+    ```
+
+    `validValues` rejects an unknown effort; `when` skips the flag when nothing is selected.
+  </Tab>
+
+  <Tab value="Per-turn (JSON-RPC CLIs)">
+    CLIs like Codex/Copilot accept model/effort with each turn, so they can change
+    mid-session without restarting. Set `perTurnSettings` and put the variables in the
+    message template instead of the spawn args.
+
+    ```json
+    "capabilities": { "perTurnSettings": true },
+    "encoding": {
+      "mode": "jsonrpc",
+      "userMessage": {
+        "method": "turn/start",
+        "paramsTemplate": { "model": "{model}", "effort": "{effort}", "prompt": "{prompt}" }
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+<Callout type="info">
+  The `models` list is a fallback. If your CLI can report its real models at runtime, the
+  driver uses those and overrides the list.
+</Callout>
+
+## Turning output into chat [#turning-output-into-chat]
+
+The `parsing` rules run against each line of the CLI's output; the first match wins. The
+vocabulary is small on purpose — `match`, `extract`, `emit`, a shallow `setFlag`, and
+`escalate`:
+
+* `match` — pick lines by JSON path, value, regex, or field presence.
+* `extract` — pull named fields (with ordered fallbacks).
+* `emit` — produce a Gent event (`assistantDelta`, `toolStart`, `toolDone`, `turnComplete`, …).
+* `escalate` — for anything stateful, hand off to a WASM or bundled driver instead of
+  growing the rules.
+
+If your CLI needs real, cross-line parsing logic, that's the cue for a **sandboxed WASM
+adapter** (`driver.type: "wasm"` with a hash-pinned module) rather than stretching the
+declarative rules.
+
+## Publish to the registry [#publish-to-the-registry]
+
+To share an adapter with everyone, open a pull request to &#x2A;*`mqtik/mate-adapters`** adding
+your `specs/<id>.json` (and the `.wasm` for a WASM adapter). Once merged and signed, every
+Gent install picks it up on the next refresh — no app update. Fixes ship as a new immutable
+version, so rollback is a one-line change.
+
+## Tips [#tips]
+
+* Namespace your `id`; the built-in `claude` / `codex` / `copilot` ids are protected.
+* Put every tool the CLI emits into `tools.categories`, or it shows up uncategorized.
+* Tool categories can tighten approval, never relax it — unknown tools always ask.
+* A bad or missing adapter degrades to a clear "needs update" state; it can't break the app.
+
+See also: [Custom Connectors](/docs/integrations/custom-connectors) for adding MCP servers
+(a different extension point — tools for an agent, rather than a new CLI).
+
+
 # Custom Connectors (/docs/integrations/custom-connectors)
 
 
 
-Beyond the built-in connectors, you can add any MCP-compatible server as a custom connector. If you have built your own MCP server or want to use one from the community that is not in Mate's registry, you can configure it manually.
+Beyond the built-in connectors, you can add any MCP-compatible server as a custom connector. If you have built your own MCP server or want to use one from the community that is not in Gent's registry, you can configure it manually.
 
 ## What you need [#what-you-need]
 
@@ -1063,7 +1643,7 @@ A custom connector requires:
 
 ## Adding a custom connector [#adding-a-custom-connector]
 
-Custom connectors are configured as MCP servers that Mate passes to the agent CLI at startup.
+Custom connectors are configured as MCP servers that Gent passes to the agent CLI at startup.
 
 <Steps>
   ### Prepare your MCP server [#prepare-your-mcp-server]
@@ -1074,9 +1654,9 @@ Custom connectors are configured as MCP servers that Mate passes to the agent CL
   echo '{"jsonrpc":"2.0","method":"initialize","id":1,"params":{"capabilities":{}}}' | npx your-mcp-server
   ```
 
-  ### Configure in Mate [#configure-in-mate]
+  ### Configure in Gent [#configure-in-gent]
 
-  Add the connector configuration in Mate's settings. You will need to provide:
+  Add the connector configuration in Gent's settings. You will need to provide:
 
   * **Name**: A display name for the connector
   * **Command**: The command to run (e.g., `npx`, `node`, `python`)
@@ -1115,7 +1695,7 @@ If your server is written in Python:
 * **Env**: Any required variables
 
 <Callout type="info">
-  Mate bundles Node.js, so `npx` and `node` commands work without a system Node.js installation. For Python-based servers, you need Python installed on your system.
+  Gent bundles Node.js, so `npx` and `node` commands work without a system Node.js installation. For Python-based servers, you need Python installed on your system.
 </Callout>
 
 ## Building your own MCP server [#building-your-own-mcp-server]
@@ -1133,28 +1713,192 @@ The [MCP specification](https://modelcontextprotocol.io) has full details on the
 If you build a connector that others might find useful, consider publishing it to npm (for Node.js) or PyPI (for Python). The MCP ecosystem is growing, and community servers are easy to distribute as packages.
 
 
+# Gent Forge (/docs/integrations/mate-forge)
+
+
+
+Gent Forge is `/connect anything` for agents. If Gent does not already ship the exact connector you need, ask for it. The agent can generate a local MCP server, register it with Gent, and make that new toolset available to future agent sessions.
+
+The point is not "fill out a connector form." The point is:
+
+```text
+/connect printingpress.dev
+```
+
+or:
+
+```text
+/connect our internal billing admin
+```
+
+or:
+
+```text
+/connect the deployment checklist in this repo
+```
+
+Gent gives the agent the Forge guide, a local workspace under `~/.mate/mcps`, and a built-in `mate-forge.register` tool. The agent does the boring work: understand the target, design the MCP tools, implement the server, compile it, and register it.
+
+## What Forge can generate [#what-forge-can-generate]
+
+Forge is for generating MCP servers, not only API wrappers. A generated connector can expose tools for many kinds of targets:
+
+| Target                  | Example tools                                                |
+| ----------------------- | ------------------------------------------------------------ |
+| SaaS products           | create project, read status, update customer, send message   |
+| Public APIs             | search records, fetch details, submit requests               |
+| Private/internal APIs   | run admin action, query account state, trigger workflow      |
+| Websites                | fetch structured page data, submit forms, watch status pages |
+| Local workflows         | run release checklist, package assets, prepare handoff       |
+| Repo-specific utilities | validate config, inspect generated files, normalize data     |
+
+If the agent can understand the interface and implement a safe MCP server around it, Forge can turn it into a Gent connector.
+
+## Starting with `/connect` [#starting-with-connect]
+
+Type `/connect` followed by the thing you want agents to use:
+
+```text
+/connect printingpress.dev
+```
+
+Gent expands that into a structured build task:
+
+1. Read the Forge guide from `~/.mate/mcps/.template/GUIDE.md`
+2. Create a project under `~/.mate/mcps/<service>/`
+3. Design a small set of useful MCP tools
+4. Implement the server
+5. Install dependencies and compile it
+6. Call `mate-forge.register` with the absolute path to `dist/index.js`
+
+After registration, Gent can enable that generated connector for agent sessions.
+
+## Give the agent context [#give-the-agent-context]
+
+The best Forge prompts tell the agent what the connector should actually help with:
+
+```text
+/connect printingpress.dev so agents can create print jobs, check quote status, and download proof links
+```
+
+Useful context can include:
+
+* API docs
+* OpenAPI specs
+* Example requests and responses
+* Screenshots of an admin flow
+* A README from the repo
+* Environment variable names
+* Captured request examples, if that is the easiest way to explain the API
+
+Those are just inputs. The core workflow is: describe what you want to connect, and the agent builds the MCP.
+
+## What `register` accepts [#what-register-accepts]
+
+The Forge register tool validates a generated connector before Gent records it.
+
+| Field         | Purpose                                                                    |
+| ------------- | -------------------------------------------------------------------------- |
+| `id`          | Lowercase connector ID with hyphens, such as `printingpress`               |
+| `name`        | Display name shown in Gent                                                 |
+| `description` | One sentence explaining what the connector does                            |
+| `path`        | Absolute path to the compiled `dist/index.js` file                         |
+| `credentials` | Optional credential fields shown in Gent's connector UI                    |
+| `env`         | Optional environment variables, including `$KEY` references to credentials |
+
+The compiled server path must be under `~/.mate/mcps`. That keeps generated connector registration scoped to Gent's MCP workspace.
+
+## Credential flow [#credential-flow]
+
+Forge-generated connectors can declare credential fields. Gent shows those fields in the Connectors UI, stores values locally, and injects them as environment variables when the MCP server starts.
+
+Example credential declaration:
+
+```json
+{
+  "key": "PRINTINGPRESS_API_KEY",
+  "label": "PrintingPress API key",
+  "required": true,
+  "helpText": "Create an API key from your PrintingPress account settings"
+}
+```
+
+Then the generated connector can reference it in `env`:
+
+```json
+{
+  "PRINTINGPRESS_API_KEY": "$PRINTINGPRESS_API_KEY"
+}
+```
+
+## Good generated connectors are small [#good-generated-connectors-are-small]
+
+Forge works best when the generated MCP has a focused tool surface. Do not mirror an entire product API unless the agent really needs it.
+
+Better:
+
+* `create_print_job`
+* `get_quote_status`
+* `download_proof`
+* `cancel_job`
+
+Worse:
+
+* 80 raw endpoints copied from an OpenAPI file with no workflow design
+
+Small tool surfaces are easier for agents to choose correctly and cheaper to keep in context.
+
+## Review generated code [#review-generated-code]
+
+Forge makes connector creation fast, but generated code still deserves review:
+
+* Test the connector with a real agent session
+* Review tool names and descriptions for clarity
+* Keep schemas narrow and explicit
+* Avoid hardcoding secrets in generated files
+* Prefer read-only tools first when connecting sensitive systems
+
+## Related [#related]
+
+* [Custom Connectors](/docs/integrations/custom-connectors)
+* [Connector Setup](/docs/integrations/connector-setup)
+* [Integrations Overview](/docs/integrations/overview)
+
+
 # Integrations Overview (/docs/integrations/overview)
 
 
 
-Mate ships with a full library of integrations built on the &#x2A;*Model Context Protocol (MCP)**. These connectors let your AI agents interact with external services — GitHub, Slack, databases, cloud providers, and more — directly from agent chat.
+Gent ships with a full library of integrations built on the &#x2A;*Model Context Protocol (MCP)**. These connectors let your AI agents interact with external services — GitHub, Slack, databases, cloud providers, and more — directly from agent chat.
 
 ## What is MCP? [#what-is-mcp]
 
 The Model Context Protocol is an open standard for connecting AI assistants to external tools. Each MCP connector runs as a local process that speaks a standardized protocol over stdin/stdout. The connector exposes "tools" that the AI agent can call — like creating a GitHub issue, querying a database, or sending a Slack message.
 
-## How connectors work in Mate [#how-connectors-work-in-mate]
+## How connectors work in Gent [#how-connectors-work-in-gent]
 
-When you enable a connector in Mate:
+When you enable a connector in Gent:
 
-1. Mate stores your credentials locally (API keys, tokens) in encrypted storage on your device
-2. When you start an agent chat, Mate spawns the connector process and passes it to the CLI as an MCP server
+1. Gent stores your credentials locally (API keys, tokens) in encrypted storage on your device
+2. When you start an agent chat, Gent spawns the connector process and passes it to the CLI as an MCP server
 3. The AI agent discovers the connector's tools and can call them during the conversation
 4. The connector process runs locally on your machine — credentials never leave your device
 
 <Callout type="info">
-  Mate bundles its own Node.js runtime, so most connectors work out of the box without you needing to install Node.js separately. The bundled runtime handles `npx` commands that connectors use to start.
+  Gent bundles its own Node.js runtime, so most connectors work out of the box without you needing to install Node.js separately. The bundled runtime handles `npx` commands that connectors use to start.
 </Callout>
+
+## First-party agent surfaces [#first-party-agent-surfaces]
+
+Some connectors are built by Gent itself and are always close to the chat workflow:
+
+| Connector                                   | What it gives agents                                                                              |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| [Gent Canvas](/docs/features/canvas)        | A sandboxed HTML/JS/CSS renderer beside the chat for web artifacts, charts, demos, and prototypes |
+| [Gent Forge](/docs/integrations/mate-forge) | `/connect anything`: agent-generated MCP servers for products, APIs, websites, and workflows      |
+| Gent Automations                            | Tools for creating and managing scheduled or triggered agent workflows                            |
+
+Gent also bundles [Agentic Mobile through Argent](/docs/integrations/argent), a third-party MCP connector from Software Mansion for controlling, debugging, and profiling iOS and Android apps.
 
 ## What connectors enable [#what-connectors-enable]
 
@@ -1166,12 +1910,14 @@ With connectors, your AI agent can:
 * **Search the web** via Brave Search, Exa, or Tavily
 * **Send messages** on Slack, Discord, or Telegram
 * **Manage infrastructure** on AWS, Cloudflare, Vercel, or Kubernetes
+* **Control mobile apps agentically** with Argent for navigation, component inspection, network requests, and performance traces
 * **Generate images** with DALL-E, Stable Diffusion, or fal.ai
+* **Generate new MCP servers** with Gent Forge when the exact integration you need is not already built in
 * And much more — see the [full connector list](/docs/integrations/connector-list)
 
 ## Transport types [#transport-types]
 
-Most connectors use **stdio** transport — Mate spawns a local process and communicates over stdin/stdout. A few built-in connectors (like Mate Canvas) are handled directly by the app without spawning a separate process.
+Most connectors use **stdio** transport — Gent spawns a local process and communicates over stdin/stdout. A few built-in connectors (like Gent Canvas) are handled directly by the app without spawning a separate process.
 
 ## Next steps [#next-steps]
 
@@ -1191,7 +1937,7 @@ For example, a "code review" skill might add a `/review` command that instructs 
 
 ## How skills work [#how-skills-work]
 
-When you install a skill, Mate places it in the appropriate directory for each CLI:
+When you install a skill, Gent places it in the appropriate directory for each CLI:
 
 | CLI         | Skill directory    |
 | ----------- | ------------------ |
@@ -1200,7 +1946,7 @@ When you install a skill, Mate places it in the appropriate directory for each C
 | Copilot     | `.copilot/skills/` |
 | Shared      | `.mate/skills/`    |
 
-Skills installed through Mate are symlinked across CLI directories, so a single skill works with all your agents without duplication. Install it once, use it everywhere.
+Skills installed through Gent are symlinked across CLI directories, so a single skill works with all your agents without duplication. Install it once, use it everywhere.
 
 Each skill is a markdown file that contains the prompt template and metadata the CLI uses to register it as a slash command.
 
@@ -1209,7 +1955,7 @@ Each skill is a markdown file that contains the prompt template and metadata the
 <Steps>
   ### Open Settings [#open-settings]
 
-  Go to the **Settings** tab in Mate.
+  Go to the **Settings** tab in Gent.
 
   ### Navigate to Skills [#navigate-to-skills]
 
@@ -1221,7 +1967,7 @@ Each skill is a markdown file that contains the prompt template and metadata the
 
   ### Install [#install]
 
-  Tap **Install** on any skill. Mate downloads it and symlinks it into the appropriate CLI directories. The skill is immediately available in your next agent chat session.
+  Tap **Install** on any skill. Gent downloads it and symlinks it into the appropriate CLI directories. The skill is immediately available in your next agent chat session.
 </Steps>
 
 ## Using skills in chat [#using-skills-in-chat]
@@ -1265,148 +2011,22 @@ You can create your own skills by placing markdown files directly in `.mate/skil
 This is useful for team-specific workflows — write a skill once, share the file, and everyone on the team gets the same commands.
 
 
-# Keyboard Shortcuts (/docs/reference/keyboard-shortcuts)
-
-
-
-These shortcuts work on macOS. On Windows and Linux, replace **Cmd** with **Ctrl**.
-
-## General [#general]
-
-| Action                 | Shortcut                                  |
-| ---------------------- | ----------------------------------------- |
-| New terminal tab       | `Cmd + T`                                 |
-| Close current tab      | `Cmd + W`                                 |
-| Switch to next tab     | `Cmd + Shift + ]` or `Ctrl + Tab`         |
-| Switch to previous tab | `Cmd + Shift + [` or `Ctrl + Shift + Tab` |
-| Open settings          | `Cmd + ,`                                 |
-| Toggle sidebar         | `Cmd + B`                                 |
-
-## Terminal [#terminal]
-
-| Action                        | Shortcut  |
-| ----------------------------- | --------- |
-| Copy selection                | `Cmd + C` |
-| Paste                         | `Cmd + V` |
-| Clear terminal                | `Cmd + K` |
-| Search in terminal            | `Cmd + F` |
-| Zoom in (increase font size)  | `Cmd + =` |
-| Zoom out (decrease font size) | `Cmd + -` |
-| Reset zoom                    | `Cmd + 0` |
-
-## Editor / IDE [#editor--ide]
-
-| Action           | Shortcut          |
-| ---------------- | ----------------- |
-| Save file        | `Cmd + S`         |
-| Find             | `Cmd + F`         |
-| Find and replace | `Cmd + H`         |
-| Undo             | `Cmd + Z`         |
-| Redo             | `Cmd + Shift + Z` |
-| Select all       | `Cmd + A`         |
-
-## Agent Chat [#agent-chat]
-
-| Action              | Shortcut        |
-| ------------------- | --------------- |
-| Send message        | `Enter`         |
-| New line in message | `Shift + Enter` |
-| Focus message input | `Cmd + L`       |
-
-<Callout type="info">
-  Keyboard shortcuts are primarily available on desktop platforms (macOS, Windows, Linux). Mobile devices use touch gestures instead.
-</Callout>
-
-
-# Settings (/docs/reference/settings)
-
-
-
-Access settings by clicking the gear icon or pressing `Cmd + ,` (macOS) / `Ctrl + ,` (Windows/Linux).
-
-## General [#general]
-
-### Port [#port]
-
-The TCP port Mate uses for device communication. Default is **53317**. Change this if the default port conflicts with another application. All paired devices must use the same port.
-
-### Theme [#theme]
-
-Choose between light, dark, or system theme. System follows your OS appearance setting.
-
-### Language [#language]
-
-Mate supports multiple interface languages. The default follows your system language.
-
-## Terminal [#terminal]
-
-### Default shell [#default-shell]
-
-The shell used for new terminal sessions. Mate detects your system's default shell automatically (e.g., zsh on macOS, bash on Linux). You can override this to use a different shell.
-
-### Font size [#font-size]
-
-The terminal font size in points. Adjustable via settings or with keyboard shortcuts (`Cmd + =` / `Cmd + -`).
-
-### Scrollback buffer [#scrollback-buffer]
-
-The number of lines kept in the terminal's scrollback history. Higher values use more memory but let you scroll back further through command output.
-
-## Connectors [#connectors]
-
-### Enabled connectors [#enabled-connectors]
-
-Toggle individual MCP connectors on or off. Each connector shows its name, category, and connection status.
-
-### Credentials [#credentials]
-
-Manage API keys and tokens for connectors. Credentials are stored in platform-native secure storage (Keychain on macOS, Credential Manager on Windows, Secret Service on Linux).
-
-### Command verification [#command-verification]
-
-Mate checks that the required command for each connector (usually `npx`) is available before enabling it. If a command is not found, Mate shows installation guidance.
-
-## Network [#network]
-
-### Device name [#device-name]
-
-The name other devices see when they discover your device on the network. Defaults to your computer's hostname.
-
-### Auto-discovery [#auto-discovery]
-
-Toggle multicast UDP discovery on or off. When enabled, Mate automatically finds other devices on the same network. When disabled, you need to connect manually.
-
-## Agent Chat [#agent-chat]
-
-### Default CLI [#default-cli]
-
-The AI CLI to use when creating new agent chat sessions. Options depend on which CLIs are installed on your system (Claude Code, Codex, Copilot).
-
-### MCP config generation [#mcp-config-generation]
-
-Mate automatically generates MCP configuration files that agent CLIs read at startup. This section shows which connectors will be passed to agent sessions and lets you configure additional settings.
-
-<Callout type="info">
-  Settings are stored locally on your device. They are not synced between devices — each device has its own configuration.
-</Callout>
-
-
 # Mobile Usage (/docs/remote/mobile)
 
 
 
-Mate on mobile gives you full access to your desktop's sessions from your phone or tablet. It is not a simplified version — you get the same terminals, agent chats, editors, and web previews, just optimized for a smaller screen.
+Gent on mobile gives you full access to your desktop's sessions from your phone or tablet. It is not a simplified version — you get the same terminals, agent chats, editors, and web previews, just optimized for a smaller screen.
 
 ## Getting started on mobile [#getting-started-on-mobile]
 
 <Steps>
-  ### Install Mate [#install-mate]
+  ### Install Gent [#install-gent]
 
-  Download Mate from the App Store (iOS) or Google Play (Android).
+  Download Gent from the App Store (iOS) or Google Play (Android).
 
   ### Connect to your desktop [#connect-to-your-desktop]
 
-  Make sure your phone and desktop are on the same Wi-Fi network. Open Mate on both devices. Your desktop should appear in the sidebar automatically within a few seconds.
+  Make sure your phone and desktop are on the same Wi-Fi network. Open Gent on both devices. Your desktop should appear in the sidebar automatically within a few seconds.
 
   ### Select your desktop [#select-your-desktop]
 
@@ -1463,7 +2083,7 @@ Mobile works best on a stable Wi-Fi connection. The app handles temporary discon
 
 
 
-Mate's remote feature lets you access your desktop's sessions from any paired device on the same network. Understanding the architecture helps you get the most out of it.
+Gent's remote feature lets you access your desktop's sessions from any paired device on the same network. Understanding the architecture helps you get the most out of it.
 
 ## The mental model [#the-mental-model]
 
@@ -1495,11 +2115,11 @@ From a remote device, you can:
 
 ## How it connects [#how-it-connects]
 
-Mate uses direct TCP connections over your local network. The default port is **53317**. Device discovery happens automatically via multicast UDP — no manual IP configuration needed.
+Gent uses direct TCP connections over your local network. The default port is **53317**. Device discovery happens automatically via multicast UDP — no manual IP configuration needed.
 
 The connection flow:
 
-1. Both devices run Mate on the same network
+1. Both devices run Gent on the same network
 2. Multicast discovery finds nearby devices automatically
 3. Selecting a device in the sidebar establishes a TCP connection
 4. All session data flows directly between devices — no cloud relay
@@ -1537,21 +2157,21 @@ Most remote connection problems come down to network configuration. Here are the
 
 ## Devices not discovering each other [#devices-not-discovering-each-other]
 
-**Symptom**: You open Mate on both devices, but they do not appear in each other's sidebar.
+**Symptom**: You open Gent on both devices, but they do not appear in each other's sidebar.
 
 **Fixes**:
 
 1. **Same network**: Confirm both devices are on the exact same Wi-Fi network. Some routers have separate 2.4GHz and 5GHz networks — make sure both devices are on the same one.
 
-2. **Multicast blocking**: Mate uses multicast UDP for discovery. Some enterprise networks, guest networks, and mesh routers block multicast traffic. Try a different network or check your router's settings.
+2. **Multicast blocking**: Gent uses multicast UDP for discovery. Some enterprise networks, guest networks, and mesh routers block multicast traffic. Try a different network or check your router's settings.
 
-3. **macOS local network permission**: On macOS, go to **System Settings > Privacy & Security > Local Network** and make sure Mate is allowed.
+3. **macOS local network permission**: On macOS, go to **System Settings > Privacy & Security > Local Network** and make sure Gent is allowed.
 
 4. **Firewall**: Check that no firewall is blocking:
    * TCP port **53317** (or your configured port)
    * Multicast UDP traffic
 
-5. **Restart both apps**: Close and reopen Mate on both devices. This triggers a fresh multicast scan.
+5. **Restart both apps**: Close and reopen Gent on both devices. This triggers a fresh multicast scan.
 
 ## Connection drops [#connection-drops]
 
@@ -1561,12 +2181,12 @@ Most remote connection problems come down to network configuration. Here are the
 
 1. **Wi-Fi stability**: Check signal strength on both devices. Weak Wi-Fi causes intermittent TCP disconnections.
 
-2. **Sleep/standby**: When a device sleeps, the network connection drops. Mate reconnects automatically when the device wakes, but there may be a brief delay.
+2. **Sleep/standby**: When a device sleeps, the network connection drops. Gent reconnects automatically when the device wakes, but there may be a brief delay.
 
 3. **Network switching**: If your phone switches between Wi-Fi and cellular, the connection drops. Make sure your phone stays on Wi-Fi.
 
 <Callout type="info">
-  Mate uses exponential backoff for reconnection attempts. If the connection drops, it will try to reconnect automatically — starting at 10 seconds and backing off to 80 seconds between attempts.
+  Gent uses exponential backoff for reconnection attempts. If the connection drops, it will try to reconnect automatically — starting at 10 seconds and backing off to 80 seconds between attempts.
 </Callout>
 
 ## Terminal lag [#terminal-lag]
@@ -1583,9 +2203,9 @@ Most remote connection problems come down to network configuration. Here are the
 
 ## Port conflicts [#port-conflicts]
 
-**Symptom**: Mate fails to start or pair, with errors about port 53317.
+**Symptom**: Gent fails to start or pair, with errors about port 53317.
 
-**Fix**: Another application is using port 53317. You can change Mate's port in **Settings**. Make sure both devices use the same port.
+**Fix**: Another application is using port 53317. You can change Gent's port in **Settings**. Make sure both devices use the same port.
 
 ```bash
 # Check what is using port 53317 on macOS/Linux
@@ -1599,7 +2219,7 @@ lsof -i :53317
 **Fixes**:
 
 1. **Server running**: Make sure your dev server is actually running on the specified port on the desktop
-2. **Localhost binding**: Some dev servers bind to `127.0.0.1` only. Mate's reverse proxy handles this, but check that the server is running
+2. **Localhost binding**: Some dev servers bind to `127.0.0.1` only. Gent's reverse proxy handles this, but check that the server is running
 3. **Port number**: Double-check you entered the correct port number in the web preview tab
 
 ## Agent chat not connecting remotely [#agent-chat-not-connecting-remotely]
@@ -1618,4 +2238,4 @@ If none of the above fixes your issue:
 
 * Check the app logs for error messages
 * Try pairing on a different network (e.g., a phone hotspot) to isolate whether the issue is network-specific
-* Verify that both devices are running the same version of Mate
+* Verify that both devices are running the same version of Gent

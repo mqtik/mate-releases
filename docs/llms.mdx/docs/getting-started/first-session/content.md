@@ -2,7 +2,7 @@
 
 
 
-When you launch Mate for the first time, you land in the workspace — the main area where all your sessions live. Let's walk through the basics.
+When you launch Gent for the first time, you land in the workspace — the main area where all your sessions live. Let's walk through the basics.
 
 ## The workspace [#the-workspace]
 
@@ -14,7 +14,7 @@ The workspace has three main areas:
 
 ## Open a terminal [#open-a-terminal]
 
-Mate starts with a terminal tab by default. If you need another one:
+Gent starts with a terminal tab by default. If you need another one:
 
 1. Click the &#x2A;*+** button in the tab bar
 2. Select **Terminal** from the dropdown
@@ -54,10 +54,10 @@ If you have Claude Code, Codex, or Copilot CLI installed, you can start an agent
 3. Pick your preferred CLI from the dropdown
 4. Type a message and watch the agent work
 
-The agent can read files, run commands, search your codebase, and make edits — all within Mate's interface. See [Agent Chat](/docs/features/agent-chat) for the full guide.
+The agent can read files, run commands, search your codebase, and make edits — all within Gent's interface. See [Agent Chat](/docs/features/agent-chat) for the full guide.
 
 ## Next steps [#next-steps]
 
 * [Pair a mobile device](/docs/getting-started/pairing-devices) to access your sessions from your phone
 * [Set up integrations](/docs/integrations/overview) to connect GitHub, Slack, databases, and more
-* [Explore features](/docs/features/terminal) to see everything Mate can do
+* [Explore features](/docs/features/terminal) to see everything Gent can do

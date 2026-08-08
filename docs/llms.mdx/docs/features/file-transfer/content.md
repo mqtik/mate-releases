@@ -2,14 +2,14 @@
 
 
 
-Mate includes built-in file transfer between paired devices. Send files from your desktop to your phone, or receive files from your phone to your desktop — no third-party apps, cloud services, or cables needed.
+Gent includes built-in file transfer between paired devices. Send files from your desktop to your phone, or receive files from your phone to your desktop — no third-party apps, cloud services, or cables needed.
 
 ## Sending files [#sending-files]
 
 <Steps>
   ### Open the Send tab [#open-the-send-tab]
 
-  Navigate to the send interface in Mate.
+  Navigate to the send interface in Gent.
 
   ### Select files [#select-files]
 
@@ -26,11 +26,11 @@ Mate includes built-in file transfer between paired devices. Send files from you
 
 ## Receiving files [#receiving-files]
 
-When a paired device sends you files, Mate notifies you and shows the incoming transfer. Received files are saved to your configured download location.
+When a paired device sends you files, Gent notifies you and shows the incoming transfer. Received files are saved to your configured download location.
 
 ## How it works [#how-it-works]
 
-File transfers use the same direct TCP connection as all other Mate features. Files travel directly between devices on your local network with no intermediate server. Transfer speeds are limited only by your local network bandwidth — typically much faster than cloud-based alternatives.
+File transfers use the same direct TCP connection as all other Gent features. Files travel directly between devices on your local network with no intermediate server. Transfer speeds are limited only by your local network bandwidth — typically much faster than cloud-based alternatives.
 
 <Callout type="info">
   File transfer works between any two paired devices: desktop to phone, phone to desktop, or desktop to desktop.

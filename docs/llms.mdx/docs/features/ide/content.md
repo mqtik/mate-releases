@@ -2,7 +2,7 @@
 
 
 
-Mate includes a built-in IDE for editing code without leaving the app. It is not a replacement for VS Code or JetBrains — it is a lightweight, always-available editor that is especially useful when you are working remotely from your phone or tablet.
+Gent includes a built-in IDE for editing code without leaving the app. It is not a replacement for VS Code or JetBrains — it is a lightweight, always-available editor that is especially useful when you are working remotely from your phone or tablet.
 
 ## Opening the IDE [#opening-the-ide]
 
@@ -33,7 +33,7 @@ The editor supports syntax highlighting for 100+ languages through the re\_edito
 * Standard keyboard shortcuts for editing
 
 <Callout type="info">
-  The IDE is designed for quick edits and code review, not as a full development environment. For heavy editing sessions, pair it with your preferred desktop editor and use Mate's IDE for on-the-go changes.
+  The IDE is designed for quick edits and code review, not as a full development environment. For heavy editing sessions, pair it with your preferred desktop editor and use Gent's IDE for on-the-go changes.
 </Callout>
 
 ## Single-file editor [#single-file-editor]

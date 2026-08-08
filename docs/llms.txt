@@ -2,13 +2,15 @@
 
 
 - **Getting Started**
-- [Installation](/docs/getting-started/installation): Download and install Mate on macOS, Windows, or Linux.
-- [First Session](/docs/getting-started/first-session): Open your first terminal session and learn basic navigation in Mate.
-- [Pairing Devices](/docs/getting-started/pairing-devices): Pair your phone or another computer with Mate over your local network.
+- [Installation](/docs/getting-started/installation): Download and install Gent on macOS, Windows, or Linux.
+- [First Session](/docs/getting-started/first-session): Open your first terminal session and learn basic navigation in Gent.
+- [Pairing Devices](/docs/getting-started/pairing-devices): Pair your phone or another computer with Gent over your local network.
 
 - **Features**
 - [Terminal](/docs/features/terminal): Full PTY terminal emulation with tabs, scrollback, and remote access.
-- [Agent Chat](/docs/features/agent-chat): Chat with AI coding agents like Claude Code, Codex, and Copilot inside Mate.
+- [Agent Chat](/docs/features/agent-chat): Chat with AI coding agents like Claude Code, Codex, and Copilot inside Gent.
+- [Gent Canvas](/docs/features/canvas): Render agent-generated HTML, charts, prototypes, and interactive web artifacts beside chat.
+- [Gent Draw](/docs/features/draw): Sketch with Excalidraw, paste images, keep drawing history, export, and send one PNG to an agent.
 - [IDE](/docs/features/ide): Built-in multi-file editor with file tree, git integration, and syntax highlighting.
 - [Web Preview](/docs/features/web-preview): Preview localhost web apps from any paired device through a built-in reverse proxy.
 - [File Transfer](/docs/features/file-transfer): Send and receive files between paired devices.
@@ -17,18 +19,21 @@
 - [Voice Input](/docs/features/voice-input): Talk instead of type with built-in speech-to-text.
 
 - **Integrations**
-- [Integrations Overview](/docs/integrations/overview): How MCP connectors work in Mate and what they enable.
-- [Connector Setup](/docs/integrations/connector-setup): How to install and configure an MCP connector in Mate.
-- [Connector List](/docs/integrations/connector-list): All MCP connectors available in Mate, organized by category.
-- [Claude Code Integration](/docs/integrations/claude-code): How Claude Code CLI works inside Mate's agent chat.
-- [Custom Connectors](/docs/integrations/custom-connectors): Add your own MCP servers as connectors in Mate.
+- [Integrations Overview](/docs/integrations/overview): How MCP connectors work in Gent and what they enable.
+- [Connector Setup](/docs/integrations/connector-setup): How to install and configure an MCP connector in Gent.
+- [Connector List](/docs/integrations/connector-list): All MCP connectors available in Gent, organized by category.
+- [Gent Forge](/docs/integrations/mate-forge): Type /connect anything and let an agent generate a custom MCP server for a product, API, website, or workflow.
+- [Agentic Mobile](/docs/integrations/argent): An agentic toolkit to control, debug, and profile iOS and Android applications through the bundled Argent connector.
+- [Claude Code Integration](/docs/integrations/claude-code): How Claude Code CLI works inside Gent's agent chat.
+- [Custom Connectors](/docs/integrations/custom-connectors): Add your own MCP servers as connectors in Gent.
+- [Custom Adapters](/docs/integrations/custom-adapters): Add support for a new AI coding CLI by writing a declarative adapter — no app build required.
 - [Skills](/docs/integrations/skills): Extend your AI agents with installable skills.
 
 - **Remote**
-- [Remote Sessions](/docs/remote/overview): How remote access works in Mate — your desktop is the server, other devices are mirrors.
-- [Mobile Usage](/docs/remote/mobile): Using Mate from your iPhone or Android device.
+- [Remote Sessions](/docs/remote/overview): How remote access works in Gent — your desktop is the server, other devices are mirrors.
+- [Mobile Usage](/docs/remote/mobile): Using Gent from your iPhone or Android device.
 - [Remote Troubleshooting](/docs/remote/troubleshooting): Common remote connection issues and how to fix them.
 
 - **Reference**
-- [Keyboard Shortcuts](/docs/reference/keyboard-shortcuts): Common keyboard shortcuts for Mate on desktop.
-- [Settings](/docs/reference/settings): App settings reference for Mate.
+- [Keyboard Shortcuts](/docs/reference/keyboard-shortcuts): Common keyboard shortcuts for Gent on desktop.
+- [Settings](/docs/reference/settings): App settings reference for Gent.

@@ -2,18 +2,18 @@
 
 
 
-Mate on mobile gives you full access to your desktop's sessions from your phone or tablet. It is not a simplified version — you get the same terminals, agent chats, editors, and web previews, just optimized for a smaller screen.
+Gent on mobile gives you full access to your desktop's sessions from your phone or tablet. It is not a simplified version — you get the same terminals, agent chats, editors, and web previews, just optimized for a smaller screen.
 
 ## Getting started on mobile [#getting-started-on-mobile]
 
 <Steps>
-  ### Install Mate [#install-mate]
+  ### Install Gent [#install-gent]
 
-  Download Mate from the App Store (iOS) or Google Play (Android).
+  Download Gent from the App Store (iOS) or Google Play (Android).
 
   ### Connect to your desktop [#connect-to-your-desktop]
 
-  Make sure your phone and desktop are on the same Wi-Fi network. Open Mate on both devices. Your desktop should appear in the sidebar automatically within a few seconds.
+  Make sure your phone and desktop are on the same Wi-Fi network. Open Gent on both devices. Your desktop should appear in the sidebar automatically within a few seconds.
 
   ### Select your desktop [#select-your-desktop]
 

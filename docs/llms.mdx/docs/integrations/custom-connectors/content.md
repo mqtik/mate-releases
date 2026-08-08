@@ -2,7 +2,7 @@
 
 
 
-Beyond the built-in connectors, you can add any MCP-compatible server as a custom connector. If you have built your own MCP server or want to use one from the community that is not in Mate's registry, you can configure it manually.
+Beyond the built-in connectors, you can add any MCP-compatible server as a custom connector. If you have built your own MCP server or want to use one from the community that is not in Gent's registry, you can configure it manually.
 
 ## What you need [#what-you-need]
 
@@ -15,7 +15,7 @@ A custom connector requires:
 
 ## Adding a custom connector [#adding-a-custom-connector]
 
-Custom connectors are configured as MCP servers that Mate passes to the agent CLI at startup.
+Custom connectors are configured as MCP servers that Gent passes to the agent CLI at startup.
 
 <Steps>
   ### Prepare your MCP server [#prepare-your-mcp-server]
@@ -26,9 +26,9 @@ Custom connectors are configured as MCP servers that Mate passes to the agent CL
   echo '{"jsonrpc":"2.0","method":"initialize","id":1,"params":{"capabilities":{}}}' | npx your-mcp-server
   ```
 
-  ### Configure in Mate [#configure-in-mate]
+  ### Configure in Gent [#configure-in-gent]
 
-  Add the connector configuration in Mate's settings. You will need to provide:
+  Add the connector configuration in Gent's settings. You will need to provide:
 
   * **Name**: A display name for the connector
   * **Command**: The command to run (e.g., `npx`, `node`, `python`)
@@ -67,7 +67,7 @@ If your server is written in Python:
 * **Env**: Any required variables
 
 <Callout type="info">
-  Mate bundles Node.js, so `npx` and `node` commands work without a system Node.js installation. For Python-based servers, you need Python installed on your system.
+  Gent bundles Node.js, so `npx` and `node` commands work without a system Node.js installation. For Python-based servers, you need Python installed on your system.
 </Callout>
 
 ## Building your own MCP server [#building-your-own-mcp-server]

@@ -2,13 +2,13 @@
 
 
 
-Claude Code is the most deeply integrated AI CLI in Mate. Unlike Codex and Copilot (which run one-shot), Claude Code maintains a persistent process with multi-turn conversation support, making it feel like a native part of the app.
+Claude Code is the most deeply integrated AI CLI in Gent. Unlike Codex and Copilot (which run one-shot), Claude Code maintains a persistent process with multi-turn conversation support, making it feel like a native part of the app.
 
 ## How it works [#how-it-works]
 
 When you start an agent chat with Claude Code:
 
-1. Mate spawns the `claude` CLI with `--input-format stream-json` for streaming communication
+1. Gent spawns the `claude` CLI with `--input-format stream-json` for streaming communication
 2. The process stays alive for the entire conversation — follow-up messages go through stdin
 3. Responses stream back in real time with text, tool calls, and results
 4. MCP connectors are passed via a generated config file
@@ -23,9 +23,9 @@ You need the Claude Code CLI installed on your system:
 npm install -g @anthropic-ai/claude-code
 ```
 
-Mate detects available CLIs automatically. If `claude` is in your PATH, it appears as an option when creating an agent chat.
+Gent detects available CLIs automatically. If `claude` is in your PATH, it appears as an option when creating an agent chat.
 
-## Features in Mate [#features-in-mate]
+## Features in Gent [#features-in-gent]
 
 ### Streaming responses [#streaming-responses]
 
@@ -33,7 +33,7 @@ Text and tool use stream in real time. You see the agent's thinking as it happen
 
 ### Tool use visualization [#tool-use-visualization]
 
-When Claude Code calls tools, Mate shows them as interactive chips with context:
+When Claude Code calls tools, Gent shows them as interactive chips with context:
 
 * **File reads** show the filename
 * **Shell commands** show the actual command being run
@@ -42,7 +42,7 @@ When Claude Code calls tools, Mate shows them as interactive chips with context:
 
 ### Conversation persistence [#conversation-persistence]
 
-Conversations persist across app restarts. You can close Mate, reopen it, and resume where you left off.
+Conversations persist across app restarts. You can close Gent, reopen it, and resume where you left off.
 
 ### Conversation forking [#conversation-forking]
 
@@ -50,15 +50,15 @@ Fork a conversation at any point to explore a different approach without losing 
 
 ### MCP connector passthrough [#mcp-connector-passthrough]
 
-All enabled [MCP connectors](/docs/integrations/overview) are automatically available to Claude Code. Mate generates an MCP config file that the CLI reads at startup, giving the agent access to GitHub, databases, search engines, and every other connector you have configured.
+All enabled [MCP connectors](/docs/integrations/overview) are automatically available to Claude Code. Gent generates an MCP config file that the CLI reads at startup, giving the agent access to GitHub, databases, search engines, and every other connector you have configured.
 
 <Callout type="info">
-  Mate handles the MCP config file generation automatically. You do not need to manually configure Claude Code's MCP settings — just enable connectors in Mate's settings and they are available in every agent chat.
+  Gent handles the MCP config file generation automatically. You do not need to manually configure Claude Code's MCP settings — just enable connectors in Gent's settings and they are available in every agent chat.
 </Callout>
 
 ### Tool approval [#tool-approval]
 
-Some tool calls require your approval before execution. Mate shows a permission prompt for sensitive operations, letting you review and approve or deny before the agent proceeds.
+Some tool calls require your approval before execution. Gent shows a permission prompt for sensitive operations, letting you review and approve or deny before the agent proceeds.
 
 ## Remote usage [#remote-usage]
 

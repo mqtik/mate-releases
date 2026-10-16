@@ -55,675 +55,6 @@ Think of it as your entire dev environment in one app: terminals, editors, AI as
 Your desktop runs Gent as the server. It owns all session state: terminals, projects, agent chats, and files. Your phone (or any other device on the same network) pairs with it and acts as a live mirror — you see and interact with the same sessions, in real time, from anywhere on your local network. No cloud. No accounts. Just your devices talking directly to each other.
 
 
-# Agent Chat (/docs/features/agent-chat)
-
-
-
-Agent Chat lets you work with AI coding assistants directly inside Gent. Instead of switching between your terminal and a separate chat window, the agent runs alongside your other sessions — reading your files, executing commands, and making edits, all visible in real time.
-
-## Supported CLIs [#supported-clis]
-
-| CLI         | Multi-turn             | How it connects                                                 |
-| ----------- | ---------------------- | --------------------------------------------------------------- |
-| Claude Code | Yes (long-lived stdin) | Spawns process, sends messages via `--input-format stream-json` |
-| Codex       | One-shot               | Spawns a new process per message                                |
-| Copilot     | One-shot               | Spawns a new process per message                                |
-
-<Callout type="info">
-  Claude Code keeps a persistent process running, so follow-up messages are instant. Codex and Copilot spawn fresh processes for each message, which takes a few seconds.
-</Callout>
-
-## Available models [#available-models]
-
-Each CLI gives you access to different models:
-
-| CLI         | Models                                 |
-| ----------- | -------------------------------------- |
-| Claude Code | Haiku 4.5, Sonnet 4.6, Opus 4.6        |
-| Codex       | Codex Mini, GPT-5.2 Codex, o4-mini, o3 |
-| Copilot     | GPT-4o, Claude 3.5 Sonnet, o3-mini     |
-
-Select your preferred model from the dropdown in the chat header. The model affects response quality, speed, and cost.
-
-## Starting a chat [#starting-a-chat]
-
-1. Click &#x2A;*+** in the tab bar and select **Agent Chat**
-2. Choose your CLI (Claude Code, Codex, or Copilot) from the dropdown
-3. Type your message and press Enter
-
-The agent streams its response in real time. You will see text output as it is generated, and tool use appears as interactive chips showing what the agent is doing.
-
-## Tool use [#tool-use]
-
-When the agent calls tools — reading files, running commands, searching code — Gent shows each tool invocation with meaningful context:
-
-* **Read file** shows the filename being read
-* **Run command** shows the actual shell command
-* **Search** shows the query being searched
-* **Edit file** shows which file is being modified
-
-Tool calls that modify files (edits, writes) are highlighted so you can review what changed. Gent generates inline diffs for file modifications.
-
-### Tool approval [#tool-approval]
-
-Some tools require your approval before the agent can execute them. When the agent wants to run a potentially destructive action (like writing a file or running a shell command), Gent shows a permission prompt. You can:
-
-* **Approve** the individual tool call
-* **Approve all** for that tool type during the session
-* **Reject** to deny the action
-
-### Auto-approval and permission modes [#auto-approval-and-permission-modes]
-
-For trusted workflows, you can configure auto-approval in the chat settings. This lets the agent run tools without asking — useful when you are watching the output and want a faster feedback loop. You can set permission modes per tool category (e.g., always approve file reads, always ask before shell commands).
-
-### Effort level [#effort-level]
-
-Claude Code supports an effort setting that controls how thorough the agent is. Lower effort means faster, more concise responses. Higher effort means the agent spends more time thinking, reading more files, and producing more detailed output. Adjust this in the chat header.
-
-## Conversations [#conversations]
-
-Each agent chat is a persistent conversation. You can:
-
-* **Continue** a conversation by sending more messages
-* **Fork** a conversation to branch off from a specific point — useful when you want to try a different approach without losing the original thread
-* **Resume** a previous conversation from the sidebar
-
-Conversation history is stored locally on your desktop. Nothing is sent to any cloud service beyond what the underlying CLI itself sends to its API.
-
-### Forking [#forking]
-
-Conversation forking creates a new conversation that starts with the same history up to the point you forked. The original conversation is untouched. This lets you explore "what if" scenarios — try a different approach, and if it doesn't work out, go back to the original.
-
-## Rich content [#rich-content]
-
-### Markdown rendering [#markdown-rendering]
-
-Agent responses render full Markdown with syntax highlighting for code blocks, tables, lists, and inline formatting. Code blocks show the language label and can be copied with one click.
-
-### Canvas artifacts [#canvas-artifacts]
-
-When an agent produces self-contained HTML/JS/CSS, Gent can display it in a Canvas panel alongside the chat. This is useful for visual content — charts, diagrams, interactive prototypes, games, and small tools — that the agent generates during the conversation. See [Gent Canvas](/docs/features/canvas) for the full workflow.
-
-### Drawings and visual prompts [#drawings-and-visual-prompts]
-
-Gent Draw opens an Excalidraw board from the composer. You can sketch, paste images, annotate screenshots, reopen saved drawings, export the board, or send the drawing to the agent as a single PNG attachment. See [Gent Draw](/docs/features/draw).
-
-### File and image attachments [#file-and-image-attachments]
-
-Drag and drop files or images into the composer, or paste them from your clipboard. The agent receives the file content as part of the message context. This works with code files, screenshots, logs, or any text-based content you want the agent to see.
-
-## Slash commands [#slash-commands]
-
-Type `/` in the composer to see available slash commands. These come from installed [skills](/docs/integrations/skills) and built-in commands. Slash commands let you trigger specific workflows without typing out full prompts.
-
-## MCP connectors in agent chat [#mcp-connectors-in-agent-chat]
-
-If you have [MCP connectors](/docs/integrations/overview) configured, the agent can use them as tools. For example, with the GitHub connector enabled, Claude Code can create pull requests, read issues, and manage repositories directly from chat.
-
-Gent generates an MCP config file that the CLI reads at startup, so all your connected integrations are available to the agent automatically.
-
-## Remote agent chat [#remote-agent-chat]
-
-Agent chat works from paired remote devices. When you select a remote device in the sidebar, you see its running agent chat sessions and can interact with them. The CLI process runs on the desktop — the remote device sends input and receives streamed output over the network.
-
-## Tips [#tips]
-
-* Long-running agent tasks keep working even if you switch to another tab
-* Use conversation forking when you want to try a different approach without losing the original thread
-* The agent respects your project's working directory when running commands
-* Use [voice input](/docs/features/voice-input) to dictate prompts instead of typing
-
-
-# Gent Canvas (/docs/features/canvas)
-
-
-
-Gent Canvas gives agents a real web surface next to the conversation. When an agent needs to show something visual, it can call the built-in `mate-canvas` MCP tool and render a self-contained HTML document in the Canvas panel.
-
-This is the web-agent surface in Gent: the agent writes the page, Gent renders it, and you can keep iterating without leaving the chat.
-
-## What Canvas is for [#what-canvas-is-for]
-
-Use Canvas when the output should be seen, touched, or inspected as a rendered web artifact:
-
-* Interactive prototypes and one-off UI mockups
-* Charts, dashboards, and data visualizations
-* Diagrams and system maps
-* Games, simulations, and small tools
-* HTML/CSS/JS demos that benefit from live iteration
-
-Canvas is not an image viewer. If an agent creates a PNG, SVG, JPEG, logo, screenshot, or icon file, it should attach or reference the file directly instead of opening it in Canvas.
-
-## Starting with `/canvas` [#starting-with-canvas]
-
-Type `/canvas` followed by what you want:
-
-```text
-/canvas build a responsive pricing table with annual/monthly toggle
-```
-
-Gent rewrites that into a focused instruction for the agent:
-
-1. Create a complete self-contained HTML file in the current working directory
-2. Put CSS and JavaScript inline
-3. Use CSS custom properties for important colors, fonts, and spacing
-4. Call `mcp__mate-canvas__show` with the generated file
-
-The Canvas panel opens beside the chat when the tool call completes.
-
-## File mode and auto-reload [#file-mode-and-auto-reload]
-
-Canvas supports inline HTML, but Gent prefers file mode for iterative work. The agent writes a file such as `canvas-a1b2c3d4.html`, then calls the show tool with:
-
-```json
-{
-  "file": "canvas-a1b2c3d4.html",
-  "title": "Pricing table"
-}
-```
-
-Follow-up `/canvas` messages are applied to the same file when possible. The panel auto-reloads after edits, so the agent does not need to call the show tool again for every tiny change.
-
-## Library support [#library-support]
-
-Canvas can load browser libraries from CDNs when the HTML needs them. Good fits include:
-
-| Need               | Examples                      |
-| ------------------ | ----------------------------- |
-| 3D scenes          | Three.js, Babylon.js          |
-| Charts             | D3, Chart.js, Plotly, ECharts |
-| Maps               | Leaflet, MapLibre GL          |
-| Animation          | GSAP, anime.js, Lottie        |
-| Audio              | Tone.js, Howler.js            |
-| Games and sketches | Phaser, p5.js, Matter.js      |
-| Diagrams           | Mermaid, JointJS              |
-| Editors            | Monaco Editor, CodeMirror     |
-
-Agents should pin CDN versions instead of using `latest`, for example `three@0.160.0`.
-
-## Canvas vs Web Preview [#canvas-vs-web-preview]
-
-Canvas and Web Preview solve different problems:
-
-| Surface     | Use it when                                                                                         |
-| ----------- | --------------------------------------------------------------------------------------------------- |
-| Gent Canvas | The agent is generating a self-contained web artifact directly in chat                              |
-| Web Preview | You already have a dev server running on localhost and want to view it from Gent or a paired device |
-
-For app development, a common flow is: ask the agent to sketch an idea in Canvas, then move the real implementation into your project and use [Web Preview](/docs/features/web-preview) to test the running app.
-
-## Constraints [#constraints]
-
-* Canvas has no backend, database, filesystem access, or server-side API
-* Everything must run in the browser
-* External dependencies should load from versioned CDN URLs
-* The current Canvas panel is attached to the current chat and replaces the previous Canvas artifact for that conversation
-
-## Related [#related]
-
-* [Agent Chat](/docs/features/agent-chat)
-* [Web Preview](/docs/features/web-preview)
-* [Gent Draw](/docs/features/draw)
-
-
-# Gent Draw (/docs/features/draw)
-
-
-
-Gent Draw is an Excalidraw-based drawing board inside agent chat. It is for the moments where a screenshot, rough diagram, annotated idea, or hand-drawn layout says more than a paragraph.
-
-You can draw, paste images, drop image files, reopen previous drawings, export the board, or send the whole drawing to the agent as a single PNG attachment.
-
-## What Draw is good for [#what-draw-is-good-for]
-
-* Annotating screenshots before asking an agent to fix a UI
-* Sketching a screen layout or state machine
-* Drawing arrows over an error, trace, or design reference
-* Combining pasted images with hand-written notes
-* Sending one compact visual brief instead of many separate files
-
-## Opening Draw [#opening-draw]
-
-In agent chat, use the drawing control in the composer. Gent opens a full drawing modal with an Excalidraw canvas and a small toolbar.
-
-The toolbar includes:
-
-| Control | What it does                                                         |
-| ------- | -------------------------------------------------------------------- |
-| Cancel  | Close the modal without sending                                      |
-| History | Reopen saved drawings                                                |
-| Export  | Save the current board as a PNG                                      |
-| Send    | Export the current board as a PNG and attach it to the agent message |
-
-## Pasting and dropping images [#pasting-and-dropping-images]
-
-Draw supports image-heavy workflows:
-
-* Paste an image from the clipboard
-* Pick image files from disk
-* Drag and drop image files into the canvas
-
-Supported image types include PNG, JPG, JPEG, GIF, WebP, SVG, and BMP. Images become Excalidraw image elements, so you can draw around them, resize them, and annotate them before sending.
-
-## Sending to the agent [#sending-to-the-agent]
-
-When you click **Send**, Gent exports the current board as `image/png`, writes a temporary file, closes the drawing modal, and attaches that one PNG to the agent message.
-
-This keeps the chat input simple: the agent receives one visual artifact that contains the sketch, pasted images, arrows, labels, and annotations together.
-
-## Autosave and history [#autosave-and-history]
-
-Draw autosaves non-empty scenes and stores a thumbnail for history. Use the History control to reopen previous drawings, continue editing them, or delete old entries.
-
-Autosave stores the Excalidraw scene data so reopening a drawing keeps editable elements, not just a flat screenshot.
-
-## Exporting without sending [#exporting-without-sending]
-
-Use **Export** when you want to save the drawing locally but not send it to the agent. Gent writes a PNG to the location you choose.
-
-## Draw vs Canvas [#draw-vs-canvas]
-
-| Surface     | Best for                                                                       |
-| ----------- | ------------------------------------------------------------------------------ |
-| Gent Draw   | Human sketches, annotations, pasted screenshots, and visual prompts            |
-| Gent Canvas | Agent-generated HTML, charts, prototypes, demos, and interactive web artifacts |
-
-Use Draw when the human needs to communicate visually. Use [Canvas](/docs/features/canvas) when the agent needs to render something visual.
-
-
-# File Transfer (/docs/features/file-transfer)
-
-
-
-Gent includes built-in file transfer between paired devices. Send files from your desktop to your phone, or receive files from your phone to your desktop — no third-party apps, cloud services, or cables needed.
-
-## Sending files [#sending-files]
-
-<Steps>
-  ### Open the Send tab [#open-the-send-tab]
-
-  Navigate to the send interface in Gent.
-
-  ### Select files [#select-files]
-
-  Choose one or more files from your device. You can select multiple files at once.
-
-  ### Pick a destination [#pick-a-destination]
-
-  Select the paired device you want to send to from the device list.
-
-  ### Send [#send]
-
-  The files transfer directly over your local network. Large files transfer quickly since there is no cloud relay — data goes straight from device to device.
-</Steps>
-
-## Receiving files [#receiving-files]
-
-When a paired device sends you files, Gent notifies you and shows the incoming transfer. Received files are saved to your configured download location.
-
-## How it works [#how-it-works]
-
-File transfers use the same direct TCP connection as all other Gent features. Files travel directly between devices on your local network with no intermediate server. Transfer speeds are limited only by your local network bandwidth — typically much faster than cloud-based alternatives.
-
-<Callout type="info">
-  File transfer works between any two paired devices: desktop to phone, phone to desktop, or desktop to desktop.
-</Callout>
-
-## Supported file types [#supported-file-types]
-
-Any file type is supported. There are no restrictions on what you can send — documents, images, videos, code archives, binaries, or anything else.
-
-
-# IDE (/docs/features/ide)
-
-
-
-Gent includes a built-in IDE for editing code without leaving the app. It is not a replacement for VS Code or JetBrains — it is a lightweight, always-available editor that is especially useful when you are working remotely from your phone or tablet.
-
-## Opening the IDE [#opening-the-ide]
-
-1. Click &#x2A;*+** in the tab bar
-2. Select **IDE**
-3. Choose a folder to open
-
-The IDE shows a file tree on the left and an editor pane on the right. Click any file to open it.
-
-## File tree [#file-tree]
-
-The file tree is git-aware. It uses `git ls-files` to list tracked files, which means it automatically respects your `.gitignore` and skips build artifacts, `node_modules`, and other ignored directories. For non-git projects, it falls back to a standard directory listing.
-
-You can:
-
-* Navigate folders by expanding/collapsing them
-* Open files by clicking
-* Search files by name using the search bar at the top of the tree
-
-## Editor [#editor]
-
-The editor supports syntax highlighting for 100+ languages through the re\_editor package. Features include:
-
-* Syntax highlighting with language auto-detection based on file extension
-* Line numbers
-* Find and replace
-* Undo/redo
-* Standard keyboard shortcuts for editing
-
-<Callout type="info">
-  The IDE is designed for quick edits and code review, not as a full development environment. For heavy editing sessions, pair it with your preferred desktop editor and use Gent's IDE for on-the-go changes.
-</Callout>
-
-## Single-file editor [#single-file-editor]
-
-If you just need to edit one file without a full project tree, use the **Editor** tab type instead. It opens a single file in an editor with the same syntax highlighting and editing features.
-
-## Remote editing [#remote-editing]
-
-The IDE works from paired remote devices. When you open an IDE tab on a remote session, you are browsing and editing files on the desktop. Changes are saved directly to the desktop's filesystem.
-
-This is particularly useful for:
-
-* Quick fixes from your phone while away from your desk
-* Reviewing code that an AI agent just modified
-* Editing configuration files on a remote machine
-
-## File browser [#file-browser]
-
-The file browser modal lets you navigate your filesystem to find files or folders. It supports:
-
-* Breadcrumb navigation
-* Quick search with fuzzy matching
-* Git-aware file listing that filters out ignored files
-
-
-# Orchestrator (/docs/features/orchestrator)
-
-
-
-The Orchestrator lets you run multiple AI agent sessions in parallel, coordinated by a plan. Instead of sending tasks to one agent at a time, you define a set of tasks and the orchestrator distributes them across concurrent agent sessions, tracks progress, and handles retries.
-
-## How it works [#how-it-works]
-
-The orchestrator follows a straightforward model:
-
-1. **Define tasks** — describe what needs to be done, broken into independent units of work
-2. **Create a run** — the orchestrator schedules tasks and assigns them to agent sessions
-3. **Monitor progress** — watch as agents work in parallel, with real-time status updates
-4. **Review results** — see what each agent accomplished when the run completes
-
-Each task runs in its own agent chat session. The orchestrator manages the lifecycle — starting sessions, sending prompts, monitoring for completion, and handling failures with automatic retries.
-
-## Use cases [#use-cases]
-
-* **Large refactors**: Split a codebase-wide change into file-by-file or module-by-module tasks
-* **Parallel code reviews**: Have multiple agents review different parts of a PR simultaneously
-* **Batch operations**: Run the same type of task across many files or repositories
-* **Testing campaigns**: Generate tests for multiple modules in parallel
-
-## Creating a run [#creating-a-run]
-
-<Steps>
-  ### Open the Orchestrator [#open-the-orchestrator]
-
-  Click &#x2A;*+** in the tab bar and select **Orchestrator**.
-
-  ### Define your tasks [#define-your-tasks]
-
-  Add tasks with descriptions of what each agent should do. Each task should be independent — agents work in parallel without knowledge of what other agents are doing.
-
-  ### Start the run [#start-the-run]
-
-  The orchestrator creates agent chat sessions for each task and begins execution. You can watch progress in real time.
-
-  ### Monitor and review [#monitor-and-review]
-
-  Each task shows its status: pending, running, completed, or failed. Failed tasks are retried automatically with exponential backoff.
-</Steps>
-
-<Callout type="info">
-  Tasks should be independent units of work. The orchestrator runs them in parallel, so tasks that depend on each other's output will not work well. Design your tasks so each agent can work without waiting for another.
-</Callout>
-
-## Task states [#task-states]
-
-| State     | Meaning                                                      |
-| --------- | ------------------------------------------------------------ |
-| Pending   | Queued, waiting for an available agent session               |
-| Running   | An agent is actively working on this task                    |
-| Completed | The agent finished successfully                              |
-| Failed    | The task failed — will be retried up to the configured limit |
-
-## Concurrency [#concurrency]
-
-The orchestrator manages how many agent sessions run simultaneously. This prevents overwhelming your machine with too many concurrent CLI processes. Tasks that exceed the concurrency limit are queued and start as earlier tasks complete.
-
-## Retries [#retries]
-
-When a task fails, the orchestrator retries it with exponential backoff. This handles transient issues like API rate limits or temporary network errors. You can configure the maximum number of retries per task.
-
-
-# Projects (/docs/features/projects)
-
-
-
-Projects let you group related sessions together. Instead of having a flat list of terminal tabs, editor tabs, and agent chats, you can organize them by project — keeping your frontend work separate from your backend work, or your personal projects separate from work.
-
-## Creating a project [#creating-a-project]
-
-1. Click &#x2A;*+** in the tab bar
-2. Select **Project**
-3. Choose a working directory for the project
-
-The project opens as a container tab. Inside it, you can create terminals, editors, and agent chats that are scoped to that project's directory.
-
-## What projects contain [#what-projects-contain]
-
-A project can hold:
-
-* **Terminals** that start in the project's working directory
-* **Agent chats** scoped to the project's codebase
-* **IDE tabs** that open the project's folder
-* **Web previews** for dev servers running in the project
-
-## Working directory [#working-directory]
-
-Every session created within a project inherits the project's working directory. When you open a new terminal inside a project, it starts in the project root. When you start an agent chat, the AI assistant has context about the project's files.
-
-This means you do not need to `cd` into your project directory every time you open a new terminal — the project handles that for you.
-
-## Switching between projects [#switching-between-projects]
-
-Projects appear as tabs in the main tab bar, just like terminals and editors. Click a project tab to switch to it and see its sessions.
-
-<Callout type="info">
-  Projects are a local organizational tool. They do not create any files in your project directory or modify your repository in any way.
-</Callout>
-
-## When to use projects [#when-to-use-projects]
-
-Projects are most useful when you are working on multiple codebases at once. Instead of managing a sea of unlabeled terminal tabs, you can group everything by context:
-
-* **Monorepo work**: One project for the frontend, another for the backend, another for infrastructure
-* **Multi-repo development**: Separate projects for related but distinct repositories
-* **Context switching**: Keep your side project's sessions separate from your work sessions
-
-
-# Terminal (/docs/features/terminal)
-
-
-
-Gent's terminal is a real PTY shell — not a simplified command runner. It uses full xterm emulation backed by a native PTY, so everything you expect from a terminal works: colors, cursor addressing, interactive programs, shell completion, and full Unicode support.
-
-## Local terminals [#local-terminals]
-
-A local terminal runs your default shell (zsh, bash, fish, or whatever you have configured) directly on the machine. Each terminal tab is an independent session with its own working directory and environment.
-
-You can open as many terminal tabs as you need. Each one is a separate shell process.
-
-### What works [#what-works]
-
-* Full ANSI color and formatting (256-color and truecolor)
-* Interactive programs: `vim`, `nano`, `top`, `htop`, `less`, and more
-* Shell features: tab completion, history, aliases, custom prompts
-* Mouse support in programs that use it
-* Scrollback buffer for reviewing previous output
-* Copy and paste with standard keyboard shortcuts
-
-## Remote terminals [#remote-terminals]
-
-When you select a paired remote device in the sidebar, terminal tabs show that device's sessions. Remote terminals connect over WebSocket and behave identically to local ones — same PTY, same scrollback, same interactive program support.
-
-From a remote device (like your phone), you can:
-
-* View and interact with terminals running on the desktop
-* Create new terminal sessions on the desktop
-* Use the same shell with full input support
-
-<Callout type="info">
-  Remote terminal sessions are owned by the desktop. Creating a terminal from your phone actually creates it on the paired desktop — your phone is just the viewer and controller.
-</Callout>
-
-## Working with multiple terminals [#working-with-multiple-terminals]
-
-The tab bar shows all open terminals. You can:
-
-* **Open** a new terminal with the + button or keyboard shortcut
-* **Switch** between terminals by clicking tabs or using keyboard shortcuts
-* **Reorder** tabs by dragging
-* **Close** a terminal by clicking the tab's X button
-
-## Terminal within projects [#terminal-within-projects]
-
-Terminals can be organized inside [Projects](/docs/features/projects). When you create a terminal within a project, it starts in the project's working directory and is grouped with the project's other sessions.
-
-
-# Voice Input (/docs/features/voice-input)
-
-
-
-Voice Input adds speech-to-text to the agent chat composer. Instead of typing out a detailed prompt, tap the microphone icon and talk. Your speech gets transcribed into text in the composer, ready to send or edit before submitting.
-
-This is especially useful on mobile devices where typing long prompts is tedious, or when you are describing a problem and just want to think out loud.
-
-## STT Engines [#stt-engines]
-
-Gent supports four speech-to-text engines, each with different tradeoffs:
-
-| Engine       | Runs locally?        | Setup                   | Best for                             |
-| ------------ | -------------------- | ----------------------- | ------------------------------------ |
-| Native       | Yes                  | None                    | Quick dictation with zero setup      |
-| Whisper      | Yes (after download) | One-time model download | Offline use, privacy-sensitive work  |
-| Cloud STT    | No                   | API key                 | High accuracy, many languages        |
-| Azure Speech | No                   | API key                 | Enterprise environments, Azure users |
-
-### Native [#native]
-
-Uses your platform's built-in speech recognition — Siri on Apple devices, Google Speech on Android. No setup required, works immediately. Accuracy depends on your platform's implementation, but it is solid for English and most major languages.
-
-### Whisper [#whisper]
-
-Runs OpenAI's Whisper model locally on your device. The first time you use it, Gent downloads the model (\~150MB). After that, everything runs offline — no network requests, no API keys, no data leaving your machine.
-
-Whisper handles accents and background noise well, and supports dozens of languages out of the box.
-
-### Cloud STT [#cloud-stt]
-
-Uses a cloud-based speech-to-text API for transcription. Requires an API key configured in Settings. Offers high accuracy and broad language support, with the tradeoff that audio is sent to an external service for processing.
-
-### Azure Speech [#azure-speech]
-
-Microsoft's Azure Speech Services. Requires an Azure subscription and speech resource key. A good fit if you are already in the Azure ecosystem or need enterprise-grade speech recognition with compliance guarantees.
-
-## How to use it [#how-to-use-it]
-
-<Steps>
-  ### Open an Agent Chat tab [#open-an-agent-chat-tab]
-
-  Voice input works in the agent chat composer — the text field where you type messages to the AI agent.
-
-  ### Tap the microphone icon [#tap-the-microphone-icon]
-
-  You will see a mic icon in the composer bar. Tap it to start recording. If this is your first time, Gent may ask for microphone permission.
-
-  ### Speak your message [#speak-your-message]
-
-  Talk naturally. The transcription appears in the composer as you speak. When you are done, tap the mic icon again to stop.
-
-  ### Review and send [#review-and-send]
-
-  The transcribed text appears in the composer. Edit it if needed, then send it to the agent like any other message.
-</Steps>
-
-## Choosing an engine [#choosing-an-engine]
-
-Open **Settings** and look for the **Speech-to-Text** section. You can select your preferred engine and configure any required credentials. The engine selection persists across sessions.
-
-<Callout type="info">
-  If you want fully offline voice input with no setup beyond the initial download, Whisper is the way to go. For zero-setup convenience, start with Native and switch later if you need better accuracy.
-</Callout>
-
-## Language support [#language-support]
-
-All four engines support multiple languages. The available languages depend on the engine:
-
-* **Native**: Whatever your OS supports — typically 30+ languages on modern devices
-* **Whisper**: 99 languages (full list on OpenAI's Whisper documentation)
-* **Cloud STT**: Varies by provider, typically 50+ languages
-* **Azure Speech**: 100+ languages and variants
-
-English variants (US, UK, Australian, etc.) are supported across all engines.
-
-## Platform availability [#platform-availability]
-
-Voice input works on all platforms where Gent runs: macOS, Windows, Linux, Android, and iOS. The Native engine uses platform-specific APIs, so the experience varies slightly — Siri's speech recognition on Apple devices, Google's on Android, and platform speech APIs on desktop. Whisper, Cloud STT, and Azure Speech behave identically across all platforms.
-
-
-# Web Preview (/docs/features/web-preview)
-
-
-
-Web Preview lets you view web applications running on one device from another device on your network. If your dev server is running on `localhost:3000` on your Mac, you can see it on your phone without any port forwarding or tunneling setup.
-
-## How it works [#how-it-works]
-
-Gent runs a reverse proxy that forwards HTTP requests from the viewing device to the target device's localhost port. The web content is rendered in an embedded browser view within Gent.
-
-This means:
-
-* Your dev server runs normally on localhost
-* Gent proxies requests through the paired connection
-* The remote device sees the page as if it were on localhost
-
-No need to find your machine's IP address, no need to bind to `0.0.0.0`, no need for ngrok or similar tools.
-
-## Opening a web preview [#opening-a-web-preview]
-
-1. Click &#x2A;*+** in the tab bar
-2. Select **Web Preview**
-3. Enter the port number (e.g., `3000`, `8080`, `5173`)
-
-The preview loads immediately if the server is running on that port.
-
-## Use cases [#use-cases]
-
-* **Mobile testing**: Preview your web app on your actual phone while developing on your desktop
-* **Cross-device review**: Show a teammate the app running on your machine by having them pair their device
-* **Remote monitoring**: Check on a running dev server or dashboard from your phone
-
-<Callout type="info">
-  Web Preview works for any HTTP server running on localhost — React dev servers, Next.js, Vite, Express, Django, Rails, or anything else that serves over HTTP.
-</Callout>
-
-## Live reloading [#live-reloading]
-
-If your dev server supports hot module replacement (HMR) or live reload, it works through the preview. Changes you make in your editor trigger the same automatic refresh you would see in a local browser.
-
-## Limitations [#limitations]
-
-* WebSocket connections through the proxy depend on your server's WebSocket configuration
-* HTTPS localhost servers may require additional setup
-* The embedded browser view has standard web rendering capabilities but is not a full desktop browser
-
-
 # First Session (/docs/getting-started/first-session)
 
 
@@ -917,132 +248,6 @@ If devices don't discover each other:
 ## Multiple devices [#multiple-devices]
 
 You can pair multiple devices with the same desktop. Each paired device appears in the sidebar, and switching between them shows that device's remote sessions. Your local device is always listed first.
-
-
-# Keyboard Shortcuts (/docs/reference/keyboard-shortcuts)
-
-
-
-These shortcuts work on macOS. On Windows and Linux, replace **Cmd** with **Ctrl**.
-
-## General [#general]
-
-| Action                 | Shortcut                                  |
-| ---------------------- | ----------------------------------------- |
-| New terminal tab       | `Cmd + T`                                 |
-| Close current tab      | `Cmd + W`                                 |
-| Switch to next tab     | `Cmd + Shift + ]` or `Ctrl + Tab`         |
-| Switch to previous tab | `Cmd + Shift + [` or `Ctrl + Shift + Tab` |
-| Open settings          | `Cmd + ,`                                 |
-| Toggle sidebar         | `Cmd + B`                                 |
-
-## Terminal [#terminal]
-
-| Action                        | Shortcut  |
-| ----------------------------- | --------- |
-| Copy selection                | `Cmd + C` |
-| Paste                         | `Cmd + V` |
-| Clear terminal                | `Cmd + K` |
-| Search in terminal            | `Cmd + F` |
-| Zoom in (increase font size)  | `Cmd + =` |
-| Zoom out (decrease font size) | `Cmd + -` |
-| Reset zoom                    | `Cmd + 0` |
-
-## Editor / IDE [#editor--ide]
-
-| Action           | Shortcut          |
-| ---------------- | ----------------- |
-| Save file        | `Cmd + S`         |
-| Find             | `Cmd + F`         |
-| Find and replace | `Cmd + H`         |
-| Undo             | `Cmd + Z`         |
-| Redo             | `Cmd + Shift + Z` |
-| Select all       | `Cmd + A`         |
-
-## Agent Chat [#agent-chat]
-
-| Action              | Shortcut        |
-| ------------------- | --------------- |
-| Send message        | `Enter`         |
-| New line in message | `Shift + Enter` |
-| Focus message input | `Cmd + L`       |
-
-<Callout type="info">
-  Keyboard shortcuts are primarily available on desktop platforms (macOS, Windows, Linux). Mobile devices use touch gestures instead.
-</Callout>
-
-
-# Settings (/docs/reference/settings)
-
-
-
-Access settings by clicking the gear icon or pressing `Cmd + ,` (macOS) / `Ctrl + ,` (Windows/Linux).
-
-## General [#general]
-
-### Port [#port]
-
-The TCP port Gent uses for device communication. Default is **53317**. Change this if the default port conflicts with another application. All paired devices must use the same port.
-
-### Theme [#theme]
-
-Choose between light, dark, or system theme. System follows your OS appearance setting.
-
-### Language [#language]
-
-Gent supports multiple interface languages. The default follows your system language.
-
-## Terminal [#terminal]
-
-### Default shell [#default-shell]
-
-The shell used for new terminal sessions. Gent detects your system's default shell automatically (e.g., zsh on macOS, bash on Linux). You can override this to use a different shell.
-
-### Font size [#font-size]
-
-The terminal font size in points. Adjustable via settings or with keyboard shortcuts (`Cmd + =` / `Cmd + -`).
-
-### Scrollback buffer [#scrollback-buffer]
-
-The number of lines kept in the terminal's scrollback history. Higher values use more memory but let you scroll back further through command output.
-
-## Connectors [#connectors]
-
-### Enabled connectors [#enabled-connectors]
-
-Toggle individual MCP connectors on or off. Each connector shows its name, category, and connection status.
-
-### Credentials [#credentials]
-
-Manage API keys and tokens for connectors. Credentials are stored in platform-native secure storage (Keychain on macOS, Credential Manager on Windows, Secret Service on Linux).
-
-### Command verification [#command-verification]
-
-Gent checks that the required command for each connector (usually `npx`) is available before enabling it. If a command is not found, Gent shows installation guidance.
-
-## Network [#network]
-
-### Device name [#device-name]
-
-The name other devices see when they discover your device on the network. Defaults to your computer's hostname.
-
-### Auto-discovery [#auto-discovery]
-
-Toggle multicast UDP discovery on or off. When enabled, Gent automatically finds other devices on the same network. When disabled, you need to connect manually.
-
-## Agent Chat [#agent-chat]
-
-### Default CLI [#default-cli]
-
-The AI CLI to use when creating new agent chat sessions. Options depend on which CLIs are installed on your system (Claude Code, Codex, Copilot).
-
-### MCP config generation [#mcp-config-generation]
-
-Gent automatically generates MCP configuration files that agent CLIs read at startup. This section shows which connectors will be passed to agent sessions and lets you configure additional settings.
-
-<Callout type="info">
-  Settings are stored locally on your device. They are not synced between devices — each device has its own configuration.
-</Callout>
 
 
 # Agentic Mobile (/docs/integrations/argent)
@@ -2011,6 +1216,675 @@ You can create your own skills by placing markdown files directly in `.mate/skil
 This is useful for team-specific workflows — write a skill once, share the file, and everyone on the team gets the same commands.
 
 
+# Agent Chat (/docs/features/agent-chat)
+
+
+
+Agent Chat lets you work with AI coding assistants directly inside Gent. Instead of switching between your terminal and a separate chat window, the agent runs alongside your other sessions — reading your files, executing commands, and making edits, all visible in real time.
+
+## Supported CLIs [#supported-clis]
+
+| CLI         | Multi-turn             | How it connects                                                 |
+| ----------- | ---------------------- | --------------------------------------------------------------- |
+| Claude Code | Yes (long-lived stdin) | Spawns process, sends messages via `--input-format stream-json` |
+| Codex       | One-shot               | Spawns a new process per message                                |
+| Copilot     | One-shot               | Spawns a new process per message                                |
+
+<Callout type="info">
+  Claude Code keeps a persistent process running, so follow-up messages are instant. Codex and Copilot spawn fresh processes for each message, which takes a few seconds.
+</Callout>
+
+## Available models [#available-models]
+
+Each CLI gives you access to different models:
+
+| CLI         | Models                                 |
+| ----------- | -------------------------------------- |
+| Claude Code | Haiku 4.5, Sonnet 4.6, Opus 4.6        |
+| Codex       | Codex Mini, GPT-5.2 Codex, o4-mini, o3 |
+| Copilot     | GPT-4o, Claude 3.5 Sonnet, o3-mini     |
+
+Select your preferred model from the dropdown in the chat header. The model affects response quality, speed, and cost.
+
+## Starting a chat [#starting-a-chat]
+
+1. Click &#x2A;*+** in the tab bar and select **Agent Chat**
+2. Choose your CLI (Claude Code, Codex, or Copilot) from the dropdown
+3. Type your message and press Enter
+
+The agent streams its response in real time. You will see text output as it is generated, and tool use appears as interactive chips showing what the agent is doing.
+
+## Tool use [#tool-use]
+
+When the agent calls tools — reading files, running commands, searching code — Gent shows each tool invocation with meaningful context:
+
+* **Read file** shows the filename being read
+* **Run command** shows the actual shell command
+* **Search** shows the query being searched
+* **Edit file** shows which file is being modified
+
+Tool calls that modify files (edits, writes) are highlighted so you can review what changed. Gent generates inline diffs for file modifications.
+
+### Tool approval [#tool-approval]
+
+Some tools require your approval before the agent can execute them. When the agent wants to run a potentially destructive action (like writing a file or running a shell command), Gent shows a permission prompt. You can:
+
+* **Approve** the individual tool call
+* **Approve all** for that tool type during the session
+* **Reject** to deny the action
+
+### Auto-approval and permission modes [#auto-approval-and-permission-modes]
+
+For trusted workflows, you can configure auto-approval in the chat settings. This lets the agent run tools without asking — useful when you are watching the output and want a faster feedback loop. You can set permission modes per tool category (e.g., always approve file reads, always ask before shell commands).
+
+### Effort level [#effort-level]
+
+Claude Code supports an effort setting that controls how thorough the agent is. Lower effort means faster, more concise responses. Higher effort means the agent spends more time thinking, reading more files, and producing more detailed output. Adjust this in the chat header.
+
+## Conversations [#conversations]
+
+Each agent chat is a persistent conversation. You can:
+
+* **Continue** a conversation by sending more messages
+* **Fork** a conversation to branch off from a specific point — useful when you want to try a different approach without losing the original thread
+* **Resume** a previous conversation from the sidebar
+
+Conversation history is stored locally on your desktop. Nothing is sent to any cloud service beyond what the underlying CLI itself sends to its API.
+
+### Forking [#forking]
+
+Conversation forking creates a new conversation that starts with the same history up to the point you forked. The original conversation is untouched. This lets you explore "what if" scenarios — try a different approach, and if it doesn't work out, go back to the original.
+
+## Rich content [#rich-content]
+
+### Markdown rendering [#markdown-rendering]
+
+Agent responses render full Markdown with syntax highlighting for code blocks, tables, lists, and inline formatting. Code blocks show the language label and can be copied with one click.
+
+### Canvas artifacts [#canvas-artifacts]
+
+When an agent produces self-contained HTML/JS/CSS, Gent can display it in a Canvas panel alongside the chat. This is useful for visual content — charts, diagrams, interactive prototypes, games, and small tools — that the agent generates during the conversation. See [Gent Canvas](/docs/features/canvas) for the full workflow.
+
+### Drawings and visual prompts [#drawings-and-visual-prompts]
+
+Gent Draw opens an Excalidraw board from the composer. You can sketch, paste images, annotate screenshots, reopen saved drawings, export the board, or send the drawing to the agent as a single PNG attachment. See [Gent Draw](/docs/features/draw).
+
+### File and image attachments [#file-and-image-attachments]
+
+Drag and drop files or images into the composer, or paste them from your clipboard. The agent receives the file content as part of the message context. This works with code files, screenshots, logs, or any text-based content you want the agent to see.
+
+## Slash commands [#slash-commands]
+
+Type `/` in the composer to see available slash commands. These come from installed [skills](/docs/integrations/skills) and built-in commands. Slash commands let you trigger specific workflows without typing out full prompts.
+
+## MCP connectors in agent chat [#mcp-connectors-in-agent-chat]
+
+If you have [MCP connectors](/docs/integrations/overview) configured, the agent can use them as tools. For example, with the GitHub connector enabled, Claude Code can create pull requests, read issues, and manage repositories directly from chat.
+
+Gent generates an MCP config file that the CLI reads at startup, so all your connected integrations are available to the agent automatically.
+
+## Remote agent chat [#remote-agent-chat]
+
+Agent chat works from paired remote devices. When you select a remote device in the sidebar, you see its running agent chat sessions and can interact with them. The CLI process runs on the desktop — the remote device sends input and receives streamed output over the network.
+
+## Tips [#tips]
+
+* Long-running agent tasks keep working even if you switch to another tab
+* Use conversation forking when you want to try a different approach without losing the original thread
+* The agent respects your project's working directory when running commands
+* Use [voice input](/docs/features/voice-input) to dictate prompts instead of typing
+
+
+# Gent Canvas (/docs/features/canvas)
+
+
+
+Gent Canvas gives agents a real web surface next to the conversation. When an agent needs to show something visual, it can call the built-in `mate-canvas` MCP tool and render a self-contained HTML document in the Canvas panel.
+
+This is the web-agent surface in Gent: the agent writes the page, Gent renders it, and you can keep iterating without leaving the chat.
+
+## What Canvas is for [#what-canvas-is-for]
+
+Use Canvas when the output should be seen, touched, or inspected as a rendered web artifact:
+
+* Interactive prototypes and one-off UI mockups
+* Charts, dashboards, and data visualizations
+* Diagrams and system maps
+* Games, simulations, and small tools
+* HTML/CSS/JS demos that benefit from live iteration
+
+Canvas is not an image viewer. If an agent creates a PNG, SVG, JPEG, logo, screenshot, or icon file, it should attach or reference the file directly instead of opening it in Canvas.
+
+## Starting with `/canvas` [#starting-with-canvas]
+
+Type `/canvas` followed by what you want:
+
+```text
+/canvas build a responsive pricing table with annual/monthly toggle
+```
+
+Gent rewrites that into a focused instruction for the agent:
+
+1. Create a complete self-contained HTML file in the current working directory
+2. Put CSS and JavaScript inline
+3. Use CSS custom properties for important colors, fonts, and spacing
+4. Call `mcp__mate-canvas__show` with the generated file
+
+The Canvas panel opens beside the chat when the tool call completes.
+
+## File mode and auto-reload [#file-mode-and-auto-reload]
+
+Canvas supports inline HTML, but Gent prefers file mode for iterative work. The agent writes a file such as `canvas-a1b2c3d4.html`, then calls the show tool with:
+
+```json
+{
+  "file": "canvas-a1b2c3d4.html",
+  "title": "Pricing table"
+}
+```
+
+Follow-up `/canvas` messages are applied to the same file when possible. The panel auto-reloads after edits, so the agent does not need to call the show tool again for every tiny change.
+
+## Library support [#library-support]
+
+Canvas can load browser libraries from CDNs when the HTML needs them. Good fits include:
+
+| Need               | Examples                      |
+| ------------------ | ----------------------------- |
+| 3D scenes          | Three.js, Babylon.js          |
+| Charts             | D3, Chart.js, Plotly, ECharts |
+| Maps               | Leaflet, MapLibre GL          |
+| Animation          | GSAP, anime.js, Lottie        |
+| Audio              | Tone.js, Howler.js            |
+| Games and sketches | Phaser, p5.js, Matter.js      |
+| Diagrams           | Mermaid, JointJS              |
+| Editors            | Monaco Editor, CodeMirror     |
+
+Agents should pin CDN versions instead of using `latest`, for example `three@0.160.0`.
+
+## Canvas vs Web Preview [#canvas-vs-web-preview]
+
+Canvas and Web Preview solve different problems:
+
+| Surface     | Use it when                                                                                         |
+| ----------- | --------------------------------------------------------------------------------------------------- |
+| Gent Canvas | The agent is generating a self-contained web artifact directly in chat                              |
+| Web Preview | You already have a dev server running on localhost and want to view it from Gent or a paired device |
+
+For app development, a common flow is: ask the agent to sketch an idea in Canvas, then move the real implementation into your project and use [Web Preview](/docs/features/web-preview) to test the running app.
+
+## Constraints [#constraints]
+
+* Canvas has no backend, database, filesystem access, or server-side API
+* Everything must run in the browser
+* External dependencies should load from versioned CDN URLs
+* The current Canvas panel is attached to the current chat and replaces the previous Canvas artifact for that conversation
+
+## Related [#related]
+
+* [Agent Chat](/docs/features/agent-chat)
+* [Web Preview](/docs/features/web-preview)
+* [Gent Draw](/docs/features/draw)
+
+
+# Gent Draw (/docs/features/draw)
+
+
+
+Gent Draw is an Excalidraw-based drawing board inside agent chat. It is for the moments where a screenshot, rough diagram, annotated idea, or hand-drawn layout says more than a paragraph.
+
+You can draw, paste images, drop image files, reopen previous drawings, export the board, or send the whole drawing to the agent as a single PNG attachment.
+
+## What Draw is good for [#what-draw-is-good-for]
+
+* Annotating screenshots before asking an agent to fix a UI
+* Sketching a screen layout or state machine
+* Drawing arrows over an error, trace, or design reference
+* Combining pasted images with hand-written notes
+* Sending one compact visual brief instead of many separate files
+
+## Opening Draw [#opening-draw]
+
+In agent chat, use the drawing control in the composer. Gent opens a full drawing modal with an Excalidraw canvas and a small toolbar.
+
+The toolbar includes:
+
+| Control | What it does                                                         |
+| ------- | -------------------------------------------------------------------- |
+| Cancel  | Close the modal without sending                                      |
+| History | Reopen saved drawings                                                |
+| Export  | Save the current board as a PNG                                      |
+| Send    | Export the current board as a PNG and attach it to the agent message |
+
+## Pasting and dropping images [#pasting-and-dropping-images]
+
+Draw supports image-heavy workflows:
+
+* Paste an image from the clipboard
+* Pick image files from disk
+* Drag and drop image files into the canvas
+
+Supported image types include PNG, JPG, JPEG, GIF, WebP, SVG, and BMP. Images become Excalidraw image elements, so you can draw around them, resize them, and annotate them before sending.
+
+## Sending to the agent [#sending-to-the-agent]
+
+When you click **Send**, Gent exports the current board as `image/png`, writes a temporary file, closes the drawing modal, and attaches that one PNG to the agent message.
+
+This keeps the chat input simple: the agent receives one visual artifact that contains the sketch, pasted images, arrows, labels, and annotations together.
+
+## Autosave and history [#autosave-and-history]
+
+Draw autosaves non-empty scenes and stores a thumbnail for history. Use the History control to reopen previous drawings, continue editing them, or delete old entries.
+
+Autosave stores the Excalidraw scene data so reopening a drawing keeps editable elements, not just a flat screenshot.
+
+## Exporting without sending [#exporting-without-sending]
+
+Use **Export** when you want to save the drawing locally but not send it to the agent. Gent writes a PNG to the location you choose.
+
+## Draw vs Canvas [#draw-vs-canvas]
+
+| Surface     | Best for                                                                       |
+| ----------- | ------------------------------------------------------------------------------ |
+| Gent Draw   | Human sketches, annotations, pasted screenshots, and visual prompts            |
+| Gent Canvas | Agent-generated HTML, charts, prototypes, demos, and interactive web artifacts |
+
+Use Draw when the human needs to communicate visually. Use [Canvas](/docs/features/canvas) when the agent needs to render something visual.
+
+
+# File Transfer (/docs/features/file-transfer)
+
+
+
+Gent includes built-in file transfer between paired devices. Send files from your desktop to your phone, or receive files from your phone to your desktop — no third-party apps, cloud services, or cables needed.
+
+## Sending files [#sending-files]
+
+<Steps>
+  ### Open the Send tab [#open-the-send-tab]
+
+  Navigate to the send interface in Gent.
+
+  ### Select files [#select-files]
+
+  Choose one or more files from your device. You can select multiple files at once.
+
+  ### Pick a destination [#pick-a-destination]
+
+  Select the paired device you want to send to from the device list.
+
+  ### Send [#send]
+
+  The files transfer directly over your local network. Large files transfer quickly since there is no cloud relay — data goes straight from device to device.
+</Steps>
+
+## Receiving files [#receiving-files]
+
+When a paired device sends you files, Gent notifies you and shows the incoming transfer. Received files are saved to your configured download location.
+
+## How it works [#how-it-works]
+
+File transfers use the same direct TCP connection as all other Gent features. Files travel directly between devices on your local network with no intermediate server. Transfer speeds are limited only by your local network bandwidth — typically much faster than cloud-based alternatives.
+
+<Callout type="info">
+  File transfer works between any two paired devices: desktop to phone, phone to desktop, or desktop to desktop.
+</Callout>
+
+## Supported file types [#supported-file-types]
+
+Any file type is supported. There are no restrictions on what you can send — documents, images, videos, code archives, binaries, or anything else.
+
+
+# IDE (/docs/features/ide)
+
+
+
+Gent includes a built-in IDE for editing code without leaving the app. It is not a replacement for VS Code or JetBrains — it is a lightweight, always-available editor that is especially useful when you are working remotely from your phone or tablet.
+
+## Opening the IDE [#opening-the-ide]
+
+1. Click &#x2A;*+** in the tab bar
+2. Select **IDE**
+3. Choose a folder to open
+
+The IDE shows a file tree on the left and an editor pane on the right. Click any file to open it.
+
+## File tree [#file-tree]
+
+The file tree is git-aware. It uses `git ls-files` to list tracked files, which means it automatically respects your `.gitignore` and skips build artifacts, `node_modules`, and other ignored directories. For non-git projects, it falls back to a standard directory listing.
+
+You can:
+
+* Navigate folders by expanding/collapsing them
+* Open files by clicking
+* Search files by name using the search bar at the top of the tree
+
+## Editor [#editor]
+
+The editor supports syntax highlighting for 100+ languages through the re\_editor package. Features include:
+
+* Syntax highlighting with language auto-detection based on file extension
+* Line numbers
+* Find and replace
+* Undo/redo
+* Standard keyboard shortcuts for editing
+
+<Callout type="info">
+  The IDE is designed for quick edits and code review, not as a full development environment. For heavy editing sessions, pair it with your preferred desktop editor and use Gent's IDE for on-the-go changes.
+</Callout>
+
+## Single-file editor [#single-file-editor]
+
+If you just need to edit one file without a full project tree, use the **Editor** tab type instead. It opens a single file in an editor with the same syntax highlighting and editing features.
+
+## Remote editing [#remote-editing]
+
+The IDE works from paired remote devices. When you open an IDE tab on a remote session, you are browsing and editing files on the desktop. Changes are saved directly to the desktop's filesystem.
+
+This is particularly useful for:
+
+* Quick fixes from your phone while away from your desk
+* Reviewing code that an AI agent just modified
+* Editing configuration files on a remote machine
+
+## File browser [#file-browser]
+
+The file browser modal lets you navigate your filesystem to find files or folders. It supports:
+
+* Breadcrumb navigation
+* Quick search with fuzzy matching
+* Git-aware file listing that filters out ignored files
+
+
+# Orchestrator (/docs/features/orchestrator)
+
+
+
+The Orchestrator lets you run multiple AI agent sessions in parallel, coordinated by a plan. Instead of sending tasks to one agent at a time, you define a set of tasks and the orchestrator distributes them across concurrent agent sessions, tracks progress, and handles retries.
+
+## How it works [#how-it-works]
+
+The orchestrator follows a straightforward model:
+
+1. **Define tasks** — describe what needs to be done, broken into independent units of work
+2. **Create a run** — the orchestrator schedules tasks and assigns them to agent sessions
+3. **Monitor progress** — watch as agents work in parallel, with real-time status updates
+4. **Review results** — see what each agent accomplished when the run completes
+
+Each task runs in its own agent chat session. The orchestrator manages the lifecycle — starting sessions, sending prompts, monitoring for completion, and handling failures with automatic retries.
+
+## Use cases [#use-cases]
+
+* **Large refactors**: Split a codebase-wide change into file-by-file or module-by-module tasks
+* **Parallel code reviews**: Have multiple agents review different parts of a PR simultaneously
+* **Batch operations**: Run the same type of task across many files or repositories
+* **Testing campaigns**: Generate tests for multiple modules in parallel
+
+## Creating a run [#creating-a-run]
+
+<Steps>
+  ### Open the Orchestrator [#open-the-orchestrator]
+
+  Click &#x2A;*+** in the tab bar and select **Orchestrator**.
+
+  ### Define your tasks [#define-your-tasks]
+
+  Add tasks with descriptions of what each agent should do. Each task should be independent — agents work in parallel without knowledge of what other agents are doing.
+
+  ### Start the run [#start-the-run]
+
+  The orchestrator creates agent chat sessions for each task and begins execution. You can watch progress in real time.
+
+  ### Monitor and review [#monitor-and-review]
+
+  Each task shows its status: pending, running, completed, or failed. Failed tasks are retried automatically with exponential backoff.
+</Steps>
+
+<Callout type="info">
+  Tasks should be independent units of work. The orchestrator runs them in parallel, so tasks that depend on each other's output will not work well. Design your tasks so each agent can work without waiting for another.
+</Callout>
+
+## Task states [#task-states]
+
+| State     | Meaning                                                      |
+| --------- | ------------------------------------------------------------ |
+| Pending   | Queued, waiting for an available agent session               |
+| Running   | An agent is actively working on this task                    |
+| Completed | The agent finished successfully                              |
+| Failed    | The task failed — will be retried up to the configured limit |
+
+## Concurrency [#concurrency]
+
+The orchestrator manages how many agent sessions run simultaneously. This prevents overwhelming your machine with too many concurrent CLI processes. Tasks that exceed the concurrency limit are queued and start as earlier tasks complete.
+
+## Retries [#retries]
+
+When a task fails, the orchestrator retries it with exponential backoff. This handles transient issues like API rate limits or temporary network errors. You can configure the maximum number of retries per task.
+
+
+# Projects (/docs/features/projects)
+
+
+
+Projects let you group related sessions together. Instead of having a flat list of terminal tabs, editor tabs, and agent chats, you can organize them by project — keeping your frontend work separate from your backend work, or your personal projects separate from work.
+
+## Creating a project [#creating-a-project]
+
+1. Click &#x2A;*+** in the tab bar
+2. Select **Project**
+3. Choose a working directory for the project
+
+The project opens as a container tab. Inside it, you can create terminals, editors, and agent chats that are scoped to that project's directory.
+
+## What projects contain [#what-projects-contain]
+
+A project can hold:
+
+* **Terminals** that start in the project's working directory
+* **Agent chats** scoped to the project's codebase
+* **IDE tabs** that open the project's folder
+* **Web previews** for dev servers running in the project
+
+## Working directory [#working-directory]
+
+Every session created within a project inherits the project's working directory. When you open a new terminal inside a project, it starts in the project root. When you start an agent chat, the AI assistant has context about the project's files.
+
+This means you do not need to `cd` into your project directory every time you open a new terminal — the project handles that for you.
+
+## Switching between projects [#switching-between-projects]
+
+Projects appear as tabs in the main tab bar, just like terminals and editors. Click a project tab to switch to it and see its sessions.
+
+<Callout type="info">
+  Projects are a local organizational tool. They do not create any files in your project directory or modify your repository in any way.
+</Callout>
+
+## When to use projects [#when-to-use-projects]
+
+Projects are most useful when you are working on multiple codebases at once. Instead of managing a sea of unlabeled terminal tabs, you can group everything by context:
+
+* **Monorepo work**: One project for the frontend, another for the backend, another for infrastructure
+* **Multi-repo development**: Separate projects for related but distinct repositories
+* **Context switching**: Keep your side project's sessions separate from your work sessions
+
+
+# Terminal (/docs/features/terminal)
+
+
+
+Gent's terminal is a real PTY shell — not a simplified command runner. It uses full xterm emulation backed by a native PTY, so everything you expect from a terminal works: colors, cursor addressing, interactive programs, shell completion, and full Unicode support.
+
+## Local terminals [#local-terminals]
+
+A local terminal runs your default shell (zsh, bash, fish, or whatever you have configured) directly on the machine. Each terminal tab is an independent session with its own working directory and environment.
+
+You can open as many terminal tabs as you need. Each one is a separate shell process.
+
+### What works [#what-works]
+
+* Full ANSI color and formatting (256-color and truecolor)
+* Interactive programs: `vim`, `nano`, `top`, `htop`, `less`, and more
+* Shell features: tab completion, history, aliases, custom prompts
+* Mouse support in programs that use it
+* Scrollback buffer for reviewing previous output
+* Copy and paste with standard keyboard shortcuts
+
+## Remote terminals [#remote-terminals]
+
+When you select a paired remote device in the sidebar, terminal tabs show that device's sessions. Remote terminals connect over WebSocket and behave identically to local ones — same PTY, same scrollback, same interactive program support.
+
+From a remote device (like your phone), you can:
+
+* View and interact with terminals running on the desktop
+* Create new terminal sessions on the desktop
+* Use the same shell with full input support
+
+<Callout type="info">
+  Remote terminal sessions are owned by the desktop. Creating a terminal from your phone actually creates it on the paired desktop — your phone is just the viewer and controller.
+</Callout>
+
+## Working with multiple terminals [#working-with-multiple-terminals]
+
+The tab bar shows all open terminals. You can:
+
+* **Open** a new terminal with the + button or keyboard shortcut
+* **Switch** between terminals by clicking tabs or using keyboard shortcuts
+* **Reorder** tabs by dragging
+* **Close** a terminal by clicking the tab's X button
+
+## Terminal within projects [#terminal-within-projects]
+
+Terminals can be organized inside [Projects](/docs/features/projects). When you create a terminal within a project, it starts in the project's working directory and is grouped with the project's other sessions.
+
+
+# Voice Input (/docs/features/voice-input)
+
+
+
+Voice Input adds speech-to-text to the agent chat composer. Instead of typing out a detailed prompt, tap the microphone icon and talk. Your speech gets transcribed into text in the composer, ready to send or edit before submitting.
+
+This is especially useful on mobile devices where typing long prompts is tedious, or when you are describing a problem and just want to think out loud.
+
+## STT Engines [#stt-engines]
+
+Gent supports four speech-to-text engines, each with different tradeoffs:
+
+| Engine       | Runs locally?        | Setup                   | Best for                             |
+| ------------ | -------------------- | ----------------------- | ------------------------------------ |
+| Native       | Yes                  | None                    | Quick dictation with zero setup      |
+| Whisper      | Yes (after download) | One-time model download | Offline use, privacy-sensitive work  |
+| Cloud STT    | No                   | API key                 | High accuracy, many languages        |
+| Azure Speech | No                   | API key                 | Enterprise environments, Azure users |
+
+### Native [#native]
+
+Uses your platform's built-in speech recognition — Siri on Apple devices, Google Speech on Android. No setup required, works immediately. Accuracy depends on your platform's implementation, but it is solid for English and most major languages.
+
+### Whisper [#whisper]
+
+Runs OpenAI's Whisper model locally on your device. The first time you use it, Gent downloads the model (\~150MB). After that, everything runs offline — no network requests, no API keys, no data leaving your machine.
+
+Whisper handles accents and background noise well, and supports dozens of languages out of the box.
+
+### Cloud STT [#cloud-stt]
+
+Uses a cloud-based speech-to-text API for transcription. Requires an API key configured in Settings. Offers high accuracy and broad language support, with the tradeoff that audio is sent to an external service for processing.
+
+### Azure Speech [#azure-speech]
+
+Microsoft's Azure Speech Services. Requires an Azure subscription and speech resource key. A good fit if you are already in the Azure ecosystem or need enterprise-grade speech recognition with compliance guarantees.
+
+## How to use it [#how-to-use-it]
+
+<Steps>
+  ### Open an Agent Chat tab [#open-an-agent-chat-tab]
+
+  Voice input works in the agent chat composer — the text field where you type messages to the AI agent.
+
+  ### Tap the microphone icon [#tap-the-microphone-icon]
+
+  You will see a mic icon in the composer bar. Tap it to start recording. If this is your first time, Gent may ask for microphone permission.
+
+  ### Speak your message [#speak-your-message]
+
+  Talk naturally. The transcription appears in the composer as you speak. When you are done, tap the mic icon again to stop.
+
+  ### Review and send [#review-and-send]
+
+  The transcribed text appears in the composer. Edit it if needed, then send it to the agent like any other message.
+</Steps>
+
+## Choosing an engine [#choosing-an-engine]
+
+Open **Settings** and look for the **Speech-to-Text** section. You can select your preferred engine and configure any required credentials. The engine selection persists across sessions.
+
+<Callout type="info">
+  If you want fully offline voice input with no setup beyond the initial download, Whisper is the way to go. For zero-setup convenience, start with Native and switch later if you need better accuracy.
+</Callout>
+
+## Language support [#language-support]
+
+All four engines support multiple languages. The available languages depend on the engine:
+
+* **Native**: Whatever your OS supports — typically 30+ languages on modern devices
+* **Whisper**: 99 languages (full list on OpenAI's Whisper documentation)
+* **Cloud STT**: Varies by provider, typically 50+ languages
+* **Azure Speech**: 100+ languages and variants
+
+English variants (US, UK, Australian, etc.) are supported across all engines.
+
+## Platform availability [#platform-availability]
+
+Voice input works on all platforms where Gent runs: macOS, Windows, Linux, Android, and iOS. The Native engine uses platform-specific APIs, so the experience varies slightly — Siri's speech recognition on Apple devices, Google's on Android, and platform speech APIs on desktop. Whisper, Cloud STT, and Azure Speech behave identically across all platforms.
+
+
+# Web Preview (/docs/features/web-preview)
+
+
+
+Web Preview lets you view web applications running on one device from another device on your network. If your dev server is running on `localhost:3000` on your Mac, you can see it on your phone without any port forwarding or tunneling setup.
+
+## How it works [#how-it-works]
+
+Gent runs a reverse proxy that forwards HTTP requests from the viewing device to the target device's localhost port. The web content is rendered in an embedded browser view within Gent.
+
+This means:
+
+* Your dev server runs normally on localhost
+* Gent proxies requests through the paired connection
+* The remote device sees the page as if it were on localhost
+
+No need to find your machine's IP address, no need to bind to `0.0.0.0`, no need for ngrok or similar tools.
+
+## Opening a web preview [#opening-a-web-preview]
+
+1. Click &#x2A;*+** in the tab bar
+2. Select **Web Preview**
+3. Enter the port number (e.g., `3000`, `8080`, `5173`)
+
+The preview loads immediately if the server is running on that port.
+
+## Use cases [#use-cases]
+
+* **Mobile testing**: Preview your web app on your actual phone while developing on your desktop
+* **Cross-device review**: Show a teammate the app running on your machine by having them pair their device
+* **Remote monitoring**: Check on a running dev server or dashboard from your phone
+
+<Callout type="info">
+  Web Preview works for any HTTP server running on localhost — React dev servers, Next.js, Vite, Express, Django, Rails, or anything else that serves over HTTP.
+</Callout>
+
+## Live reloading [#live-reloading]
+
+If your dev server supports hot module replacement (HMR) or live reload, it works through the preview. Changes you make in your editor trigger the same automatic refresh you would see in a local browser.
+
+## Limitations [#limitations]
+
+* WebSocket connections through the proxy depend on your server's WebSocket configuration
+* HTTPS localhost servers may require additional setup
+* The embedded browser view has standard web rendering capabilities but is not a full desktop browser
+
+
 # Mobile Usage (/docs/remote/mobile)
 
 
@@ -2239,3 +2113,129 @@ If none of the above fixes your issue:
 * Check the app logs for error messages
 * Try pairing on a different network (e.g., a phone hotspot) to isolate whether the issue is network-specific
 * Verify that both devices are running the same version of Gent
+
+
+# Keyboard Shortcuts (/docs/reference/keyboard-shortcuts)
+
+
+
+These shortcuts work on macOS. On Windows and Linux, replace **Cmd** with **Ctrl**.
+
+## General [#general]
+
+| Action                 | Shortcut                                  |
+| ---------------------- | ----------------------------------------- |
+| New terminal tab       | `Cmd + T`                                 |
+| Close current tab      | `Cmd + W`                                 |
+| Switch to next tab     | `Cmd + Shift + ]` or `Ctrl + Tab`         |
+| Switch to previous tab | `Cmd + Shift + [` or `Ctrl + Shift + Tab` |
+| Open settings          | `Cmd + ,`                                 |
+| Toggle sidebar         | `Cmd + B`                                 |
+
+## Terminal [#terminal]
+
+| Action                        | Shortcut  |
+| ----------------------------- | --------- |
+| Copy selection                | `Cmd + C` |
+| Paste                         | `Cmd + V` |
+| Clear terminal                | `Cmd + K` |
+| Search in terminal            | `Cmd + F` |
+| Zoom in (increase font size)  | `Cmd + =` |
+| Zoom out (decrease font size) | `Cmd + -` |
+| Reset zoom                    | `Cmd + 0` |
+
+## Editor / IDE [#editor--ide]
+
+| Action           | Shortcut          |
+| ---------------- | ----------------- |
+| Save file        | `Cmd + S`         |
+| Find             | `Cmd + F`         |
+| Find and replace | `Cmd + H`         |
+| Undo             | `Cmd + Z`         |
+| Redo             | `Cmd + Shift + Z` |
+| Select all       | `Cmd + A`         |
+
+## Agent Chat [#agent-chat]
+
+| Action              | Shortcut        |
+| ------------------- | --------------- |
+| Send message        | `Enter`         |
+| New line in message | `Shift + Enter` |
+| Focus message input | `Cmd + L`       |
+
+<Callout type="info">
+  Keyboard shortcuts are primarily available on desktop platforms (macOS, Windows, Linux). Mobile devices use touch gestures instead.
+</Callout>
+
+
+# Settings (/docs/reference/settings)
+
+
+
+Access settings by clicking the gear icon or pressing `Cmd + ,` (macOS) / `Ctrl + ,` (Windows/Linux).
+
+## General [#general]
+
+### Port [#port]
+
+The TCP port Gent uses for device communication. Default is **53317**. Change this if the default port conflicts with another application. All paired devices must use the same port.
+
+### Theme [#theme]
+
+Choose between light, dark, or system theme. System follows your OS appearance setting.
+
+### Language [#language]
+
+Gent supports multiple interface languages. The default follows your system language.
+
+## Terminal [#terminal]
+
+### Default shell [#default-shell]
+
+The shell used for new terminal sessions. Gent detects your system's default shell automatically (e.g., zsh on macOS, bash on Linux). You can override this to use a different shell.
+
+### Font size [#font-size]
+
+The terminal font size in points. Adjustable via settings or with keyboard shortcuts (`Cmd + =` / `Cmd + -`).
+
+### Scrollback buffer [#scrollback-buffer]
+
+The number of lines kept in the terminal's scrollback history. Higher values use more memory but let you scroll back further through command output.
+
+## Connectors [#connectors]
+
+### Enabled connectors [#enabled-connectors]
+
+Toggle individual MCP connectors on or off. Each connector shows its name, category, and connection status.
+
+### Credentials [#credentials]
+
+Manage API keys and tokens for connectors. Credentials are stored in platform-native secure storage (Keychain on macOS, Credential Manager on Windows, Secret Service on Linux).
+
+### Command verification [#command-verification]
+
+Gent checks that the required command for each connector (usually `npx`) is available before enabling it. If a command is not found, Gent shows installation guidance.
+
+## Network [#network]
+
+### Device name [#device-name]
+
+The name other devices see when they discover your device on the network. Defaults to your computer's hostname.
+
+### Auto-discovery [#auto-discovery]
+
+Toggle multicast UDP discovery on or off. When enabled, Gent automatically finds other devices on the same network. When disabled, you need to connect manually.
+
+## Agent Chat [#agent-chat]
+
+### Default CLI [#default-cli]
+
+The AI CLI to use when creating new agent chat sessions. Options depend on which CLIs are installed on your system (Claude Code, Codex, Copilot).
+
+### MCP config generation [#mcp-config-generation]
+
+Gent automatically generates MCP configuration files that agent CLIs read at startup. This section shows which connectors will be passed to agent sessions and lets you configure additional settings.
+
+<Callout type="info">
+  Settings are stored locally on your device. They are not synced between devices — each device has its own configuration.
+</Callout>
